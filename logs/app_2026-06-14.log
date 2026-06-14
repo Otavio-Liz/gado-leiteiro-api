@@ -1,0 +1,30 @@
+2026-06-14 18:04:27 | INFO | app | → GET /docs
+2026-06-14 18:04:27 | INFO | app | ← GET /docs | Status: 200 | 32.68ms
+2026-06-14 18:04:27 | INFO | app | → GET /openapi.json
+2026-06-14 18:04:28 | INFO | app | ← GET /openapi.json | Status: 200 | 927.76ms
+2026-06-14 18:05:57 | INFO | app | → POST /usuarios/login
+2026-06-14 18:05:59 | INFO | app | ← POST /usuarios/login | Status: 200 | 2247.14ms
+2026-06-14 18:07:10 | INFO | app | → POST /usuarios/login
+2026-06-14 18:07:11 | INFO | app | ← POST /usuarios/login | Status: 200 | 1028.13ms
+2026-06-14 18:08:04 | INFO | app | → GET /animais/ativos
+2026-06-14 18:08:04 | INFO | app | ← GET /animais/ativos | Status: 200 | 136.24ms
+2026-06-14 18:09:10 | INFO | app | → GET /animais/em-lactacao
+2026-06-14 18:09:10 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 25.35ms
+2026-06-14 18:12:14 | INFO | app | → POST /animais/
+2026-06-14 18:12:14 | INFO | app | ← POST /animais/ | Status: 200 | 133.7ms
+2026-06-14 18:13:19 | INFO | app | → POST /producoes/
+2026-06-14 18:13:20 | INFO | app | ← POST /producoes/ | Status: 200 | 155.76ms
+2026-06-14 18:14:27 | INFO | app | → GET /dashboard/resumo
+2026-06-14 18:14:27 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 251.2ms
+2026-06-14 18:16:13 | INFO | app | → GET /producoes/preco-leite/
+2026-06-14 18:16:13 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 22.06ms
+2026-06-14 18:17:07 | INFO | app | → POST /producoes/preco-leite/
+2026-06-14 18:17:08 | INFO | app | ← POST /producoes/preco-leite/ | Status: 200 | 78.89ms
+2026-06-14 18:17:50 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-14 18:17:51 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 53.93ms
+2026-06-14 18:19:11 | INFO | app | → GET /relatorios/pdf/producao-mensal
+2026-06-14 18:19:12 | INFO | app | ← GET /relatorios/pdf/producao-mensal | Status: 200 | 144.81ms
+2026-06-14 18:22:18 | INFO | app | → GET /relatorios/pdf/producao-mensal
+2026-06-14 18:22:18 | INFO | app | ← GET /relatorios/pdf/producao-mensal | Status: 200 | 861.59ms
+2026-06-14 18:23:17 | INFO | app | → GET /dashboard/alertas
+2026-06-14 18:23:17 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 71.32ms

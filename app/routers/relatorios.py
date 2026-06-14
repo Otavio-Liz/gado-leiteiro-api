@@ -88,7 +88,7 @@ def exportar_pdf_producao_mensal(
                 "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"][mes-1]
     elementos.append(Paragraph(f"Relatório de Produção — {nome_mes}/{ano}", subtitulo_style))
     elementos.append(Paragraph(f"Produtor: {usuario.nome_completo or usuario.username}", normal_style))
-    elementos.append(Paragraph(f"Preço do leite: R$ {preco_litro:.4f}/litro", normal_style))
+    elementos.append(Paragraph(f"Preço do leite: R$ {preco_litro:.2f}/litro", normal_style))
     elementos.append(Spacer(1, 0.5*cm))
 
     # Tabela de produção por animal
