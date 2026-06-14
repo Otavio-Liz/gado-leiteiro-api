@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import pegar_banco
 from app.models.animal import Animal
 from app.schemas.animais import AnimalCriar, AnimalResposta
+from app.auth import pegar_usuario_atual
 from typing import List
 
 roteador = APIRouter(
@@ -11,19 +12,19 @@ roteador = APIRouter(
 )
 
 @roteador.get("/", response_model=List[AnimalResposta])
-def listar_animais(banco: Session = Depends(pegar_banco)):
+def listar_animais(banco: Session = Depends(pegar_banco), usuario: str = Depends(pegar_usuario_atual)):
     animais = banco.query(Animal).all()
     return animais
 
 @roteador.get("/{animal_id}", response_model=AnimalResposta)
-def buscar_animal(animal_id: int, banco: Session = Depends(pegar_banco)):
+def buscar_animal(animal_id: int, banco: Session = Depends(pegar_banco), usuario: str = Depends(pegar_usuario_atual)):
     animal = banco.query(Animal).filter(Animal.id == animal_id).first()
     if not animal:
         raise HTTPException(status_code=404, detail="Animal não encontrado")
     return animal
 
 @roteador.post("/", response_model=AnimalResposta)
-def criar_animal(animal: AnimalCriar, banco: Session = Depends(pegar_banco)):
+def criar_animal(animal: AnimalCriar, banco: Session = Depends(pegar_banco), usuario: str = Depends(pegar_usuario_atual)):
     novo_animal = Animal(**animal.model_dump())
     banco.add(novo_animal)
     banco.commit()
@@ -31,7 +32,7 @@ def criar_animal(animal: AnimalCriar, banco: Session = Depends(pegar_banco)):
     return novo_animal
 
 @roteador.delete("/{animal_id}")
-def deletar_animal(animal_id: int, banco: Session = Depends(pegar_banco)):
+def deletar_animal(animal_id: int, banco: Session = Depends(pegar_banco), usuario: str = Depends(pegar_usuario_atual)):
     animal = banco.query(Animal).filter(Animal.id == animal_id).first()
     if not animal:
         raise HTTPException(status_code=404, detail="Animal não encontrado")

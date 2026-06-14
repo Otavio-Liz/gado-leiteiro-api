@@ -18,3 +18,4 @@ class Animal(Base):
     producoes = relationship("Producao", back_populates="animal")
     partos = relationship("Parto", back_populates="animal")
     medicamentos = relationship("Medicamento", back_populates="animal")
+    vacinas = relationship("Vacina", back_populates="animal")
