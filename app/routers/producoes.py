@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from sqlalchemy import func, and_
 from app.database import pegar_banco
 from app.models.producao import Producao, PrecoLeite
 from app.models.animal import Animal
@@ -9,10 +8,10 @@ from app.models.medicamento import AplicacaoMedicamento
 from app.schemas.producoes import (
     ProducaoCriar, ProducaoResposta, ProducaoAtualizar,
     PrecoLeiteCriar, PrecoLeiteResposta, PrecoLeiteAtualizar,
-    ProducaoRebanhoRelatorio, ProducaoAnimalRelatorio
 )
 from app.auth import pegar_usuario_atual
 from app.models.usuario import Usuario
+from app.logger import logger_prod
 from datetime import date, timedelta
 from decimal import Decimal
 from typing import List, Optional
@@ -21,6 +20,9 @@ roteador = APIRouter(
     prefix="/producoes",
     tags=["Produções"]
 )
+
+ANO_MINIMO = 2000
+ANO_MAXIMO = 2100
 
 
 def pegar_preco_vigente(usuario_id: int, data_ref: date, banco: Session) -> Optional[PrecoLeite]:
@@ -31,11 +33,6 @@ def pegar_preco_vigente(usuario_id: int, data_ref: date, banco: Session) -> Opti
 
 
 def verificar_carencia(animal_id: int, data: date, banco: Session):
-    """
-    Verifica se o animal está em período de carência (parto ou medicamento).
-    Retorna (esta_em_carencia, motivo).
-    """
-    # Verificar carência pós-parto (colostro)
     parto_carencia = banco.query(Parto).filter(
         Parto.animal_id == animal_id,
         Parto.carencia_encerra_em >= data,
@@ -44,7 +41,6 @@ def verificar_carencia(animal_id: int, data: date, banco: Session):
     if parto_carencia:
         return True, f"Carência pós-parto (colostro) até {parto_carencia.carencia_encerra_em}"
 
-    # Verificar carência de medicamento
     med_carencia = banco.query(AplicacaoMedicamento).filter(
         AplicacaoMedicamento.animal_id == animal_id,
         AplicacaoMedicamento.carencia_encerra_em >= data,
@@ -63,9 +59,16 @@ def listar_producoes(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    return banco.query(Producao).join(Animal).filter(
-        Animal.usuario_id == usuario.id
-    ).order_by(Producao.data.desc()).all()
+    try:
+        return banco.query(Producao).join(Animal).filter(
+            Animal.usuario_id == usuario.id
+        ).order_by(Producao.data.desc()).all()
+    except Exception:
+        logger_prod.error(f"Erro ao listar produções | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao buscar produções. Tente novamente."
+        )
 
 
 @roteador.get("/animal/{animal_id}", response_model=List[ProducaoResposta])
@@ -74,15 +77,26 @@ def listar_producoes_por_animal(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    animal = banco.query(Animal).filter(
-        Animal.id == animal_id,
-        Animal.usuario_id == usuario.id
-    ).first()
-    if not animal:
-        raise HTTPException(status_code=404, detail="Animal não encontrado")
-    return banco.query(Producao).filter(
-        Producao.animal_id == animal_id
-    ).order_by(Producao.data.desc()).all()
+    if animal_id <= 0:
+        raise HTTPException(status_code=400, detail="ID do animal inválido.")
+    try:
+        animal = banco.query(Animal).filter(
+            Animal.id == animal_id,
+            Animal.usuario_id == usuario.id
+        ).first()
+        if not animal:
+            raise HTTPException(status_code=404, detail="Animal não encontrado.")
+        return banco.query(Producao).filter(
+            Producao.animal_id == animal_id
+        ).order_by(Producao.data.desc()).all()
+    except HTTPException:
+        raise
+    except Exception:
+        logger_prod.error(f"Erro ao listar produções do animal {animal_id} | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao buscar produções do animal. Tente novamente."
+        )
 
 
 @roteador.post("/", response_model=ProducaoResposta)
@@ -91,45 +105,62 @@ def registrar_producao(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    # Verificar animal
-    animal = banco.query(Animal).filter(
-        Animal.id == producao.animal_id,
-        Animal.usuario_id == usuario.id
-    ).first()
-    if not animal:
-        raise HTTPException(status_code=404, detail="Animal não encontrado")
-    if animal.status != "ativo":
-        raise HTTPException(status_code=400, detail=f"Animal está '{animal.status}' e não pode ter produções registradas")
-    if animal.sexo == "M":
-        raise HTTPException(status_code=400, detail="Machos não produzem leite")
-    if animal.status_reprodutivo != "em_lactacao":
-        raise HTTPException(status_code=400, detail="Animal não está em lactação. Registre um parto primeiro")
+    try:
+        animal = banco.query(Animal).filter(
+            Animal.id == producao.animal_id,
+            Animal.usuario_id == usuario.id
+        ).first()
+        if not animal:
+            raise HTTPException(status_code=404, detail="Animal não encontrado.")
+        if animal.status != "ativo":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Animal está '{animal.status}' e não pode ter produções registradas."
+            )
+        if animal.sexo == "M":
+            raise HTTPException(status_code=400, detail="Machos não produzem leite.")
+        if animal.status_reprodutivo != "em_lactacao":
+            raise HTTPException(
+                status_code=400,
+                detail="Animal não está em lactação. Registre um parto primeiro."
+            )
+        if producao.data > date.today():
+            raise HTTPException(
+                status_code=400,
+                detail="Data de produção não pode ser no futuro."
+            )
 
-    # Data não pode ser no futuro
-    if producao.data > date.today():
-        raise HTTPException(status_code=400, detail="Data de produção não pode ser no futuro")
+        existente = banco.query(Producao).filter(
+            Producao.animal_id == producao.animal_id,
+            Producao.data == producao.data
+        ).first()
+        if existente:
+            raise HTTPException(
+                status_code=400,
+                detail="Já existe produção registrada para este animal nesta data."
+            )
 
-    # Verificar duplicidade (um registro por animal por dia)
-    existente = banco.query(Producao).filter(
-        Producao.animal_id == producao.animal_id,
-        Producao.data == producao.data
-    ).first()
-    if existente:
-        raise HTTPException(status_code=400, detail="Já existe produção registrada para este animal nesta data")
+        em_carencia, motivo = verificar_carencia(producao.animal_id, producao.data, banco)
+        dados = producao.model_dump()
+        if em_carencia:
+            dados["status"] = "descartado"
+            dados["motivo_descarte"] = motivo
 
-    # Verificar carência automática
-    em_carencia, motivo = verificar_carencia(producao.animal_id, producao.data, banco)
-
-    dados = producao.model_dump()
-    if em_carencia:
-        dados["status"] = "descartado"
-        dados["motivo_descarte"] = motivo
-
-    nova_producao = Producao(**dados)
-    banco.add(nova_producao)
-    banco.commit()
-    banco.refresh(nova_producao)
-    return nova_producao
+        nova_producao = Producao(**dados)
+        banco.add(nova_producao)
+        banco.commit()
+        banco.refresh(nova_producao)
+        logger_prod.info(f"Produção registrada | animal: {producao.animal_id} | usuário: {usuario.id}")
+        return nova_producao
+    except HTTPException:
+        raise
+    except Exception:
+        banco.rollback()
+        logger_prod.error(f"Erro ao registrar produção | animal: {producao.animal_id} | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao registrar produção. Tente novamente."
+        )
 
 
 @roteador.put("/{producao_id}", response_model=ProducaoResposta)
@@ -139,21 +170,40 @@ def atualizar_producao(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    producao = banco.query(Producao).join(Animal).filter(
-        Producao.id == producao_id,
-        Animal.usuario_id == usuario.id
-    ).first()
-    if not producao:
-        raise HTTPException(status_code=404, detail="Produção não encontrada")
-    if dados.quantidade_litros is not None and dados.quantidade_litros <= 0:
-        raise HTTPException(status_code=400, detail="Quantidade de litros deve ser maior que zero")
-    if dados.data is not None and dados.data > date.today():
-        raise HTTPException(status_code=400, detail="Data de produção não pode ser no futuro")
-    for campo, valor in dados.model_dump(exclude_unset=True).items():
-        setattr(producao, campo, valor)
-    banco.commit()
-    banco.refresh(producao)
-    return producao
+    if producao_id <= 0:
+        raise HTTPException(status_code=400, detail="ID da produção inválido.")
+    try:
+        producao = banco.query(Producao).join(Animal).filter(
+            Producao.id == producao_id,
+            Animal.usuario_id == usuario.id
+        ).first()
+        if not producao:
+            raise HTTPException(status_code=404, detail="Produção não encontrada.")
+        if dados.quantidade_litros is not None and dados.quantidade_litros <= 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Quantidade de litros deve ser maior que zero."
+            )
+        if dados.data is not None and dados.data > date.today():
+            raise HTTPException(
+                status_code=400,
+                detail="Data de produção não pode ser no futuro."
+            )
+        for campo, valor in dados.model_dump(exclude_unset=True).items():
+            setattr(producao, campo, valor)
+        banco.commit()
+        banco.refresh(producao)
+        logger_prod.info(f"Produção atualizada | id: {producao_id} | usuário: {usuario.id}")
+        return producao
+    except HTTPException:
+        raise
+    except Exception:
+        banco.rollback()
+        logger_prod.error(f"Erro ao atualizar produção | id: {producao_id} | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao atualizar produção. Tente novamente."
+        )
 
 
 @roteador.delete("/{producao_id}")
@@ -162,15 +212,28 @@ def deletar_producao(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    producao = banco.query(Producao).join(Animal).filter(
-        Producao.id == producao_id,
-        Animal.usuario_id == usuario.id
-    ).first()
-    if not producao:
-        raise HTTPException(status_code=404, detail="Produção não encontrada")
-    banco.delete(producao)
-    banco.commit()
-    return {"mensagem": "Produção removida com sucesso"}
+    if producao_id <= 0:
+        raise HTTPException(status_code=400, detail="ID da produção inválido.")
+    try:
+        producao = banco.query(Producao).join(Animal).filter(
+            Producao.id == producao_id,
+            Animal.usuario_id == usuario.id
+        ).first()
+        if not producao:
+            raise HTTPException(status_code=404, detail="Produção não encontrada.")
+        banco.delete(producao)
+        banco.commit()
+        logger_prod.info(f"Produção deletada | id: {producao_id} | usuário: {usuario.id}")
+        return {"mensagem": "Produção removida com sucesso."}
+    except HTTPException:
+        raise
+    except Exception:
+        banco.rollback()
+        logger_prod.error(f"Erro ao deletar produção | id: {producao_id} | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao remover produção. Tente novamente."
+        )
 
 
 # ─── Relatórios ───────────────────────────────────────────────────────────────
@@ -181,9 +244,18 @@ def relatorio_diario(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    if not data_ref:
-        data_ref = date.today()
-    return _gerar_relatorio(usuario.id, data_ref, data_ref, banco)
+    try:
+        if not data_ref:
+            data_ref = date.today()
+        return _gerar_relatorio(usuario.id, data_ref, data_ref, banco)
+    except HTTPException:
+        raise
+    except Exception:
+        logger_prod.error(f"Erro ao gerar relatório diário | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao gerar relatório diário. Tente novamente."
+        )
 
 
 @roteador.get("/relatorio/semanal")
@@ -192,11 +264,20 @@ def relatorio_semanal(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    if not data_ref:
-        data_ref = date.today()
-    inicio = data_ref - timedelta(days=data_ref.weekday())
-    fim = inicio + timedelta(days=6)
-    return _gerar_relatorio(usuario.id, inicio, fim, banco)
+    try:
+        if not data_ref:
+            data_ref = date.today()
+        inicio = data_ref - timedelta(days=data_ref.weekday())
+        fim = inicio + timedelta(days=6)
+        return _gerar_relatorio(usuario.id, inicio, fim, banco)
+    except HTTPException:
+        raise
+    except Exception:
+        logger_prod.error(f"Erro ao gerar relatório semanal | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao gerar relatório semanal. Tente novamente."
+        )
 
 
 @roteador.get("/relatorio/mensal")
@@ -212,17 +293,27 @@ def relatorio_mensal(
     if not mes:
         mes = hoje.month
     if mes < 1 or mes > 12:
-        raise HTTPException(status_code=400, detail="Mês deve ser entre 1 e 12")
-    inicio = date(ano, mes, 1)
-    if mes == 12:
-        fim = date(ano + 1, 1, 1) - timedelta(days=1)
-    else:
-        fim = date(ano, mes + 1, 1) - timedelta(days=1)
-    return _gerar_relatorio(usuario.id, inicio, fim, banco)
+        raise HTTPException(status_code=400, detail="Mês deve ser entre 1 e 12.")
+    if ano < ANO_MINIMO or ano > ANO_MAXIMO:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Ano deve ser entre {ANO_MINIMO} e {ANO_MAXIMO}."
+        )
+    try:
+        inicio = date(ano, mes, 1)
+        fim = date(ano, mes + 1, 1) - timedelta(days=1) if mes < 12 else date(ano + 1, 1, 1) - timedelta(days=1)
+        return _gerar_relatorio(usuario.id, inicio, fim, banco)
+    except HTTPException:
+        raise
+    except Exception:
+        logger_prod.error(f"Erro ao gerar relatório mensal | {mes}/{ano} | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao gerar relatório mensal. Tente novamente."
+        )
 
 
 def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, banco: Session):
-    """Gera relatório de produção consolidado por período."""
     preco = pegar_preco_vigente(usuario_id, fim, banco)
     preco_litro = preco.preco_litro if preco else Decimal("0")
 
@@ -242,7 +333,6 @@ def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, banco: Session):
             Producao.animal_id == animal.id,
             Producao.data.between(inicio, fim)
         ).all()
-
         if not producoes:
             continue
 
@@ -292,9 +382,16 @@ def listar_precos(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    return banco.query(PrecoLeite).filter(
-        PrecoLeite.usuario_id == usuario.id
-    ).order_by(PrecoLeite.vigente_a_partir.desc()).all()
+    try:
+        return banco.query(PrecoLeite).filter(
+            PrecoLeite.usuario_id == usuario.id
+        ).order_by(PrecoLeite.vigente_a_partir.desc()).all()
+    except Exception:
+        logger_prod.error(f"Erro ao listar preços | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao buscar preços. Tente novamente."
+        )
 
 
 @roteador.get("/preco-leite/vigente", response_model=PrecoLeiteResposta)
@@ -302,10 +399,22 @@ def preco_vigente(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    preco = pegar_preco_vigente(usuario.id, date.today(), banco)
-    if not preco:
-        raise HTTPException(status_code=404, detail="Nenhum preço cadastrado. Cadastre o preço do leite primeiro")
-    return preco
+    try:
+        preco = pegar_preco_vigente(usuario.id, date.today(), banco)
+        if not preco:
+            raise HTTPException(
+                status_code=404,
+                detail="Nenhum preço cadastrado. Cadastre o preço do leite primeiro."
+            )
+        return preco
+    except HTTPException:
+        raise
+    except Exception:
+        logger_prod.error(f"Erro ao buscar preço vigente | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao buscar preço vigente. Tente novamente."
+        )
 
 
 @roteador.post("/preco-leite/", response_model=PrecoLeiteResposta)
@@ -314,11 +423,20 @@ def cadastrar_preco(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    novo_preco = PrecoLeite(**dados.model_dump(), usuario_id=usuario.id)
-    banco.add(novo_preco)
-    banco.commit()
-    banco.refresh(novo_preco)
-    return novo_preco
+    try:
+        novo_preco = PrecoLeite(**dados.model_dump(), usuario_id=usuario.id)
+        banco.add(novo_preco)
+        banco.commit()
+        banco.refresh(novo_preco)
+        logger_prod.info(f"Preço cadastrado | R${dados.preco_litro}/L | usuário: {usuario.id}")
+        return novo_preco
+    except Exception:
+        banco.rollback()
+        logger_prod.error(f"Erro ao cadastrar preço | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao cadastrar preço. Tente novamente."
+        )
 
 
 @roteador.put("/preco-leite/{preco_id}", response_model=PrecoLeiteResposta)
@@ -328,14 +446,27 @@ def atualizar_preco(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    preco = banco.query(PrecoLeite).filter(
-        PrecoLeite.id == preco_id,
-        PrecoLeite.usuario_id == usuario.id
-    ).first()
-    if not preco:
-        raise HTTPException(status_code=404, detail="Preço não encontrado")
-    for campo, valor in dados.model_dump(exclude_unset=True).items():
-        setattr(preco, campo, valor)
-    banco.commit()
-    banco.refresh(preco)
-    return preco
+    if preco_id <= 0:
+        raise HTTPException(status_code=400, detail="ID do preço inválido.")
+    try:
+        preco = banco.query(PrecoLeite).filter(
+            PrecoLeite.id == preco_id,
+            PrecoLeite.usuario_id == usuario.id
+        ).first()
+        if not preco:
+            raise HTTPException(status_code=404, detail="Preço não encontrado.")
+        for campo, valor in dados.model_dump(exclude_unset=True).items():
+            setattr(preco, campo, valor)
+        banco.commit()
+        banco.refresh(preco)
+        logger_prod.info(f"Preço atualizado | id: {preco_id} | usuário: {usuario.id}")
+        return preco
+    except HTTPException:
+        raise
+    except Exception:
+        banco.rollback()
+        logger_prod.error(f"Erro ao atualizar preço | id: {preco_id} | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao atualizar preço. Tente novamente."
+        )

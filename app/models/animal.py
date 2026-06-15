@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Enum, DateTime, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, Date, Enum, DateTime, ForeignKey, Text, Index
 from sqlalchemy.sql import func
 from app.database import Base
 from sqlalchemy.orm import relationship
@@ -8,11 +8,11 @@ class Animal(Base):
     __tablename__ = "animais"
 
     id                  = Column(Integer, primary_key=True, index=True)
-    usuario_id          = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
+    usuario_id          = Column(Integer, ForeignKey("usuarios.id"), nullable=False, index=True)
 
     # Identificação
     nome                = Column(String(100), nullable=False)
-    brinco              = Column(String(50), nullable=False)
+    brinco              = Column(String(50), nullable=False, index=True)
     raca                = Column(String(80))
     nascimento          = Column(Date)
     sexo                = Column(Enum("F", "M"), nullable=False, default="F")
@@ -20,29 +20,34 @@ class Animal(Base):
     # Genealogia
     nome_pai            = Column(String(100))
     nome_mae            = Column(String(100))
-    registro_genealogico = Column(String(100))  # número de registro em associação
+    registro_genealogico = Column(String(100))
 
     # Status
     status              = Column(Enum("ativo", "inativo", "vendido", "morto", "seco"), nullable=False, default="ativo")
     status_reprodutivo  = Column(Enum("vazia", "prenha", "em_cio", "em_lactacao", "seca", "nao_aplicavel"), nullable=False, default="nao_aplicavel")
 
     # Produção
-    producao_diaria_litros = Column(Integer, default=0)  # litros por dia informados pelo produtor
+    producao_diaria_litros = Column(Integer, default=0)
 
     # Reprodução
     data_ultima_inseminacao = Column(Date)
     data_prevista_parto     = Column(Date)
-    dias_em_lactacao        = Column(Integer, default=0)  # DEL - calculado a partir do último parto
+    dias_em_lactacao        = Column(Integer, default=0)
 
     # Informações adicionais
-    peso_kg             = Column(Integer)  # peso em kg
+    peso_kg             = Column(Integer)
     observacao          = Column(Text)
-    foto_url            = Column(String(500))  # URL da foto no Cloudinary
+    foto_url            = Column(String(500))
 
     criado_em           = Column(DateTime, server_default=func.now())
     atualizado_em       = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
-    # Relacionamentos
+    # Índice composto — brinco único por produtor
+    __table_args__ = (
+        Index("ix_animais_usuario_brinco", "usuario_id", "brinco", unique=True),
+    )
+
+    # Relacionamentos sem cascade — histórico preservado
     usuario             = relationship("Usuario", back_populates="animais")
     producoes           = relationship("Producao", back_populates="animal")
     partos              = relationship("Parto", back_populates="animal")

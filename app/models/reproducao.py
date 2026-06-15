@@ -9,30 +9,26 @@ class Reproducao(Base):
     __tablename__ = "reproducoes"
 
     id                      = Column(Integer, primary_key=True, index=True)
-    animal_id               = Column(Integer, ForeignKey("animais.id"), nullable=False)
+    animal_id               = Column(Integer, ForeignKey("animais.id"), nullable=False, index=True)
 
-    # Detecção de cio
     data_cio                = Column(Date)
-
-    # Inseminação / Monta
     tipo_cobertura          = Column(Enum("inseminacao_artificial", "monta_natural", "transferencia_embriao"))
-    data_cobertura          = Column(Date)
-    touro_reprodutor        = Column(String(100))   # nome ou registro do touro/sêmen
-    partida_semen           = Column(String(60))    # partida/lote do sêmen (IA)
+    data_cobertura          = Column(Date, index=True)
+    touro_reprodutor        = Column(String(100))
+    partida_semen           = Column(String(60))
 
-    # Diagnóstico de gestação
     data_diagnostico        = Column(Date)
     resultado_diagnostico   = Column(Enum("positivo", "negativo", "inconclusivo"))
-    metodo_diagnostico      = Column(String(80))    # ex: ultrassonografia, palpação retal
+    metodo_diagnostico      = Column(String(80))
 
-    # Previsão de parto
-    data_prevista_parto     = Column(Date)          # calculado: data_cobertura + 283 dias (média bovinos)
-    data_inicio_periodo_seco = Column(Date)         # calculado: data_prevista_parto - 60 dias
+    data_prevista_parto     = Column(Date)
+    data_inicio_periodo_seco = Column(Date)
 
     observacao              = Column(Text)
     criado_em               = Column(DateTime, server_default=func.now())
     atualizado_em           = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
+    # Relacionamento sem cascade — histórico reprodutivo preservado
     animal                  = relationship("Animal", back_populates="reproducoes")
 
 
@@ -41,24 +37,21 @@ class Ocorrencia(Base):
     __tablename__ = "ocorrencias"
 
     id                  = Column(Integer, primary_key=True, index=True)
-    animal_id           = Column(Integer, ForeignKey("animais.id"), nullable=False)
+    animal_id           = Column(Integer, ForeignKey("animais.id"), nullable=False, index=True)
 
     tipo                = Column(Enum("doenca", "exame", "acidente", "outro"), nullable=False, default="outro")
-    descricao           = Column(String(200), nullable=False)   # ex: "Mastite", "CCS", "Tristeza Parasitária"
-    data_ocorrencia     = Column(Date, nullable=False)
-    data_resolucao      = Column(Date)                          # quando foi resolvido (se aplicável)
+    descricao           = Column(String(200), nullable=False)
+    data_ocorrencia     = Column(Date, nullable=False, index=True)
+    data_resolucao      = Column(Date, index=True)
 
-    # Para exames laboratoriais
-    resultado_exame     = Column(String(255))                   # ex: "CCS: 250.000 cel/ml"
-
-    # Impacto na produção
-    afeta_producao      = Column(Boolean, default=False)        # se deve bloquear contagem do leite
+    resultado_exame     = Column(String(255))
+    afeta_producao      = Column(Boolean, default=False)
     dias_afastamento    = Column(Integer, default=0)
-
-    responsavel         = Column(String(100))                   # veterinário responsável
+    responsavel         = Column(String(100))
     observacao          = Column(Text)
 
     criado_em           = Column(DateTime, server_default=func.now())
     atualizado_em       = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
+    # Relacionamento sem cascade — histórico clínico preservado
     animal              = relationship("Animal", back_populates="ocorrencias")

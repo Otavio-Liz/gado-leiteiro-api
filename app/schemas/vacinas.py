@@ -1,32 +1,30 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator, model_validator, Field
 from datetime import date, datetime
 from typing import Optional
 
 
 class VacinaBase(BaseModel):
-    animal_id:      int
-    nome_vacina:    str
-    doenca_alvo:    Optional[str] = None
-    data_aplicacao: date
-    proxima_dose:   Optional[date] = None
-    lote:           Optional[str] = None
+    animal_id:       int = Field(gt=0)
+    nome_vacina:     str = Field(min_length=1, max_length=100)
+    doenca_alvo:     Optional[str] = Field(default=None, max_length=100)
+    data_aplicacao:  date
+    proxima_dose:    Optional[date] = None
+    lote:            Optional[str] = Field(default=None, max_length=50)
     validade_vacina: Optional[date] = None
-    dose_aplicada:  Optional[str] = None
-    via_aplicacao:  Optional[str] = None
-    responsavel:    Optional[str] = None
-    observacao:     Optional[str] = None
+    dose_aplicada:   Optional[str] = Field(default=None, max_length=50)
+    via_aplicacao:   Optional[str] = Field(default=None, max_length=50)
+    responsavel:     Optional[str] = Field(default=None, max_length=100)
+    observacao:      Optional[str] = Field(default=None, max_length=500)
 
-    @validator("proxima_dose")
-    def validar_proxima_dose(cls, v, values):
-        if v and values.get("data_aplicacao") and v <= values["data_aplicacao"]:
-            raise ValueError("Próxima dose deve ser depois da data de aplicação")
-        return v
-
-    @validator("validade_vacina")
-    def validar_validade(cls, v, values):
-        if v and values.get("data_aplicacao") and v < values["data_aplicacao"]:
-            raise ValueError("Vacina não pode ser aplicada após a data de validade")
-        return v
+    @model_validator(mode="after")
+    def validar_datas(self):
+        if self.proxima_dose and self.data_aplicacao:
+            if self.proxima_dose <= self.data_aplicacao:
+                raise ValueError("Próxima dose deve ser depois da data de aplicação")
+        if self.validade_vacina and self.data_aplicacao:
+            if self.validade_vacina < self.data_aplicacao:
+                raise ValueError("Vacina não pode ser aplicada após a data de validade")
+        return self
 
 
 class VacinaCriar(VacinaBase):
@@ -34,16 +32,26 @@ class VacinaCriar(VacinaBase):
 
 
 class VacinaAtualizar(BaseModel):
-    nome_vacina:    Optional[str] = None
-    doenca_alvo:    Optional[str] = None
-    data_aplicacao: Optional[date] = None
-    proxima_dose:   Optional[date] = None
-    lote:           Optional[str] = None
+    nome_vacina:     Optional[str] = Field(default=None, min_length=1, max_length=100)
+    doenca_alvo:     Optional[str] = Field(default=None, max_length=100)
+    data_aplicacao:  Optional[date] = None
+    proxima_dose:    Optional[date] = None
+    lote:            Optional[str] = Field(default=None, max_length=50)
     validade_vacina: Optional[date] = None
-    dose_aplicada:  Optional[str] = None
-    via_aplicacao:  Optional[str] = None
-    responsavel:    Optional[str] = None
-    observacao:     Optional[str] = None
+    dose_aplicada:   Optional[str] = Field(default=None, max_length=50)
+    via_aplicacao:   Optional[str] = Field(default=None, max_length=50)
+    responsavel:     Optional[str] = Field(default=None, max_length=100)
+    observacao:      Optional[str] = Field(default=None, max_length=500)
+
+    @model_validator(mode="after")
+    def validar_datas(self):
+        if self.proxima_dose and self.data_aplicacao:
+            if self.proxima_dose <= self.data_aplicacao:
+                raise ValueError("Próxima dose deve ser depois da data de aplicação")
+        if self.validade_vacina and self.data_aplicacao:
+            if self.validade_vacina < self.data_aplicacao:
+                raise ValueError("Vacina não pode ser aplicada após a data de validade")
+        return self
 
 
 class VacinaResposta(VacinaBase):

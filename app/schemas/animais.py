@@ -1,19 +1,19 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator, HttpUrl, Field
 from datetime import date, datetime
 from typing import Optional
 
 
 class AnimalBase(BaseModel):
-    nome:                   str
-    brinco:                 str
-    raca:                   Optional[str] = None
+    nome:                   str = Field(min_length=1, max_length=100)
+    brinco:                 str = Field(min_length=1, max_length=50)
+    raca:                   Optional[str] = Field(default=None, max_length=100)
     nascimento:             Optional[date] = None
     sexo:                   str = "F"
 
     # Genealogia
-    nome_pai:               Optional[str] = None
-    nome_mae:               Optional[str] = None
-    registro_genealogico:   Optional[str] = None
+    nome_pai:               Optional[str] = Field(default=None, max_length=100)
+    nome_mae:               Optional[str] = Field(default=None, max_length=100)
+    registro_genealogico:   Optional[str] = Field(default=None, max_length=100)
 
     # Status
     status:                 str = "ativo"
@@ -29,36 +29,41 @@ class AnimalBase(BaseModel):
 
     # Informações adicionais
     peso_kg:                Optional[int] = None
-    observacao:             Optional[str] = None
-    foto_url:               Optional[str] = None
+    observacao:             Optional[str] = Field(default=None, max_length=500)
+    foto_url:               Optional[HttpUrl] = None
 
-    @validator("sexo")
+    @field_validator("sexo")
+    @classmethod
     def validar_sexo(cls, v):
         if v not in ("F", "M"):
             raise ValueError("Sexo deve ser 'F' ou 'M'")
         return v
 
-    @validator("status")
+    @field_validator("status")
+    @classmethod
     def validar_status(cls, v):
         opcoes = ("ativo", "inativo", "vendido", "morto", "seco")
         if v not in opcoes:
             raise ValueError(f"Status deve ser um de: {opcoes}")
         return v
 
-    @validator("status_reprodutivo")
+    @field_validator("status_reprodutivo")
+    @classmethod
     def validar_status_reprodutivo(cls, v):
         opcoes = ("vazia", "prenha", "em_cio", "em_lactacao", "seca", "nao_aplicavel")
         if v not in opcoes:
             raise ValueError(f"Status reprodutivo deve ser um de: {opcoes}")
         return v
 
-    @validator("producao_diaria_litros")
+    @field_validator("producao_diaria_litros")
+    @classmethod
     def validar_producao(cls, v):
         if v is not None and v < 0:
             raise ValueError("Produção diária não pode ser negativa")
         return v
 
-    @validator("peso_kg")
+    @field_validator("peso_kg")
+    @classmethod
     def validar_peso(cls, v):
         if v is not None and v <= 0:
             raise ValueError("Peso deve ser maior que zero")
@@ -70,14 +75,14 @@ class AnimalCriar(AnimalBase):
 
 
 class AnimalAtualizar(BaseModel):
-    nome:                   Optional[str] = None
-    brinco:                 Optional[str] = None
-    raca:                   Optional[str] = None
+    nome:                   Optional[str] = Field(default=None, min_length=1, max_length=100)
+    brinco:                 Optional[str] = Field(default=None, min_length=1, max_length=50)
+    raca:                   Optional[str] = Field(default=None, max_length=100)
     nascimento:             Optional[date] = None
     sexo:                   Optional[str] = None
-    nome_pai:               Optional[str] = None
-    nome_mae:               Optional[str] = None
-    registro_genealogico:   Optional[str] = None
+    nome_pai:               Optional[str] = Field(default=None, max_length=100)
+    nome_mae:               Optional[str] = Field(default=None, max_length=100)
+    registro_genealogico:   Optional[str] = Field(default=None, max_length=100)
     status:                 Optional[str] = None
     status_reprodutivo:     Optional[str] = None
     producao_diaria_litros: Optional[int] = None
@@ -85,8 +90,47 @@ class AnimalAtualizar(BaseModel):
     data_prevista_parto:    Optional[date] = None
     dias_em_lactacao:       Optional[int] = None
     peso_kg:                Optional[int] = None
-    observacao:             Optional[str] = None
-    foto_url:               Optional[str] = None
+    observacao:             Optional[str] = Field(default=None, max_length=500)
+    foto_url:               Optional[HttpUrl] = None
+
+    @field_validator("sexo")
+    @classmethod
+    def validar_sexo(cls, v):
+        if v is not None and v not in ("F", "M"):
+            raise ValueError("Sexo deve ser 'F' ou 'M'")
+        return v
+
+    @field_validator("status")
+    @classmethod
+    def validar_status(cls, v):
+        if v is not None:
+            opcoes = ("ativo", "inativo", "vendido", "morto", "seco")
+            if v not in opcoes:
+                raise ValueError(f"Status deve ser um de: {opcoes}")
+        return v
+
+    @field_validator("status_reprodutivo")
+    @classmethod
+    def validar_status_reprodutivo(cls, v):
+        if v is not None:
+            opcoes = ("vazia", "prenha", "em_cio", "em_lactacao", "seca", "nao_aplicavel")
+            if v not in opcoes:
+                raise ValueError(f"Status reprodutivo deve ser um de: {opcoes}")
+        return v
+
+    @field_validator("producao_diaria_litros")
+    @classmethod
+    def validar_producao(cls, v):
+        if v is not None and v < 0:
+            raise ValueError("Produção diária não pode ser negativa")
+        return v
+
+    @field_validator("peso_kg")
+    @classmethod
+    def validar_peso(cls, v):
+        if v is not None and v <= 0:
+            raise ValueError("Peso deve ser maior que zero")
+        return v
 
 
 class AnimalResposta(AnimalBase):

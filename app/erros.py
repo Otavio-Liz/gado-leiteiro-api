@@ -119,7 +119,7 @@ async def handler_404(request: Request, exc: Exception):
     )
     return erro_response(
         status_code=status.HTTP_404_NOT_FOUND,
-        mensagem=f"Rota '{request.url.path}' não encontrada."
+        mensagem="Rota não encontrada."
     )
 
 
@@ -130,7 +130,7 @@ async def handler_metodo_nao_permitido(request: Request, exc: Exception):
     )
     return erro_response(
         status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
-        mensagem=f"Método '{request.method}' não permitido para esta rota."
+        mensagem="Método não permitido para esta rota."
     )
 
 

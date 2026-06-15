@@ -8,7 +8,9 @@ from jose import JWTError
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
+from dotenv import load_dotenv
 import time
+import os
 
 from app.routers import (
     animais, producoes, vacinas, partos,
@@ -22,6 +24,21 @@ from app.erros import (
 )
 from app.logger import logger_app
 from app.limitador import limitador
+
+load_dotenv()
+
+# ─── Origens permitidas ───────────────────────────────────────────────────────
+
+AMBIENTE = os.getenv("AMBIENTE", "development")
+
+if AMBIENTE == "production":
+    ORIGENS_PERMITIDAS = os.getenv("ALLOWED_ORIGINS", "").split(",")
+    ORIGENS_PERMITIDAS = [o.strip() for o in ORIGENS_PERMITIDAS if o.strip()]
+    if not ORIGENS_PERMITIDAS:
+        raise RuntimeError("ALLOWED_ORIGINS não definido para ambiente de produção.")
+else:
+    # Em desenvolvimento libera tudo para facilitar testes
+    ORIGENS_PERMITIDAS = ["*"]
 
 # ─── Aplicação ────────────────────────────────────────────────────────────────
 
@@ -41,8 +58,8 @@ API completa para gerenciamento de propriedades leiteiras.
 - 📄 Exportação em PDF e Excel
     """,
     version="2.0.0",
-    docs_url="/docs",
-    redoc_url="/redoc"
+    docs_url="/docs" if AMBIENTE != "production" else None,
+    redoc_url="/redoc" if AMBIENTE != "production" else None
 )
 
 # ─── Rate Limiting ────────────────────────────────────────────────────────────
@@ -55,10 +72,10 @@ aplicacao.add_middleware(SlowAPIMiddleware)
 
 aplicacao.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ORIGENS_PERMITIDAS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # ─── Middleware de log de requisições ─────────────────────────────────────────

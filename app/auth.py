@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
 from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, status
@@ -9,7 +9,10 @@ import os
 
 load_dotenv()
 
-CHAVE_SECRETA = os.getenv("SECRET_KEY", "chave-super-secreta")
+CHAVE_SECRETA = os.getenv("SECRET_KEY")
+if not CHAVE_SECRETA:
+    raise RuntimeError("SECRET_KEY não definida no ambiente. A aplicação não pode iniciar.")
+
 ALGORITMO = "HS256"
 EXPIRACAO_MINUTOS = 30
 EXPIRACAO_REFRESH_DIAS = 7
@@ -17,7 +20,6 @@ EXPIRACAO_REFRESH_DIAS = 7
 oauth2_esquema = OAuth2PasswordBearer(tokenUrl="/usuarios/login")
 
 # ── Controle de tentativas de login em memória ────────────────────────────────
-# { "username": {"tentativas": int, "bloqueado_ate": datetime} }
 _tentativas_login: dict = {}
 
 MAX_TENTATIVAS = 5
@@ -25,13 +27,12 @@ TEMPO_BLOQUEIO_MINUTOS = 15
 
 
 def registrar_tentativa_falha(username: str):
-    agora = datetime.utcnow()
+    agora = datetime.now(timezone.utc)
     if username not in _tentativas_login:
         _tentativas_login[username] = {"tentativas": 0, "bloqueado_ate": None}
 
     entrada = _tentativas_login[username]
 
-    # Se o bloqueio já expirou, resetar
     if entrada["bloqueado_ate"] and agora > entrada["bloqueado_ate"]:
         entrada["tentativas"] = 0
         entrada["bloqueado_ate"] = None
@@ -47,7 +48,7 @@ def verificar_bloqueio(username: str):
         return
 
     entrada = _tentativas_login[username]
-    agora = datetime.utcnow()
+    agora = datetime.now(timezone.utc)
 
     if entrada["bloqueado_ate"] and agora < entrada["bloqueado_ate"]:
         minutos_restantes = int((entrada["bloqueado_ate"] - agora).total_seconds() / 60) + 1
@@ -72,17 +73,15 @@ def tentativas_restantes(username: str) -> int:
 # ── Tokens ────────────────────────────────────────────────────────────────────
 
 def criar_token(dados: dict):
-    """Cria o access token com expiração curta (30 minutos)."""
     dados_copia = dados.copy()
-    expiracao = datetime.utcnow() + timedelta(minutes=EXPIRACAO_MINUTOS)
+    expiracao = datetime.now(timezone.utc) + timedelta(minutes=EXPIRACAO_MINUTOS)
     dados_copia.update({"exp": expiracao, "tipo": "access"})
     return jwt.encode(dados_copia, CHAVE_SECRETA, algorithm=ALGORITMO)
 
 
 def criar_refresh_token(dados: dict):
-    """Cria o refresh token com expiração longa (7 dias)."""
     dados_copia = dados.copy()
-    expiracao = datetime.utcnow() + timedelta(days=EXPIRACAO_REFRESH_DIAS)
+    expiracao = datetime.now(timezone.utc) + timedelta(days=EXPIRACAO_REFRESH_DIAS)
     dados_copia.update({"exp": expiracao, "tipo": "refresh"})
     return jwt.encode(dados_copia, CHAVE_SECRETA, algorithm=ALGORITMO)
 

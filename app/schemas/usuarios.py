@@ -1,33 +1,50 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator, EmailStr, HttpUrl, Field
 from datetime import datetime
 from typing import Optional
 
 
 class UsuarioCreate(BaseModel):
-    username:       str
-    senha:          str
-    nome_completo:  Optional[str] = None
-    email:          Optional[str] = None
+    username:       str = Field(min_length=3, max_length=50)
+    senha:          str = Field(min_length=6, max_length=100)
+    nome_completo:  Optional[str] = Field(default=None, max_length=100)
+    email:          Optional[EmailStr] = None
 
-    @validator("username")
+    @field_validator("username")
+    @classmethod
     def validar_username(cls, v):
-        if len(v) < 3:
-            raise ValueError("Username deve ter pelo menos 3 caracteres")
         if not v.isalnum():
             raise ValueError("Username deve conter apenas letras e números")
         return v.lower()
 
-    @validator("senha")
+    @field_validator("senha")
+    @classmethod
     def validar_senha(cls, v):
-        if len(v) < 6:
-            raise ValueError("Senha deve ter pelo menos 6 caracteres")
+        if not any(c.islower() for c in v):
+            raise ValueError("Senha deve ter pelo menos uma letra minúscula")
+        if not any(c.isdigit() for c in v):
+            raise ValueError("Senha deve ter pelo menos um número")
+        if not any(c in "!@#$%^&*()_+-=[]{}|;':\",./<>?" for c in v):
+            raise ValueError("Senha deve ter pelo menos um símbolo especial")
         return v
 
 
 class UsuarioAtualizar(BaseModel):
-    nome_completo:  Optional[str] = None
-    email:          Optional[str] = None
-    senha:          Optional[str] = None
+    nome_completo:  Optional[str] = Field(default=None, max_length=100)
+    email:          Optional[EmailStr] = None
+    senha:          Optional[str] = Field(default=None, min_length=6, max_length=100)
+    foto_url:       Optional[HttpUrl] = None
+
+    @field_validator("senha")
+    @classmethod
+    def validar_senha(cls, v):
+        if v is not None:
+            if not any(c.islower() for c in v):
+                raise ValueError("Senha deve ter pelo menos uma letra minúscula")
+            if not any(c.isdigit() for c in v):
+                raise ValueError("Senha deve ter pelo menos um número")
+            if not any(c in "!@#$%^&*()_+-=[]{}|;':\",./<>?" for c in v):
+                raise ValueError("Senha deve ter pelo menos um símbolo especial")
+        return v
 
 
 class UsuarioResponse(BaseModel):
