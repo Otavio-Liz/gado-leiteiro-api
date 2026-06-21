@@ -39,7 +39,7 @@ def verificar_carencia(animal_id: int, data: date, banco: Session):
         Parto.data_parto <= data
     ).first()
     if parto_carencia:
-        return True, f"Carência pós-parto (colostro) até {parto_carencia.carencia_encerra_em}"
+        return True, f"Carência pós-parto (colostro) até {parto_carencia.carencia_encerra_em.strftime('%d/%m/%Y')}"
 
     med_carencia = banco.query(AplicacaoMedicamento).filter(
         AplicacaoMedicamento.animal_id == animal_id,
@@ -47,7 +47,7 @@ def verificar_carencia(animal_id: int, data: date, banco: Session):
         AplicacaoMedicamento.data_aplicacao <= data
     ).first()
     if med_carencia:
-        return True, f"Carência medicamento '{med_carencia.medicamento.nome}' até {med_carencia.carencia_encerra_em}"
+        return True, f"Carência medicamento '{med_carencia.medicamento.nome}' até {med_carencia.carencia_encerra_em.strftime('%d/%m/%Y')}"
 
     return False, None
 

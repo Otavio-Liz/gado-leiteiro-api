@@ -247,6 +247,19 @@ def resumo_dashboard(
             ).count()
         )
 
+        # Produção dos últimos 7 dias (incluindo hoje) — usado pelo gráfico
+        # "Produção — 7 dias" do dashboard, que antes não tinha nenhum dado
+        # real vindo do backend.
+        producao_semanal = []
+        for i in range(6, -1, -1):
+            dia = hoje - timedelta(days=i)
+            producoes_dia = banco.query(Producao).join(Animal).filter(
+                Animal.usuario_id == usuario.id,
+                Producao.data == dia
+            ).all()
+            total_dia = sum((p.quantidade_litros for p in producoes_dia), Decimal("0"))
+            producao_semanal.append({"data": dia, "total": round(total_dia, 2)})
+
         logger_dash.info(f"Resumo consultado | usuário: {usuario.id}")
 
         return {
@@ -271,6 +284,7 @@ def resumo_dashboard(
                 "litros_descartados": round(litros_mes - litros_mes_aproveitados, 2),
                 "valor_estimado": round(valor_mes, 2)
             },
+            "producao_semanal": producao_semanal,
             "preco_litro_vigente": preco_litro,
             "total_alertas_pendentes": total_alertas
         }
