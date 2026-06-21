@@ -110,7 +110,7 @@ class ProducaoRebanhoRelatorio(BaseModel):
 class PrecoLeiteBase(BaseModel):
     preco_litro:        Decimal = Field(gt=0)
     vigente_a_partir:   date
-    observacao:         Optional[str] = Field(default=None, max_length=500)
+    observacao:         Optional[str] = Field(default=None, max_length=255)
 
 
 class PrecoLeiteCriar(PrecoLeiteBase):
@@ -120,7 +120,7 @@ class PrecoLeiteCriar(PrecoLeiteBase):
 class PrecoLeiteAtualizar(BaseModel):
     preco_litro:        Optional[Decimal] = None
     vigente_a_partir:   Optional[date] = None
-    observacao:         Optional[str] = Field(default=None, max_length=500)
+    observacao:         Optional[str] = Field(default=None, max_length=255)
 
     @field_validator("preco_litro")
     @classmethod

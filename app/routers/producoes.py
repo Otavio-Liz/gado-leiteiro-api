@@ -302,7 +302,9 @@ def relatorio_mensal(
     try:
         inicio = date(ano, mes, 1)
         fim = date(ano, mes + 1, 1) - timedelta(days=1) if mes < 12 else date(ano + 1, 1, 1) - timedelta(days=1)
-        return _gerar_relatorio(usuario.id, inicio, fim, banco)
+        relatorio = _gerar_relatorio(usuario.id, inicio, fim, banco)
+        relatorio["semanas"] = _calcular_semanas(usuario.id, inicio, fim, relatorio["preco_litro_vigente"], banco)
+        return relatorio
     except HTTPException:
         raise
     except Exception:
@@ -373,6 +375,47 @@ def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, banco: Session):
         "preco_litro_vigente": preco_litro,
         "animais": animais_relatorio
     }
+
+
+def _calcular_semanas(usuario_id: int, inicio: date, fim: date, preco_litro: Decimal, banco: Session):
+    """
+    Recorta o período em semanas de calendário (segunda a domingo, com a
+    primeira e a última possivelmente parciais nas bordas do período) e soma
+    a produção de cada uma. Usado pelo gráfico "Receita por Semana" do
+    relatório mensal — sem isso, o frontend não tinha como montar esse gráfico.
+    """
+    animais_ids = [
+        a.id for a in banco.query(Animal.id).filter(
+            Animal.usuario_id == usuario_id,
+            Animal.status == "ativo",
+            Animal.sexo == "F"
+        ).all()
+    ]
+
+    producoes = banco.query(Producao).filter(
+        Producao.animal_id.in_(animais_ids),
+        Producao.data.between(inicio, fim)
+    ).all() if animais_ids else []
+
+    semanas = []
+    cursor = inicio
+    while cursor <= fim:
+        fim_semana = min(cursor + timedelta(days=6 - cursor.weekday()), fim)
+
+        do_periodo = [p for p in producoes if cursor <= p.data <= fim_semana]
+        total = sum((p.quantidade_litros for p in do_periodo), Decimal("0"))
+        aproveitado = sum((p.quantidade_litros for p in do_periodo if p.status == "aproveitado"), Decimal("0"))
+
+        semanas.append({
+            "inicio": cursor,
+            "fim": fim_semana,
+            "total_litros": round(total, 2),
+            "total_litros_aproveitados": round(aproveitado, 2),
+            "receita": round(aproveitado * preco_litro, 2),
+        })
+        cursor = fim_semana + timedelta(days=1)
+
+    return semanas
 
 
 # ─── Preço do Leite ──────────────────────────────────────────────────────────
@@ -469,4 +512,34 @@ def atualizar_preco(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Erro ao atualizar preço. Tente novamente."
+        )
+
+
+@roteador.delete("/preco-leite/{preco_id}")
+def deletar_preco(
+    preco_id: int,
+    banco: Session = Depends(pegar_banco),
+    usuario: Usuario = Depends(pegar_usuario_atual)
+):
+    if preco_id <= 0:
+        raise HTTPException(status_code=400, detail="ID do preço inválido.")
+    try:
+        preco = banco.query(PrecoLeite).filter(
+            PrecoLeite.id == preco_id,
+            PrecoLeite.usuario_id == usuario.id
+        ).first()
+        if not preco:
+            raise HTTPException(status_code=404, detail="Preço não encontrado.")
+        banco.delete(preco)
+        banco.commit()
+        logger_prod.info(f"Preço deletado | id: {preco_id} | usuário: {usuario.id}")
+        return {"mensagem": "Preço removido com sucesso."}
+    except HTTPException:
+        raise
+    except Exception:
+        banco.rollback()
+        logger_prod.error(f"Erro ao deletar preço | id: {preco_id} | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao deletar preço. Tente novamente."
         )

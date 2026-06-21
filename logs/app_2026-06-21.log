@@ -1915,3 +1915,914 @@ TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() arg
 2026-06-21 15:28:05 | INFO | app | → GET /reproducao/
 2026-06-21 15:28:05 | INFO | app | ← GET /animais/ | Status: 200 | 55.58ms
 2026-06-21 15:28:05 | INFO | app | ← GET /reproducao/ | Status: 200 | 54.08ms
+2026-06-21 15:34:17 | INFO | app | → OPTIONS /animais/
+2026-06-21 15:34:17 | INFO | app | → OPTIONS /reproducao/
+2026-06-21 15:34:17 | INFO | app | ← OPTIONS /animais/ | Status: 200 | 15.75ms
+2026-06-21 15:34:17 | INFO | app | ← OPTIONS /reproducao/ | Status: 200 | 11.06ms
+2026-06-21 15:34:17 | INFO | app | → GET /animais/
+2026-06-21 15:34:17 | INFO | app | → GET /reproducao/
+2026-06-21 15:34:18 | INFO | app | ← GET /animais/ | Status: 200 | 419.08ms
+2026-06-21 15:34:18 | INFO | app | ← GET /reproducao/ | Status: 200 | 428.15ms
+2026-06-21 15:58:56 | INFO | app | → OPTIONS /usuarios/login
+2026-06-21 15:58:56 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 46.48ms
+2026-06-21 15:58:56 | INFO | app | → POST /usuarios/login
+2026-06-21 15:58:59 | INFO | usuarios | Login realizado | email: otaviolisboa19@gmail.com
+2026-06-21 15:58:59 | INFO | app | ← POST /usuarios/login | Status: 200 | 2373.4ms
+2026-06-21 15:58:59 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-21 15:58:59 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 2.64ms
+2026-06-21 15:58:59 | INFO | app | → GET /usuarios/perfil
+2026-06-21 15:58:59 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 82.16ms
+2026-06-21 15:58:59 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-21 15:58:59 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-21 15:58:59 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 6.63ms
+2026-06-21 15:58:59 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 14.61ms
+2026-06-21 15:58:59 | INFO | app | → GET /dashboard/resumo
+2026-06-21 15:58:59 | INFO | app | → GET /dashboard/alertas
+2026-06-21 15:59:00 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-21 15:59:00 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 582.33ms
+2026-06-21 15:59:00 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-21 15:59:00 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 600.2ms
+2026-06-21 15:59:33 | INFO | app | → OPTIONS /producoes/relatorio/mensal
+2026-06-21 15:59:33 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-21 15:59:33 | INFO | app | ← OPTIONS /producoes/relatorio/mensal | Status: 200 | 4.08ms
+2026-06-21 15:59:33 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 5.12ms
+2026-06-21 15:59:33 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 15:59:33 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 15:59:33 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 102.88ms
+2026-06-21 15:59:33 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 186.1ms
+2026-06-21 16:00:03 | INFO | app | → OPTIONS /producoes/preco-leite/
+2026-06-21 16:00:03 | INFO | app | ← OPTIONS /producoes/preco-leite/ | Status: 200 | 1.84ms
+2026-06-21 16:00:03 | INFO | app | → POST /producoes/preco-leite/
+2026-06-21 16:00:04 | INFO | producoes | Preço cadastrado | R$250/L | usuário: 4
+2026-06-21 16:00:04 | INFO | app | ← POST /producoes/preco-leite/ | Status: 200 | 182.3ms
+2026-06-21 16:00:04 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:00:04 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:00:04 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 57.12ms
+2026-06-21 16:00:04 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:00:04 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 112.54ms
+2026-06-21 16:00:04 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:00:04 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 46.38ms
+2026-06-21 16:00:04 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:00:04 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 46.27ms
+2026-06-21 16:00:04 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 101.41ms
+2026-06-21 16:00:04 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:00:04 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 53.86ms
+2026-06-21 16:00:15 | INFO | app | → POST /producoes/preco-leite/
+2026-06-21 16:00:15 | INFO | producoes | Preço cadastrado | R$2.5/L | usuário: 4
+2026-06-21 16:00:15 | INFO | app | ← POST /producoes/preco-leite/ | Status: 200 | 45.97ms
+2026-06-21 16:00:15 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:00:15 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:00:15 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 45.51ms
+2026-06-21 16:00:15 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:00:15 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 100.02ms
+2026-06-21 16:00:15 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:00:15 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 103.44ms
+2026-06-21 16:00:15 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:00:15 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 27.3ms
+2026-06-21 16:00:15 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 169.93ms
+2026-06-21 16:00:15 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:00:15 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 50.83ms
+2026-06-21 16:05:46 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:05:46 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:05:46 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 77.26ms
+2026-06-21 16:05:46 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 89.43ms
+2026-06-21 16:06:56 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:06:56 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 54.77ms
+2026-06-21 16:06:56 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:06:56 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 26.73ms
+2026-06-21 16:06:56 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:06:56 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:06:56 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 49.87ms
+2026-06-21 16:06:56 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 93.64ms
+2026-06-21 16:09:45 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-21 16:09:45 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 4.84ms
+2026-06-21 16:09:45 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-21 16:09:45 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:09:45 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 6.91ms
+2026-06-21 16:09:45 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 639.06ms
+2026-06-21 16:09:45 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:09:45 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 18.99ms
+2026-06-21 16:09:46 | INFO | app | → OPTIONS /producoes/relatorio/mensal
+2026-06-21 16:09:46 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-21 16:09:46 | INFO | app | ← OPTIONS /producoes/relatorio/mensal | Status: 200 | 4.23ms
+2026-06-21 16:09:46 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 4.61ms
+2026-06-21 16:09:46 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:09:46 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:09:46 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 154.73ms
+2026-06-21 16:09:46 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 177.9ms
+2026-06-21 16:10:48 | INFO | app | → OPTIONS /producoes/preco-leite/
+2026-06-21 16:10:48 | INFO | app | ← OPTIONS /producoes/preco-leite/ | Status: 200 | 9.01ms
+2026-06-21 16:10:48 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:10:48 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 79.66ms
+2026-06-21 16:10:58 | INFO | app | → OPTIONS /producoes/preco-leite/4
+2026-06-21 16:10:58 | INFO | app | ← OPTIONS /producoes/preco-leite/4 | Status: 200 | 1.36ms
+2026-06-21 16:10:58 | INFO | app | → DELETE /producoes/preco-leite/4
+2026-06-21 16:10:58 | WARNING | app | Método não permitido | DELETE /producoes/preco-leite/4
+2026-06-21 16:10:58 | INFO | app | ← DELETE /producoes/preco-leite/4 | Status: 405 | 3.79ms
+2026-06-21 16:11:01 | INFO | app | → DELETE /producoes/preco-leite/4
+2026-06-21 16:11:01 | WARNING | app | Método não permitido | DELETE /producoes/preco-leite/4
+2026-06-21 16:11:01 | INFO | app | ← DELETE /producoes/preco-leite/4 | Status: 405 | 5.22ms
+2026-06-21 16:11:02 | INFO | app | → DELETE /producoes/preco-leite/4
+2026-06-21 16:11:02 | WARNING | app | Método não permitido | DELETE /producoes/preco-leite/4
+2026-06-21 16:11:02 | INFO | app | ← DELETE /producoes/preco-leite/4 | Status: 405 | 4.97ms
+2026-06-21 16:12:57 | INFO | app | → OPTIONS /producoes/preco-leite/3
+2026-06-21 16:12:57 | INFO | app | ← OPTIONS /producoes/preco-leite/3 | Status: 200 | 3.94ms
+2026-06-21 16:12:57 | INFO | app | → PUT /producoes/preco-leite/3
+2026-06-21 16:12:57 | INFO | producoes | Preço atualizado | id: 3 | usuário: 4
+2026-06-21 16:12:57 | INFO | app | ← PUT /producoes/preco-leite/3 | Status: 200 | 277.94ms
+2026-06-21 16:12:57 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:12:57 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:12:57 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 54.64ms
+2026-06-21 16:12:57 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:12:57 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 58.14ms
+2026-06-21 16:12:57 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:12:57 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 51.21ms
+2026-06-21 16:12:57 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:12:57 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 53.68ms
+2026-06-21 16:12:57 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:12:57 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 50.21ms
+2026-06-21 16:12:57 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 42.43ms
+2026-06-21 16:13:07 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:13:07 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 69.01ms
+2026-06-21 16:15:17 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:15:18 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 400.81ms
+2026-06-21 16:15:18 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:15:18 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 17.19ms
+2026-06-21 16:15:18 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:15:18 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:18 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 152.19ms
+2026-06-21 16:15:18 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 164.98ms
+2026-06-21 16:15:21 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:21 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 31.68ms
+2026-06-21 16:15:25 | INFO | app | → DELETE /producoes/preco-leite/4
+2026-06-21 16:15:25 | INFO | producoes | Preço deletado | id: 4 | usuário: 4
+2026-06-21 16:15:25 | INFO | app | ← DELETE /producoes/preco-leite/4 | Status: 200 | 75.87ms
+2026-06-21 16:15:25 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:25 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:25 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 40.33ms
+2026-06-21 16:15:25 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:25 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 60.04ms
+2026-06-21 16:15:25 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:25 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 64.27ms
+2026-06-21 16:15:25 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:25 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 55.08ms
+2026-06-21 16:15:25 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:25 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 48.9ms
+2026-06-21 16:15:25 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 46.91ms
+2026-06-21 16:15:29 | INFO | app | → OPTIONS /producoes/preco-leite/2
+2026-06-21 16:15:29 | INFO | app | ← OPTIONS /producoes/preco-leite/2 | Status: 200 | 1.4ms
+2026-06-21 16:15:29 | INFO | app | → DELETE /producoes/preco-leite/2
+2026-06-21 16:15:29 | INFO | producoes | Preço deletado | id: 2 | usuário: 4
+2026-06-21 16:15:29 | INFO | app | ← DELETE /producoes/preco-leite/2 | Status: 200 | 55.37ms
+2026-06-21 16:15:29 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:29 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:29 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 47.93ms
+2026-06-21 16:15:29 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 63.29ms
+2026-06-21 16:15:29 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:29 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:30 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 56.78ms
+2026-06-21 16:15:30 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 53.68ms
+2026-06-21 16:15:30 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:30 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:30 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 46.61ms
+2026-06-21 16:15:30 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 47.86ms
+2026-06-21 16:15:40 | INFO | app | → POST /producoes/preco-leite/
+2026-06-21 16:15:40 | INFO | producoes | Preço cadastrado | R$200/L | usuário: 4
+2026-06-21 16:15:40 | INFO | app | ← POST /producoes/preco-leite/ | Status: 200 | 71.29ms
+2026-06-21 16:15:40 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:40 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:40 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 55.39ms
+2026-06-21 16:15:40 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:40 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 72.45ms
+2026-06-21 16:15:40 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:40 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 53.28ms
+2026-06-21 16:15:40 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:40 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 59.42ms
+2026-06-21 16:15:40 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:40 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 53.74ms
+2026-06-21 16:15:40 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 45.67ms
+2026-06-21 16:15:54 | INFO | app | → OPTIONS /producoes/preco-leite/5
+2026-06-21 16:15:54 | INFO | app | ← OPTIONS /producoes/preco-leite/5 | Status: 200 | 1.7ms
+2026-06-21 16:15:54 | INFO | app | → PUT /producoes/preco-leite/5
+2026-06-21 16:15:54 | INFO | producoes | Preço atualizado | id: 5 | usuário: 4
+2026-06-21 16:15:54 | INFO | app | ← PUT /producoes/preco-leite/5 | Status: 200 | 68.1ms
+2026-06-21 16:15:54 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:54 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:54 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 50.61ms
+2026-06-21 16:15:54 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:54 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 57.57ms
+2026-06-21 16:15:54 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:54 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 53.25ms
+2026-06-21 16:15:54 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:15:54 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 67.34ms
+2026-06-21 16:15:54 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:15:54 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 61.58ms
+2026-06-21 16:15:54 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 49.85ms
+2026-06-21 16:19:26 | INFO | app | → DELETE /producoes/preco-leite/5
+2026-06-21 16:19:27 | INFO | producoes | Preço deletado | id: 5 | usuário: 4
+2026-06-21 16:19:27 | INFO | app | ← DELETE /producoes/preco-leite/5 | Status: 200 | 467.73ms
+2026-06-21 16:19:27 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:19:27 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:19:27 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 68.64ms
+2026-06-21 16:19:27 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 63.6ms
+2026-06-21 16:19:27 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:19:27 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:19:27 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 158.58ms
+2026-06-21 16:19:27 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:19:27 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 166.72ms
+2026-06-21 16:19:27 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:19:27 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 50.85ms
+2026-06-21 16:19:27 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 46.85ms
+2026-06-21 16:19:34 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:19:35 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 103.75ms
+2026-06-21 16:23:48 | INFO | app | → OPTIONS /producoes/preco-leite/
+2026-06-21 16:23:48 | INFO | app | ← OPTIONS /producoes/preco-leite/ | Status: 200 | 2.5ms
+2026-06-21 16:23:48 | INFO | app | → POST /producoes/preco-leite/
+2026-06-21 16:23:48 | INFO | producoes | Preço cadastrado | R$2.85/L | usuário: 4
+2026-06-21 16:23:48 | INFO | app | ← POST /producoes/preco-leite/ | Status: 200 | 101.72ms
+2026-06-21 16:23:48 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-21 16:23:48 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 3.31ms
+2026-06-21 16:23:48 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-21 16:23:48 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:23:48 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:23:48 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 17.85ms
+2026-06-21 16:23:48 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-21 16:23:48 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 7.78ms
+2026-06-21 16:23:48 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 58.63ms
+2026-06-21 16:23:48 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:23:48 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 85.33ms
+2026-06-21 16:23:48 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:23:48 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 52.77ms
+2026-06-21 16:23:48 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:23:48 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 58.79ms
+2026-06-21 16:23:48 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:23:48 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 38.71ms
+2026-06-21 16:23:48 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 66.91ms
+2026-06-21 16:26:34 | INFO | app | → OPTIONS /producoes/preco-leite/3
+2026-06-21 16:26:34 | INFO | app | ← OPTIONS /producoes/preco-leite/3 | Status: 200 | 6.1ms
+2026-06-21 16:26:34 | INFO | app | → PUT /producoes/preco-leite/3
+2026-06-21 16:26:34 | INFO | producoes | Preço atualizado | id: 3 | usuário: 4
+2026-06-21 16:26:34 | INFO | app | ← PUT /producoes/preco-leite/3 | Status: 200 | 103.71ms
+2026-06-21 16:26:34 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:26:34 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:26:34 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 57.26ms
+2026-06-21 16:26:34 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:26:34 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 73.13ms
+2026-06-21 16:26:34 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:26:34 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 59.82ms
+2026-06-21 16:26:34 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 16:26:34 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 60.38ms
+2026-06-21 16:26:34 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:26:34 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 59.37ms
+2026-06-21 16:26:34 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 49.04ms
+2026-06-21 16:29:06 | INFO | app | → OPTIONS /producoes/relatorio/mensal
+2026-06-21 16:29:06 | INFO | app | ← OPTIONS /producoes/relatorio/mensal | Status: 200 | 1.63ms
+2026-06-21 16:29:06 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:29:06 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 401 | 34.98ms
+2026-06-21 16:29:06 | INFO | app | → OPTIONS /usuarios/refresh
+2026-06-21 16:29:06 | INFO | app | ← OPTIONS /usuarios/refresh | Status: 200 | 2.28ms
+2026-06-21 16:29:06 | INFO | app | → POST /usuarios/refresh
+2026-06-21 16:29:07 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 249.66ms
+2026-06-21 16:29:07 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 216, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 216, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+2026-06-21 16:29:19 | INFO | app | → OPTIONS /usuarios/login
+2026-06-21 16:29:19 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 3.67ms
+2026-06-21 16:29:19 | INFO | app | → POST /usuarios/login
+2026-06-21 16:29:20 | INFO | usuarios | Login realizado | email: otaviolisboa19@gmail.com
+2026-06-21 16:29:20 | INFO | app | ← POST /usuarios/login | Status: 200 | 1064.12ms
+2026-06-21 16:29:21 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-21 16:29:21 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 3.25ms
+2026-06-21 16:29:21 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:29:21 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 41.36ms
+2026-06-21 16:29:21 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-21 16:29:21 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 2.0ms
+2026-06-21 16:29:21 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-21 16:29:21 | INFO | app | → GET /dashboard/resumo
+2026-06-21 16:29:21 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 5.27ms
+2026-06-21 16:29:21 | INFO | app | → GET /dashboard/alertas
+2026-06-21 16:29:21 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-21 16:29:21 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-21 16:29:21 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 311.2ms
+2026-06-21 16:29:21 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 345.45ms
+2026-06-21 16:29:26 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:29:26 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:29:26 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 48.08ms
+2026-06-21 16:29:26 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 96.01ms
+2026-06-21 16:32:14 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:32:14 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 9.19ms
+2026-06-21 16:32:14 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:32:14 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 12.35ms
+2026-06-21 16:32:14 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:32:15 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:32:15 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 20.37ms
+2026-06-21 16:32:15 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 45.13ms
+2026-06-21 16:34:15 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:34:15 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 11.14ms
+2026-06-21 16:34:15 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:34:15 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 13.53ms
+2026-06-21 16:34:15 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-21 16:34:15 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 1.98ms
+2026-06-21 16:34:15 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:34:15 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:34:15 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 19.93ms
+2026-06-21 16:34:15 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 42.73ms
+2026-06-21 16:34:34 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:34:34 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 13.37ms
+2026-06-21 16:34:34 | INFO | app | → GET /usuarios/perfil
+2026-06-21 16:34:34 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 14.42ms
+2026-06-21 16:34:35 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 16:34:35 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 16:34:35 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 14.05ms
+2026-06-21 16:34:35 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 42.25ms
+2026-06-21 17:04:51 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-21 17:04:51 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 1.62ms
+2026-06-21 17:04:51 | INFO | app | → GET /usuarios/perfil
+2026-06-21 17:04:51 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 35.09ms
+2026-06-21 17:04:51 | INFO | app | → GET /usuarios/perfil
+2026-06-21 17:04:51 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 10.96ms
+2026-06-21 17:04:51 | INFO | app | → OPTIONS /usuarios/refresh
+2026-06-21 17:04:51 | INFO | app | ← OPTIONS /usuarios/refresh | Status: 200 | 4.13ms
+2026-06-21 17:04:51 | INFO | app | → POST /usuarios/refresh
+2026-06-21 17:04:51 | INFO | app | → POST /usuarios/refresh
+2026-06-21 17:04:51 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 169.57ms
+2026-06-21 17:04:51 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 216, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 216, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+2026-06-21 17:04:51 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 249.05ms
+2026-06-21 17:04:51 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 216, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 216, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+2026-06-21 17:35:48 | INFO | app | → OPTIONS /usuarios/login
+2026-06-21 17:35:48 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 36.23ms
+2026-06-21 17:35:49 | INFO | app | → POST /usuarios/login
+2026-06-21 17:35:50 | INFO | usuarios | Login realizado | email: otaviolisboa19@gmail.com
+2026-06-21 17:35:50 | INFO | app | ← POST /usuarios/login | Status: 200 | 1262.48ms
+2026-06-21 17:35:50 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-21 17:35:50 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 4.96ms
+2026-06-21 17:35:50 | INFO | app | → GET /usuarios/perfil
+2026-06-21 17:35:50 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 136.46ms
+2026-06-21 17:35:50 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-21 17:35:50 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 2.94ms
+2026-06-21 17:35:50 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-21 17:35:50 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 2.84ms
+2026-06-21 17:35:50 | INFO | app | → GET /dashboard/resumo
+2026-06-21 17:35:50 | INFO | app | → GET /dashboard/alertas
+2026-06-21 17:35:51 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-21 17:35:51 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 242.73ms
+2026-06-21 17:35:51 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-21 17:35:51 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 173.39ms
+2026-06-21 17:35:55 | INFO | app | → OPTIONS /producoes/relatorio/mensal
+2026-06-21 17:35:55 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-21 17:35:55 | INFO | app | ← OPTIONS /producoes/relatorio/mensal | Status: 200 | 4.88ms
+2026-06-21 17:35:55 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 5.67ms
+2026-06-21 17:35:55 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 17:35:55 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 17:35:55 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 72.1ms
+2026-06-21 17:35:55 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 121.69ms
+2026-06-21 17:41:42 | INFO | app | → OPTIONS /producoes/preco-leite/
+2026-06-21 17:41:42 | INFO | app | ← OPTIONS /producoes/preco-leite/ | Status: 200 | 6.47ms
+2026-06-21 17:41:42 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 17:41:43 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 34.95ms
+2026-06-21 17:41:45 | INFO | app | → OPTIONS /producoes/preco-leite/6
+2026-06-21 17:41:45 | INFO | app | ← OPTIONS /producoes/preco-leite/6 | Status: 200 | 3.08ms
+2026-06-21 17:41:45 | INFO | app | → DELETE /producoes/preco-leite/6
+2026-06-21 17:41:45 | INFO | producoes | Preço deletado | id: 6 | usuário: 4
+2026-06-21 17:41:45 | INFO | app | ← DELETE /producoes/preco-leite/6 | Status: 200 | 77.29ms
+2026-06-21 17:41:45 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 17:41:45 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 17:41:45 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 32.38ms
+2026-06-21 17:41:45 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 34.8ms
+2026-06-21 17:41:45 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 17:41:45 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 17:41:45 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 45.86ms
+2026-06-21 17:41:45 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 34.36ms
+2026-06-21 17:41:45 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 17:41:45 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 17:41:45 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 19.42ms
+2026-06-21 17:41:45 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 18.71ms
+2026-06-21 17:42:13 | INFO | app | → POST /producoes/preco-leite/
+2026-06-21 17:42:13 | INFO | producoes | Preço cadastrado | R$2.85/L | usuário: 4
+2026-06-21 17:42:13 | INFO | app | ← POST /producoes/preco-leite/ | Status: 200 | 58.05ms
+2026-06-21 17:42:13 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 17:42:13 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 17:42:13 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 31.28ms
+2026-06-21 17:42:13 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 17:42:13 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 46.82ms
+2026-06-21 17:42:13 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 17:42:13 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 40.01ms
+2026-06-21 17:42:13 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 17:42:13 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 49.82ms
+2026-06-21 17:42:13 | INFO | app | → GET /producoes/preco-leite/
+2026-06-21 17:42:13 | INFO | app | ← GET /producoes/preco-leite/ | Status: 200 | 16.13ms
+2026-06-21 17:42:13 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 117.07ms
