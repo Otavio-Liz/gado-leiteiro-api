@@ -21,15 +21,23 @@ roteador = APIRouter(
 
 # ─── Reprodução ──────────────────────────────────────────────────────────────
 
+def montar_resposta_reproducao(r):
+    """Converte um objeto Reproducao em ReproducaoResposta, preenchendo animal_nome."""
+    resposta = ReproducaoResposta.model_validate(r)
+    resposta.animal_nome = r.animal.nome if r.animal else None
+    return resposta
+
+
 @roteador.get("/", response_model=List[ReproducaoResposta])
 def listar_reproducoes(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
     try:
-        return banco.query(Reproducao).join(Animal).filter(
+        reproducoes = banco.query(Reproducao).join(Animal).filter(
             Animal.usuario_id == usuario.id
         ).order_by(Reproducao.data_cobertura.desc()).all()
+        return [montar_resposta_reproducao(r) for r in reproducoes]
     except Exception:
         logger_rep.error(f"Erro ao listar reproduções | usuário: {usuario.id}")
         raise HTTPException(
@@ -53,9 +61,10 @@ def listar_reproducoes_por_animal(
         ).first()
         if not animal:
             raise HTTPException(status_code=404, detail="Animal não encontrado.")
-        return banco.query(Reproducao).filter(
+        reproducoes = banco.query(Reproducao).filter(
             Reproducao.animal_id == animal_id
         ).order_by(Reproducao.data_cobertura.desc()).all()
+        return [montar_resposta_reproducao(r) for r in reproducoes]
     except HTTPException:
         raise
     except Exception:
@@ -108,7 +117,7 @@ def registrar_reproducao(
         banco.commit()
         banco.refresh(nova_reproducao)
         logger_rep.info(f"Reprodução registrada | animal: {dados.animal_id} | usuário: {usuario.id}")
-        return nova_reproducao
+        return montar_resposta_reproducao(nova_reproducao)
     except HTTPException:
         raise
     except Exception:
@@ -138,10 +147,27 @@ def atualizar_reproducao(
             raise HTTPException(status_code=404, detail="Registro reprodutivo não encontrado.")
         for campo, valor in dados.model_dump(exclude_unset=True).items():
             setattr(reproducao, campo, valor)
+
+        # Replica os mesmos efeitos colaterais do POST: se a cobertura mudou
+        # (ou já existia), recalcula parto previsto/período seco. Se o
+        # diagnóstico foi atualizado pra positivo, marca o animal como prenha.
+        # Sem isso, editar um registro pra adicionar diagnóstico ou corrigir
+        # a data de cobertura nunca refletia no animal.
+        if reproducao.data_cobertura:
+            data_prevista_parto = reproducao.data_cobertura + timedelta(days=283)
+            data_inicio_seco = data_prevista_parto - timedelta(days=60)
+            reproducao.data_prevista_parto = data_prevista_parto
+            reproducao.data_inicio_periodo_seco = data_inicio_seco
+            reproducao.animal.data_ultima_inseminacao = reproducao.data_cobertura
+            reproducao.animal.data_prevista_parto = data_prevista_parto
+
+        if reproducao.resultado_diagnostico == "positivo":
+            reproducao.animal.status_reprodutivo = "prenha"
+
         banco.commit()
         banco.refresh(reproducao)
         logger_rep.info(f"Reprodução atualizada | id: {reproducao_id} | usuário: {usuario.id}")
-        return reproducao
+        return montar_resposta_reproducao(reproducao)
     except HTTPException:
         raise
     except Exception:
