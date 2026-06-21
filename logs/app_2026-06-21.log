@@ -3119,3 +3119,235 @@ TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() arg
 2026-06-21 18:18:37 | INFO | app | → GET /relatorios/excel/rebanho
 2026-06-21 18:18:37 | INFO | relatorios | Excel rebanho gerado | usuário: 4
 2026-06-21 18:18:37 | INFO | app | ← GET /relatorios/excel/rebanho | Status: 200 | 87.59ms
+2026-06-21 18:27:00 | INFO | app | → OPTIONS /producoes/relatorio/mensal
+2026-06-21 18:27:00 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-21 18:27:00 | INFO | app | ← OPTIONS /producoes/relatorio/mensal | Status: 200 | 6.53ms
+2026-06-21 18:27:00 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 5.06ms
+2026-06-21 18:27:01 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-21 18:27:01 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:27:01 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 181.26ms
+2026-06-21 18:27:01 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 201.52ms
+2026-06-21 18:27:06 | INFO | app | → OPTIONS /reproducao/
+2026-06-21 18:27:06 | INFO | app | → OPTIONS /animais/
+2026-06-21 18:27:06 | INFO | app | ← OPTIONS /reproducao/ | Status: 200 | 4.09ms
+2026-06-21 18:27:06 | INFO | app | ← OPTIONS /animais/ | Status: 200 | 6.61ms
+2026-06-21 18:27:06 | INFO | app | → GET /animais/
+2026-06-21 18:27:06 | INFO | app | → GET /reproducao/
+2026-06-21 18:27:06 | INFO | app | ← GET /animais/ | Status: 200 | 178.64ms
+2026-06-21 18:27:06 | INFO | app | ← GET /reproducao/ | Status: 200 | 233.89ms
+2026-06-21 18:27:07 | INFO | app | → OPTIONS /reproducao/ocorrencias/abertas
+2026-06-21 18:27:07 | INFO | app | → OPTIONS /animais/ativos
+2026-06-21 18:27:07 | INFO | app | ← OPTIONS /reproducao/ocorrencias/abertas | Status: 200 | 3.17ms
+2026-06-21 18:27:07 | INFO | app | ← OPTIONS /animais/ativos | Status: 200 | 4.23ms
+2026-06-21 18:27:07 | INFO | app | → GET /reproducao/ocorrencias/abertas
+2026-06-21 18:27:07 | INFO | app | → GET /animais/ativos
+2026-06-21 18:27:07 | INFO | app | ← GET /animais/ativos | Status: 200 | 81.45ms
+2026-06-21 18:27:07 | INFO | app | ← GET /reproducao/ocorrencias/abertas | Status: 200 | 111.83ms
+2026-06-21 18:27:08 | INFO | app | → OPTIONS /medicamentos/
+2026-06-21 18:27:08 | INFO | app | ← OPTIONS /medicamentos/ | Status: 200 | 1.81ms
+2026-06-21 18:27:08 | INFO | app | → GET /medicamentos/
+2026-06-21 18:27:08 | INFO | app | ← GET /medicamentos/ | Status: 200 | 103.18ms
+2026-06-21 18:27:09 | INFO | app | → OPTIONS /vacinas/
+2026-06-21 18:27:09 | INFO | app | ← OPTIONS /vacinas/ | Status: 200 | 1.73ms
+2026-06-21 18:27:09 | INFO | app | → GET /vacinas/
+2026-06-21 18:27:09 | INFO | app | ← GET /vacinas/ | Status: 200 | 90.04ms
+2026-06-21 18:28:10 | INFO | app | → POST /vacinas/
+2026-06-21 18:28:11 | INFO | vacinas | Vacina criada | animal: 5 | usuário: 4
+2026-06-21 18:28:11 | INFO | app | ← POST /vacinas/ | Status: 200 | 169.72ms
+2026-06-21 18:28:11 | INFO | app | → GET /vacinas/
+2026-06-21 18:28:11 | INFO | app | → GET /animais/ativos
+2026-06-21 18:28:11 | INFO | app | ← GET /animais/ativos | Status: 200 | 57.29ms
+2026-06-21 18:28:11 | INFO | app | ← GET /vacinas/ | Status: 200 | 73.81ms
+2026-06-21 18:28:11 | INFO | app | → GET /animais/ativos
+2026-06-21 18:28:11 | INFO | app | → GET /vacinas/
+2026-06-21 18:28:11 | INFO | app | ← GET /animais/ativos | Status: 200 | 60.4ms
+2026-06-21 18:28:11 | INFO | app | ← GET /vacinas/ | Status: 200 | 57.29ms
+2026-06-21 18:28:42 | INFO | app | → OPTIONS /partos/
+2026-06-21 18:28:42 | INFO | app | ← OPTIONS /partos/ | Status: 200 | 1.78ms
+2026-06-21 18:28:42 | INFO | app | → GET /animais/
+2026-06-21 18:28:42 | INFO | app | → GET /partos/
+2026-06-21 18:28:42 | INFO | app | ← GET /animais/ | Status: 200 | 121.81ms
+2026-06-21 18:28:42 | INFO | app | ← GET /partos/ | Status: 200 | 133.94ms
+2026-06-21 18:28:43 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:28:43 | INFO | app | → OPTIONS /producoes/relatorio/diario
+2026-06-21 18:28:43 | INFO | app | ← OPTIONS /producoes/relatorio/diario | Status: 200 | 4.16ms
+2026-06-21 18:28:43 | INFO | app | → OPTIONS /producoes/
+2026-06-21 18:28:43 | INFO | app | ← OPTIONS /producoes/ | Status: 200 | 6.22ms
+2026-06-21 18:28:43 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:28:43 | INFO | app | → GET /producoes/
+2026-06-21 18:28:43 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 123.71ms
+2026-06-21 18:28:43 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 134.52ms
+2026-06-21 18:28:43 | INFO | app | ← GET /producoes/ | Status: 200 | 163.01ms
+2026-06-21 18:28:58 | INFO | app | → POST /producoes/
+2026-06-21 18:28:58 | INFO | producoes | Produção registrada | animal: 5 | usuário: 4
+2026-06-21 18:28:58 | INFO | app | ← POST /producoes/ | Status: 200 | 107.14ms
+2026-06-21 18:28:58 | INFO | app | → OPTIONS /animais/em-lactacao
+2026-06-21 18:28:58 | INFO | app | ← OPTIONS /animais/em-lactacao | Status: 200 | 6.73ms
+2026-06-21 18:28:58 | INFO | app | → GET /producoes/
+2026-06-21 18:28:58 | INFO | app | → GET /animais/em-lactacao
+2026-06-21 18:28:58 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:28:58 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:28:58 | INFO | app | → OPTIONS /animais/em-lactacao
+2026-06-21 18:28:58 | INFO | app | ← OPTIONS /animais/em-lactacao | Status: 200 | 17.94ms
+2026-06-21 18:28:58 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 132.43ms
+2026-06-21 18:28:58 | INFO | app | ← GET /producoes/ | Status: 200 | 151.6ms
+2026-06-21 18:28:58 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:28:58 | INFO | app | → GET /producoes/
+2026-06-21 18:28:58 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 175.01ms
+2026-06-21 18:28:58 | INFO | app | → GET /animais/em-lactacao
+2026-06-21 18:28:58 | INFO | app | ← GET /producoes/ | Status: 200 | 81.52ms
+2026-06-21 18:28:58 | INFO | app | → GET /producoes/
+2026-06-21 18:28:58 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 123.03ms
+2026-06-21 18:28:58 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:28:59 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 112.24ms
+2026-06-21 18:28:59 | INFO | app | → GET /animais/em-lactacao
+2026-06-21 18:28:59 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 323.53ms
+2026-06-21 18:28:59 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:28:59 | INFO | app | ← GET /producoes/ | Status: 200 | 104.58ms
+2026-06-21 18:28:59 | INFO | app | → GET /producoes/
+2026-06-21 18:28:59 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 102.68ms
+2026-06-21 18:28:59 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:28:59 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 122.0ms
+2026-06-21 18:28:59 | INFO | app | → GET /animais/em-lactacao
+2026-06-21 18:28:59 | INFO | app | ← GET /producoes/ | Status: 200 | 103.65ms
+2026-06-21 18:28:59 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 89.81ms
+2026-06-21 18:28:59 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 179.46ms
+2026-06-21 18:28:59 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:28:59 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 92.67ms
+2026-06-21 18:28:59 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 70.75ms
+2026-06-21 18:28:59 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:28:59 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 40.29ms
+2026-06-21 18:29:18 | INFO | app | → POST /producoes/
+2026-06-21 18:29:18 | INFO | producoes | Produção registrada | animal: 6 | usuário: 4
+2026-06-21 18:29:18 | INFO | app | ← POST /producoes/ | Status: 200 | 63.44ms
+2026-06-21 18:29:18 | INFO | app | → GET /animais/em-lactacao
+2026-06-21 18:29:18 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:29:18 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:29:18 | INFO | app | → GET /producoes/
+2026-06-21 18:29:18 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 82.58ms
+2026-06-21 18:29:18 | INFO | app | → GET /animais/em-lactacao
+2026-06-21 18:29:18 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 107.8ms
+2026-06-21 18:29:18 | INFO | app | ← GET /producoes/ | Status: 200 | 129.39ms
+2026-06-21 18:29:18 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:29:18 | INFO | app | → GET /producoes/
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 174.42ms
+2026-06-21 18:29:19 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:29:19 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 135.44ms
+2026-06-21 18:29:19 | INFO | app | → GET /animais/em-lactacao
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 109.62ms
+2026-06-21 18:29:19 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/ | Status: 200 | 121.82ms
+2026-06-21 18:29:19 | INFO | app | → GET /producoes/
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 150.84ms
+2026-06-21 18:29:19 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 120.26ms
+2026-06-21 18:29:19 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:29:19 | INFO | app | → GET /animais/em-lactacao
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 127.48ms
+2026-06-21 18:29:19 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/ | Status: 200 | 120.03ms
+2026-06-21 18:29:19 | INFO | app | → GET /producoes/
+2026-06-21 18:29:19 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 124.46ms
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 102.92ms
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/ | Status: 200 | 86.89ms
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 169.98ms
+2026-06-21 18:29:19 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-21 18:29:19 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 50.9ms
+2026-06-21 18:29:32 | INFO | app | → GET /partos/
+2026-06-21 18:29:32 | INFO | app | → GET /animais/
+2026-06-21 18:29:33 | INFO | app | ← GET /animais/ | Status: 200 | 37.26ms
+2026-06-21 18:29:33 | INFO | app | ← GET /partos/ | Status: 200 | 61.24ms
+2026-06-21 18:29:38 | INFO | app | → GET /vacinas/
+2026-06-21 18:29:38 | INFO | app | ← GET /vacinas/ | Status: 200 | 42.02ms
+2026-06-21 18:29:44 | INFO | app | → GET /medicamentos/
+2026-06-21 18:29:44 | INFO | app | ← GET /medicamentos/ | Status: 200 | 24.46ms
+2026-06-21 18:29:45 | INFO | app | → GET /reproducao/ocorrencias/abertas
+2026-06-21 18:29:45 | INFO | app | ← GET /reproducao/ocorrencias/abertas | Status: 200 | 44.71ms
+2026-06-21 18:29:47 | INFO | app | → GET /reproducao/
+2026-06-21 18:29:47 | INFO | app | → GET /animais/
+2026-06-21 18:29:47 | INFO | app | ← GET /animais/ | Status: 200 | 52.37ms
+2026-06-21 18:29:47 | INFO | app | ← GET /reproducao/ | Status: 200 | 70.17ms
+2026-06-21 18:29:54 | INFO | app | → GET /animais/
+2026-06-21 18:29:54 | INFO | app | ← GET /animais/ | Status: 200 | 17.57ms
+2026-06-21 18:33:30 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-21 18:33:30 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 7.81ms
+2026-06-21 18:33:30 | INFO | app | → PUT /usuarios/perfil
+2026-06-21 18:33:30 | INFO | usuarios | Perfil atualizado | email: otaviolisboa19@gmail.com
+2026-06-21 18:33:30 | INFO | app | ← PUT /usuarios/perfil | Status: 200 | 568.32ms
+2026-06-21 18:33:38 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:33:38 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 12.11ms
+2026-06-21 18:33:38 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:33:38 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 27.72ms
+2026-06-21 18:34:24 | INFO | app | → PUT /usuarios/perfil
+2026-06-21 18:34:26 | INFO | usuarios | Perfil atualizado | email: otaviolisboa19@gmail.com
+2026-06-21 18:34:26 | INFO | app | ← PUT /usuarios/perfil | Status: 200 | 1658.04ms
+2026-06-21 18:34:52 | INFO | app | → PUT /usuarios/perfil
+2026-06-21 18:34:53 | INFO | app | ← PUT /usuarios/perfil | Status: 400 | 793.48ms
+2026-06-21 18:36:38 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:36:38 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 33.16ms
+2026-06-21 18:36:38 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:36:39 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 81.32ms
+2026-06-21 18:36:39 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-21 18:36:39 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 7.16ms
+2026-06-21 18:36:39 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-21 18:36:39 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 5.97ms
+2026-06-21 18:36:39 | INFO | app | → GET /dashboard/resumo
+2026-06-21 18:36:39 | INFO | app | → GET /dashboard/alertas
+2026-06-21 18:36:39 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-21 18:36:39 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-21 18:36:39 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 577.4ms
+2026-06-21 18:36:39 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 543.27ms
+2026-06-21 18:38:25 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:38:26 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 415.04ms
+2026-06-21 18:38:26 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:38:26 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 9.21ms
+2026-06-21 18:38:43 | INFO | app | → PUT /usuarios/perfil
+2026-06-21 18:38:44 | INFO | app | ← PUT /usuarios/perfil | Status: 400 | 845.39ms
+2026-06-21 18:39:16 | INFO | app | → OPTIONS /usuarios/perfil/foto
+2026-06-21 18:39:16 | INFO | app | ← OPTIONS /usuarios/perfil/foto | Status: 200 | 2.06ms
+2026-06-21 18:39:16 | INFO | app | → POST /usuarios/perfil/foto
+2026-06-21 18:39:22 | INFO | usuarios | Foto de perfil atualizada | email: otaviolisboa19@gmail.com
+2026-06-21 18:39:22 | INFO | app | ← POST /usuarios/perfil/foto | Status: 200 | 5973.63ms
+2026-06-21 18:39:46 | INFO | app | → DELETE /usuarios/perfil/foto
+2026-06-21 18:39:46 | INFO | usuarios | Foto de perfil removida | email: otaviolisboa19@gmail.com
+2026-06-21 18:39:46 | INFO | app | ← DELETE /usuarios/perfil/foto | Status: 200 | 593.96ms
+2026-06-21 18:40:11 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:40:11 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 17.79ms
+2026-06-21 18:40:11 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:40:11 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 25.24ms
+2026-06-21 18:40:16 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:40:16 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 14.71ms
+2026-06-21 18:40:16 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:40:16 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 32.41ms
+2026-06-21 18:40:24 | INFO | app | → OPTIONS /usuarios/login
+2026-06-21 18:40:24 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 1.57ms
+2026-06-21 18:40:24 | INFO | app | → POST /usuarios/login
+2026-06-21 18:40:24 | INFO | usuarios | Login realizado | email: otaviolisboa19@gmail.com
+2026-06-21 18:40:24 | INFO | app | ← POST /usuarios/login | Status: 200 | 822.16ms
+2026-06-21 18:40:24 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:40:24 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 23.19ms
+2026-06-21 18:40:25 | INFO | app | → GET /dashboard/resumo
+2026-06-21 18:40:25 | INFO | app | → GET /dashboard/alertas
+2026-06-21 18:40:25 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-21 18:40:25 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 311.77ms
+2026-06-21 18:40:25 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-21 18:40:25 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 360.36ms
+2026-06-21 18:40:36 | INFO | app | → POST /usuarios/perfil/foto
+2026-06-21 18:40:37 | INFO | usuarios | Foto de perfil atualizada | email: otaviolisboa19@gmail.com
+2026-06-21 18:40:37 | INFO | app | ← POST /usuarios/perfil/foto | Status: 200 | 1374.5ms
+2026-06-21 18:42:26 | INFO | app | → PUT /usuarios/perfil
+2026-06-21 18:42:26 | INFO | usuarios | Perfil atualizado | email: otaviolisboa19@gmail.com
+2026-06-21 18:42:26 | INFO | app | ← PUT /usuarios/perfil | Status: 200 | 44.21ms
+2026-06-21 18:42:47 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:42:47 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 35.77ms
+2026-06-21 18:42:47 | INFO | app | → GET /usuarios/perfil
+2026-06-21 18:42:47 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 36.9ms
+2026-06-21 18:42:47 | INFO | app | → OPTIONS /animais/
+2026-06-21 18:42:47 | INFO | app | ← OPTIONS /animais/ | Status: 200 | 2.08ms
+2026-06-21 18:42:47 | INFO | app | → GET /animais/
+2026-06-21 18:42:47 | INFO | app | ← GET /animais/ | Status: 200 | 71.66ms
+2026-06-21 18:42:49 | INFO | app | → GET /dashboard/resumo
+2026-06-21 18:42:49 | INFO | app | → GET /dashboard/alertas
+2026-06-21 18:42:49 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-21 18:42:49 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 103.05ms
+2026-06-21 18:42:49 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-21 18:42:49 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 111.69ms

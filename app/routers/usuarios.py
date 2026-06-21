@@ -352,13 +352,21 @@ def atualizar_perfil(
     ).first():
         raise HTTPException(status_code=400, detail="E-mail já está em uso.")
 
+    if dados.senha:
+        if not dados.senha_atual:
+            raise HTTPException(status_code=400, detail="Informe sua senha atual para definir uma nova senha.")
+        if not verificar_senha(dados.senha_atual, usuario.senha_hash):
+            raise HTTPException(status_code=400, detail="Senha atual incorreta.")
+        if verificar_senha(dados.senha, usuario.senha_hash):
+            raise HTTPException(status_code=400, detail="A nova senha não pode ser igual à senha atual.")
+
     try:
         if dados.senha:
             usuario.senha_hash = gerar_hash_senha(dados.senha)
         if dados.nome is not None:
             usuario.nome = dados.nome
         if dados.email is not None:
-            usuario.email = dados.email.lower().strip()
+            usuario.email = dados.email  # já normalizado pelo schema (lower/strip)
 
         banco.commit()
         banco.refresh(usuario)

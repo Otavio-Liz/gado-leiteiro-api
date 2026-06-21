@@ -43,10 +43,22 @@ class LoginRequest(BaseModel):
 
 
 class UsuarioAtualizar(BaseModel):
-    nome:       Optional[str] = Field(default=None, min_length=2, max_length=150)
-    email:      Optional[EmailStr] = None
-    senha:      Optional[str] = Field(default=None, min_length=6, max_length=100)
-    foto_url:   Optional[str] = None
+    nome:        Optional[str] = Field(default=None, min_length=2, max_length=150)
+    email:       Optional[EmailStr] = None
+    senha_atual: Optional[str] = None
+    senha:       Optional[str] = Field(default=None, min_length=6, max_length=100)
+    foto_url:    Optional[str] = None
+
+    @field_validator("email")
+    @classmethod
+    def validar_email(cls, v):
+        # Mesma normalização de UsuarioCreate/LoginRequest — sem isso, a
+        # checagem de e-mail duplicado no router comparava o valor digitado
+        # sem normalizar, deixando passar duplicidade só por diferença de
+        # maiúscula/minúscula (ex: "JOAO@x.com" vs "joao@x.com" já existente).
+        if v is not None:
+            return v.lower().strip()
+        return v
 
     @field_validator("senha")
     @classmethod
