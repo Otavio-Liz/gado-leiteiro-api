@@ -39,7 +39,7 @@ class Ocorrencia(Base):
     id                  = Column(Integer, primary_key=True, index=True)
     animal_id           = Column(Integer, ForeignKey("animais.id"), nullable=False, index=True)
 
-    tipo                = Column(Enum("doenca", "exame", "acidente", "outro"), nullable=False, default="outro")
+    tipo                = Column(Enum("doenca", "lesao", "exame", "acidente", "comportamento", "outro"), nullable=False, default="outro")
     descricao           = Column(String(200), nullable=False)
     data_ocorrencia     = Column(Date, nullable=False, index=True)
     data_resolucao      = Column(Date, index=True)

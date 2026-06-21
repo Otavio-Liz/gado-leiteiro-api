@@ -98,8 +98,20 @@ class ReproducaoResposta(ReproducaoBase):
 
 
 # ─── Ocorrência Sanitária ─────────────────────────────────────────────────────
+#
+# Separada em Campos/Criar/Resposta (mesmo padrão de Partos/Vacinas/Medicamentos):
+# OcorrenciaResposta herda só de OcorrenciaCampos (sem validators de regra de
+# negócio), nunca de OcorrenciaCriar — assim um registro legado (ex: tipo
+# antigo, ou data_resolucao antes de data_ocorrencia por correção manual) não
+# derruba o GET com 500.
+#
+# TIPOS_OCORRENCIA: lista única, usada pelos dois validators abaixo e também
+# referenciada pelo router para validar o enum do banco em sincronia.
 
-class OcorrenciaBase(BaseModel):
+TIPOS_OCORRENCIA = ("doenca", "lesao", "exame", "acidente", "comportamento", "outro")
+
+
+class OcorrenciaCampos(BaseModel):
     animal_id:          int = Field(gt=0)
     tipo:               str = "outro"
     descricao:          str = Field(min_length=1, max_length=500)
@@ -111,12 +123,19 @@ class OcorrenciaBase(BaseModel):
     responsavel:        Optional[str] = Field(default=None, max_length=100)
     observacao:         Optional[str] = Field(default=None, max_length=500)
 
+
+class OcorrenciaCriar(OcorrenciaCampos):
+    """
+    Usado SOMENTE na criação (POST). Validações de data como field_validators
+    individuais (não model_validator) para que cada erro aponte para o campo
+    certo no loc[] do Pydantic.
+    """
+
     @field_validator("tipo")
     @classmethod
     def validar_tipo(cls, v):
-        opcoes = ("doenca", "exame", "acidente", "outro")
-        if v not in opcoes:
-            raise ValueError(f"Tipo deve ser um de: {opcoes}")
+        if v not in TIPOS_OCORRENCIA:
+            raise ValueError(f"Tipo deve ser um de: {TIPOS_OCORRENCIA}")
         return v
 
     @field_validator("dias_afastamento")
@@ -126,18 +145,34 @@ class OcorrenciaBase(BaseModel):
             raise ValueError("Dias de afastamento não pode ser negativo")
         return v
 
-    @model_validator(mode="after")
-    def validar_data_resolucao(self):
-        if self.data_resolucao and self.data_ocorrencia and self.data_resolucao < self.data_ocorrencia:
-            raise ValueError("Data de resolução não pode ser antes da data da ocorrência")
-        return self
+    @field_validator("data_ocorrencia")
+    @classmethod
+    def validar_data_nao_futura(cls, v):
+        if v > date.today():
+            raise ValueError("Data da ocorrência não pode ser no futuro.")
+        return v
 
-
-class OcorrenciaCriar(OcorrenciaBase):
-    pass
+    @field_validator("data_resolucao")
+    @classmethod
+    def validar_data_resolucao(cls, v, info):
+        # data_ocorrencia está declarada antes de data_resolucao em
+        # OcorrenciaCampos, então já está disponível em info.data.
+        data_ocorrencia = info.data.get("data_ocorrencia")
+        if v and data_ocorrencia and v < data_ocorrencia:
+            raise ValueError("Data de resolução não pode ser antes da data da ocorrência.")
+        if v and v > date.today():
+            raise ValueError("Data de resolução não pode ser no futuro.")
+        return v
 
 
 class OcorrenciaAtualizar(BaseModel):
+    """
+    Usado na edição (PUT). Todos os campos opcionais — por isso a validação
+    cruzada de datas usa model_validator aqui (mesmo critério adotado em
+    VacinaAtualizar): como ambos os campos podem não vir no corpo da
+    requisição, um field_validator individual não teria como comparar os
+    dois de forma confiável.
+    """
     tipo:               Optional[str] = None
     descricao:          Optional[str] = Field(default=None, min_length=1, max_length=500)
     data_ocorrencia:    Optional[date] = None
@@ -151,10 +186,8 @@ class OcorrenciaAtualizar(BaseModel):
     @field_validator("tipo")
     @classmethod
     def validar_tipo(cls, v):
-        if v is not None:
-            opcoes = ("doenca", "exame", "acidente", "outro")
-            if v not in opcoes:
-                raise ValueError(f"Tipo deve ser um de: {opcoes}")
+        if v is not None and v not in TIPOS_OCORRENCIA:
+            raise ValueError(f"Tipo deve ser um de: {TIPOS_OCORRENCIA}")
         return v
 
     @field_validator("dias_afastamento")
@@ -168,11 +201,25 @@ class OcorrenciaAtualizar(BaseModel):
     def validar_data_resolucao(self):
         if self.data_resolucao and self.data_ocorrencia and self.data_resolucao < self.data_ocorrencia:
             raise ValueError("Data de resolução não pode ser antes da data da ocorrência")
+        if self.data_resolucao and self.data_resolucao > date.today():
+            raise ValueError("Data de resolução não pode ser no futuro")
         return self
 
 
-class OcorrenciaResposta(OcorrenciaBase):
+class OcorrenciaResposta(OcorrenciaCampos):
+    """
+    Usado para SERIALIZAR ocorrências já existentes (GET, retorno de
+    POST/PUT). Herda apenas de OcorrenciaCampos — nunca de OcorrenciaCriar.
+
+    animal_nome e resolvida são preenchidos pelo router (montar_resposta_ocorrencia):
+    - animal_nome vem do relacionamento ocorrencia.animal.
+    - resolvida é derivado de data_resolucao ser ou não nula — não existe
+      coluna "resolvida" no banco, o status é sempre calculado a partir da
+      data, para nunca haver duas fontes de verdade desincronizadas.
+    """
     id:             int
+    animal_nome:    Optional[str] = None
+    resolvida:      bool = False
     criado_em:      Optional[datetime] = None
     atualizado_em:  Optional[datetime] = None
 

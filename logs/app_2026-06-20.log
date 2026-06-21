@@ -905,3 +905,69 @@ TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() arg
 2026-06-20 21:36:47 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 520.29ms
 2026-06-20 21:36:47 | INFO | dashboard | Alertas consultados | usuário: 4
 2026-06-20 21:36:47 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 497.98ms
+2026-06-20 21:48:40 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-20 21:48:40 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-20 21:48:40 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 30.19ms
+2026-06-20 21:48:40 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 17.86ms
+2026-06-20 21:48:40 | INFO | app | → GET /dashboard/alertas
+2026-06-20 21:48:40 | INFO | app | → GET /dashboard/resumo
+2026-06-20 21:48:40 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-20 21:48:40 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 423.89ms
+2026-06-20 21:48:40 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-20 21:48:40 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 437.02ms
+2026-06-20 21:48:42 | INFO | app | → OPTIONS /animais/
+2026-06-20 21:48:42 | INFO | app | ← OPTIONS /animais/ | Status: 200 | 1.32ms
+2026-06-20 21:48:42 | INFO | app | → GET /animais/
+2026-06-20 21:48:42 | INFO | app | ← GET /animais/ | Status: 200 | 119.56ms
+2026-06-20 21:48:45 | INFO | app | → OPTIONS /animais/em-lactacao
+2026-06-20 21:48:45 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-20 21:48:45 | INFO | app | ← OPTIONS /animais/em-lactacao | Status: 200 | 5.83ms
+2026-06-20 21:48:45 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 9.66ms
+2026-06-20 21:48:45 | INFO | app | → OPTIONS /producoes/relatorio/diario
+2026-06-20 21:48:45 | INFO | app | → OPTIONS /producoes/
+2026-06-20 21:48:45 | INFO | app | → GET /animais/em-lactacao
+2026-06-20 21:48:45 | INFO | app | ← OPTIONS /producoes/relatorio/diario | Status: 200 | 22.3ms
+2026-06-20 21:48:45 | INFO | app | ← OPTIONS /producoes/ | Status: 200 | 23.91ms
+2026-06-20 21:48:45 | INFO | app | → GET /producoes/relatorio/diario
+2026-06-20 21:48:45 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-20 21:48:45 | INFO | app | → GET /producoes/
+2026-06-20 21:48:45 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 176.23ms
+2026-06-20 21:48:45 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 158.58ms
+2026-06-20 21:48:45 | INFO | app | ← GET /producoes/ | Status: 200 | 141.63ms
+2026-06-20 21:48:45 | INFO | app | ← GET /producoes/relatorio/diario | Status: 200 | 183.83ms
+2026-06-20 21:48:46 | INFO | app | → OPTIONS /partos/
+2026-06-20 21:48:46 | INFO | app | → GET /animais/
+2026-06-20 21:48:46 | INFO | app | ← OPTIONS /partos/ | Status: 200 | 4.87ms
+2026-06-20 21:48:46 | INFO | app | → GET /partos/
+2026-06-20 21:48:46 | INFO | app | ← GET /animais/ | Status: 200 | 71.53ms
+2026-06-20 21:48:46 | INFO | app | ← GET /partos/ | Status: 200 | 109.11ms
+2026-06-20 21:48:51 | INFO | app | → OPTIONS /vacinas/
+2026-06-20 21:48:51 | INFO | app | ← OPTIONS /vacinas/ | Status: 200 | 1.87ms
+2026-06-20 21:48:51 | INFO | app | → GET /vacinas/
+2026-06-20 21:48:51 | INFO | app | ← GET /vacinas/ | Status: 200 | 61.25ms
+2026-06-20 21:48:53 | INFO | app | → OPTIONS /medicamentos/
+2026-06-20 21:48:53 | INFO | app | ← OPTIONS /medicamentos/ | Status: 200 | 1.51ms
+2026-06-20 21:48:53 | INFO | app | → GET /medicamentos/
+2026-06-20 21:48:53 | INFO | app | ← GET /medicamentos/ | Status: 200 | 54.64ms
+2026-06-20 21:48:58 | INFO | app | → OPTIONS /reproducao/ocorrencias/abertas
+2026-06-20 21:48:58 | INFO | app | ← OPTIONS /reproducao/ocorrencias/abertas | Status: 200 | 2.2ms
+2026-06-20 21:48:58 | INFO | app | → GET /reproducao/ocorrencias/abertas
+2026-06-20 21:48:58 | INFO | app | ← GET /reproducao/ocorrencias/abertas | Status: 200 | 115.36ms
+2026-06-20 21:49:03 | INFO | app | → OPTIONS /reproducao/
+2026-06-20 21:49:03 | INFO | app | ← OPTIONS /reproducao/ | Status: 200 | 1.53ms
+2026-06-20 21:49:03 | INFO | app | → GET /reproducao/
+2026-06-20 21:49:03 | INFO | app | ← GET /reproducao/ | Status: 200 | 121.22ms
+2026-06-20 21:49:03 | INFO | app | → OPTIONS /producoes/relatorio/mensal
+2026-06-20 21:49:03 | INFO | app | ← OPTIONS /producoes/relatorio/mensal | Status: 200 | 2.73ms
+2026-06-20 21:49:03 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-20 21:49:03 | INFO | app | → GET /producoes/relatorio/mensal
+2026-06-20 21:49:04 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 57.64ms
+2026-06-20 21:49:04 | INFO | app | ← GET /producoes/relatorio/mensal | Status: 200 | 88.42ms
+2026-06-20 21:49:15 | INFO | app | → OPTIONS /producoes/preco-leite/
+2026-06-20 21:49:15 | INFO | app | ← OPTIONS /producoes/preco-leite/ | Status: 200 | 2.2ms
+2026-06-20 21:49:15 | INFO | app | → POST /producoes/preco-leite/
+2026-06-20 21:49:15 | WARNING | app | Erro de validação | POST /producoes/preco-leite/ | 2 erro(s)
+2026-06-20 21:49:15 | INFO | app | ← POST /producoes/preco-leite/ | Status: 422 | 45.15ms
+2026-06-20 21:49:21 | INFO | app | → POST /producoes/preco-leite/
+2026-06-20 21:49:21 | WARNING | app | Erro de validação | POST /producoes/preco-leite/ | 2 erro(s)
+2026-06-20 21:49:21 | INFO | app | ← POST /producoes/preco-leite/ | Status: 422 | 22.39ms

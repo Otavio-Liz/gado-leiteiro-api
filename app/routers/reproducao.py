@@ -10,7 +10,7 @@ from app.schemas.reproducao import (
 from app.auth import pegar_usuario_atual
 from app.models.usuario import Usuario
 from app.logger import logger_rep
-from datetime import date, timedelta
+from datetime import timedelta
 from typing import List
 
 roteador = APIRouter(
@@ -185,15 +185,29 @@ def deletar_reproducao(
 
 # ─── Ocorrências Sanitárias ───────────────────────────────────────────────────
 
+def montar_resposta_ocorrencia(o):
+    """
+    Converte um objeto Ocorrencia (SQLAlchemy) em OcorrenciaResposta,
+    preenchendo animal_nome a partir do relacionamento ocorrencia.animal e
+    resolvida a partir de data_resolucao (não existe coluna "resolvida" no
+    banco — o status é sempre derivado da data).
+    """
+    resposta = OcorrenciaResposta.model_validate(o)
+    resposta.animal_nome = o.animal.nome if o.animal else None
+    resposta.resolvida = o.data_resolucao is not None
+    return resposta
+
+
 @roteador.get("/ocorrencias/", response_model=List[OcorrenciaResposta])
 def listar_ocorrencias(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
     try:
-        return banco.query(Ocorrencia).join(Animal).filter(
+        ocorrencias = banco.query(Ocorrencia).join(Animal).filter(
             Animal.usuario_id == usuario.id
         ).order_by(Ocorrencia.data_ocorrencia.desc()).all()
+        return [montar_resposta_ocorrencia(o) for o in ocorrencias]
     except Exception:
         logger_rep.error(f"Erro ao listar ocorrências | usuário: {usuario.id}")
         raise HTTPException(
@@ -208,10 +222,11 @@ def listar_ocorrencias_abertas(
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
     try:
-        return banco.query(Ocorrencia).join(Animal).filter(
+        ocorrencias = banco.query(Ocorrencia).join(Animal).filter(
             Animal.usuario_id == usuario.id,
             Ocorrencia.data_resolucao.is_(None)
         ).order_by(Ocorrencia.data_ocorrencia.desc()).all()
+        return [montar_resposta_ocorrencia(o) for o in ocorrencias]
     except Exception:
         logger_rep.error(f"Erro ao listar ocorrências abertas | usuário: {usuario.id}")
         raise HTTPException(
@@ -235,9 +250,10 @@ def listar_ocorrencias_por_animal(
         ).first()
         if not animal:
             raise HTTPException(status_code=404, detail="Animal não encontrado.")
-        return banco.query(Ocorrencia).filter(
+        ocorrencias = banco.query(Ocorrencia).filter(
             Ocorrencia.animal_id == animal_id
         ).order_by(Ocorrencia.data_ocorrencia.desc()).all()
+        return [montar_resposta_ocorrencia(o) for o in ocorrencias]
     except HTTPException:
         raise
     except Exception:
@@ -261,17 +277,12 @@ def registrar_ocorrencia(
         ).first()
         if not animal:
             raise HTTPException(status_code=404, detail="Animal não encontrado.")
-        if dados.data_ocorrencia > date.today():
-            raise HTTPException(
-                status_code=400,
-                detail="Data da ocorrência não pode ser no futuro."
-            )
         nova_ocorrencia = Ocorrencia(**dados.model_dump())
         banco.add(nova_ocorrencia)
         banco.commit()
         banco.refresh(nova_ocorrencia)
         logger_rep.info(f"Ocorrência registrada | animal: {dados.animal_id} | usuário: {usuario.id}")
-        return nova_ocorrencia
+        return montar_resposta_ocorrencia(nova_ocorrencia)
     except HTTPException:
         raise
     except Exception:
@@ -304,7 +315,7 @@ def atualizar_ocorrencia(
         banco.commit()
         banco.refresh(ocorrencia)
         logger_rep.info(f"Ocorrência atualizada | id: {ocorrencia_id} | usuário: {usuario.id}")
-        return ocorrencia
+        return montar_resposta_ocorrencia(ocorrencia)
     except HTTPException:
         raise
     except Exception:
