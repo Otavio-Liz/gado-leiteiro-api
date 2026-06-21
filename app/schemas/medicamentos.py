@@ -8,8 +8,13 @@ UNIDADES_VALIDAS = ("dose", "ml", "mg", "g", "comprimido", "frasco")
 
 
 # ─── Medicamento (Estoque) ───────────────────────────────────────────────────
+#
+# Separado em Campos/Criar/Resposta: MedicamentoResposta herda de
+# MedicamentoCampos (só estrutura, sem validators de regra de negócio),
+# nunca de MedicamentoCriar — assim um registro legado com dado
+# inconsistente não derruba o GET com 500.
 
-class MedicamentoBase(BaseModel):
+class MedicamentoCampos(BaseModel):
     nome:               str = Field(min_length=1, max_length=100)
     principio_ativo:    Optional[str] = Field(default=None, max_length=100)
     fabricante:         Optional[str] = Field(default=None, max_length=100)
@@ -19,6 +24,8 @@ class MedicamentoBase(BaseModel):
     unidade:            str = "dose"
     observacao:         Optional[str] = Field(default=None, max_length=500)
 
+
+class MedicamentoCriar(MedicamentoCampos):
     @field_validator("dias_carencia")
     @classmethod
     def validar_carencia(cls, v):
@@ -39,10 +46,6 @@ class MedicamentoBase(BaseModel):
         if v not in UNIDADES_VALIDAS:
             raise ValueError(f"Unidade deve ser uma de: {UNIDADES_VALIDAS}")
         return v
-
-
-class MedicamentoCriar(MedicamentoBase):
-    pass
 
 
 class MedicamentoAtualizar(BaseModel):
@@ -77,7 +80,7 @@ class MedicamentoAtualizar(BaseModel):
         return v
 
 
-class MedicamentoResposta(MedicamentoBase):
+class MedicamentoResposta(MedicamentoCampos):
     id:             int
     usuario_id:     int
     criado_em:      Optional[datetime] = None
@@ -101,14 +104,17 @@ class MedicamentoAlerta(BaseModel):
 
 # ─── Aplicação de Medicamento (por animal) ───────────────────────────────────
 
-class AplicacaoMedicamentoBase(BaseModel):
+class AplicacaoMedicamentoCampos(BaseModel):
     animal_id:      int = Field(gt=0)
     medicamento_id: int = Field(gt=0)
     data_aplicacao: date
     dose_aplicada:  Decimal
     motivo:         Optional[str] = Field(default=None, max_length=200)
+    responsavel:    Optional[str] = Field(default=None, max_length=100)
     observacao:     Optional[str] = Field(default=None, max_length=500)
 
+
+class AplicacaoMedicamentoCriar(AplicacaoMedicamentoCampos):
     @field_validator("dose_aplicada")
     @classmethod
     def validar_dose(cls, v):
@@ -116,15 +122,19 @@ class AplicacaoMedicamentoBase(BaseModel):
             raise ValueError("Dose aplicada deve ser maior que zero")
         return v
 
-
-class AplicacaoMedicamentoCriar(AplicacaoMedicamentoBase):
-    pass
+    @field_validator("data_aplicacao")
+    @classmethod
+    def validar_data_nao_futura(cls, v):
+        if v > date.today():
+            raise ValueError("Data de aplicação não pode ser no futuro")
+        return v
 
 
 class AplicacaoMedicamentoAtualizar(BaseModel):
     data_aplicacao: Optional[date] = None
     dose_aplicada:  Optional[Decimal] = None
     motivo:         Optional[str] = Field(default=None, max_length=200)
+    responsavel:    Optional[str] = Field(default=None, max_length=100)
     observacao:     Optional[str] = Field(default=None, max_length=500)
 
     @field_validator("dose_aplicada")
@@ -135,11 +145,13 @@ class AplicacaoMedicamentoAtualizar(BaseModel):
         return v
 
 
-class AplicacaoMedicamentoResposta(AplicacaoMedicamentoBase):
+class AplicacaoMedicamentoResposta(AplicacaoMedicamentoCampos):
     id:                     int
     dias_carencia:          int
     carencia_encerra_em:    Optional[date] = None
     criado_em:              Optional[datetime] = None
+    animal_nome:            Optional[str] = None
+    medicamento_nome:       Optional[str] = None
 
     class Config:
         from_attributes = True

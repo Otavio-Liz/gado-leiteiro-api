@@ -30,8 +30,11 @@ def validar_parto(dados, banco, usuario_id, parto_id=None):
             status_code=400,
             detail=f"Animal está '{animal.status}' e não pode ter partos registrados."
         )
-    if dados.data_parto > date.today():
-        raise HTTPException(status_code=400, detail="Data do parto não pode ser no futuro.")
+
+    # Nota: a checagem de "data não pode ser no futuro" foi movida para
+    # app/schemas/partos.py (field_validator de data_parto), pois é uma
+    # regra pura de campo que não depende de consulta ao banco. Não
+    # duplicar aqui.
 
     query = banco.query(Parto).filter(Parto.animal_id == dados.animal_id)
     if parto_id:
@@ -52,15 +55,88 @@ def validar_parto(dados, banco, usuario_id, parto_id=None):
     return animal
 
 
+def validar_brinco_cria_disponivel(brinco_cria, banco, usuario_id):
+    """
+    Checa duplicidade de brinco_cria contra a tabela Animal, usando a mesma
+    regra de unicidade de brinco já aplicada em validar_animal (animais.py).
+    Só é chamada quando status_cria == "vivo" (cria vai se tornar um Animal).
+    Existe também um índice único no banco (ix_animais_usuario_brinco) como
+    segunda linha de defesa, caso esta checagem deixe passar por algum motivo.
+    """
+    existente = banco.query(Animal).filter(
+        Animal.brinco == brinco_cria,
+        Animal.usuario_id == usuario_id
+    ).first()
+    if existente:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Já existe um animal com o brinco '{brinco_cria}' cadastrado."
+        )
+
+
+def validar_dados_cria_viva(parto):
+    """
+    Se a cria nasceu viva, ela vai se tornar um Animal de verdade (ver
+    criar_animal_a_partir_da_cria), e Animal exige brinco+sexo. Nome é
+    opcional — se não informado, o Animal é criado com nome "Brinco {brinco}".
+    """
+    if parto.status_cria != "vivo":
+        return
+
+    erros = []
+    if not parto.brinco_cria or not parto.brinco_cria.strip():
+        erros.append({"campo": "brinco_cria", "mensagem": "Brinco da cria é obrigatório quando a cria está viva."})
+    if not parto.sexo_cria:
+        erros.append({"campo": "sexo_cria", "mensagem": "Sexo da cria é obrigatório quando a cria está viva."})
+
+    if erros:
+        raise HTTPException(status_code=400, detail=erros)
+
+
+def montar_resposta_parto(parto):
+    """
+    Converte um objeto Parto (SQLAlchemy) em PartoResposta, preenchendo
+    animal_nome e animal_foto_url a partir do relacionamento parto.animal
+    (a mãe) — campos que não existem na tabela partos e por isso não vêm
+    automaticamente via from_attributes.
+    """
+    resposta = PartoResposta.model_validate(parto)
+    resposta.animal_nome = parto.animal.nome if parto.animal else None
+    resposta.animal_foto_url = parto.animal.foto_url if parto.animal else None
+    return resposta
+
+
+def criar_animal_a_partir_da_cria(parto, animal_mae, usuario_id):
+    """
+    Monta (sem persistir ainda) o registro de Animal correspondente à cria
+    nascida viva. Nome é opcional: se não informado, usa "Brinco {brinco}"
+    como nome padrão, que o usuário pode editar depois em Animais.jsx.
+    """
+    nome = parto.nome_cria.strip() if parto.nome_cria and parto.nome_cria.strip() else f"Brinco {parto.brinco_cria}"
+    return Animal(
+        usuario_id=usuario_id,
+        nome=nome,
+        brinco=parto.brinco_cria,
+        sexo=parto.sexo_cria,
+        nascimento=parto.data_parto,
+        nome_mae=animal_mae.nome,
+        peso_kg=parto.peso_cria_kg,
+        status="ativo",
+        status_reprodutivo="nao_aplicavel",
+        quantidade_partos=0,
+    )
+
+
 @roteador.get("/", response_model=List[PartoResposta])
 def listar_partos(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
     try:
-        return banco.query(Parto).join(Animal).filter(
+        partos = banco.query(Parto).join(Animal).filter(
             Animal.usuario_id == usuario.id
         ).all()
+        return [montar_resposta_parto(p) for p in partos]
     except Exception:
         logger_partos.error(f"Erro ao listar partos | usuário: {usuario.id}")
         raise HTTPException(
@@ -119,9 +195,10 @@ def listar_partos_por_animal(
         ).first()
         if not animal:
             raise HTTPException(status_code=404, detail="Animal não encontrado.")
-        return banco.query(Parto).filter(
+        partos = banco.query(Parto).filter(
             Parto.animal_id == animal_id
         ).order_by(Parto.data_parto.desc()).all()
+        return [montar_resposta_parto(p) for p in partos]
     except HTTPException:
         raise
     except Exception:
@@ -139,7 +216,19 @@ def criar_parto(
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
     try:
-        animal = validar_parto(parto, banco, usuario.id)
+        animal_mae = validar_parto(parto, banco, usuario.id)
+
+        # Se a cria nasceu viva, ela se torna um Animal de verdade no
+        # sistema. Primeiro confirma que os dados mínimos exigidos por
+        # Animal estão presentes; só então checa duplicidade de brinco
+        # (evita uma consulta ao banco desnecessária se já vai falhar
+        # por dados incompletos).
+        novo_animal_cria = None
+        if parto.status_cria == "vivo":
+            validar_dados_cria_viva(parto)
+            validar_brinco_cria_disponivel(parto.brinco_cria, banco, usuario.id)
+            novo_animal_cria = criar_animal_a_partir_da_cria(parto, animal_mae, usuario.id)
+
         carencia_encerra_em = parto.data_parto + timedelta(days=parto.dias_carencia_colostro)
 
         novo_parto = Parto(
@@ -148,15 +237,33 @@ def criar_parto(
         )
         banco.add(novo_parto)
 
-        animal.status_reprodutivo = "em_lactacao"
-        animal.data_prevista_parto = None
-        animal.dias_em_lactacao = 0
+        if novo_animal_cria is not None:
+            banco.add(novo_animal_cria)
 
+        # Atualização automática dos dados reprodutivos da mãe ao parir.
+        animal_mae.status_reprodutivo = "em_lactacao"
+        animal_mae.data_prevista_parto = None
+        animal_mae.dias_em_lactacao = 0
+        animal_mae.quantidade_partos = (animal_mae.quantidade_partos or 0) + 1
+        animal_mae.data_ultimo_parto = parto.data_parto
+
+        # Um único commit: parto, animal-cria (se houver) e atualização
+        # da mãe são salvos atomicamente. Se algo falhar antes deste
+        # ponto, nada foi persistido ainda.
         banco.commit()
         banco.refresh(novo_parto)
-        logger_partos.info(f"Parto registrado | animal: {parto.animal_id} | usuário: {usuario.id}")
-        return novo_parto
+
+        if novo_animal_cria is not None:
+            logger_partos.info(
+                f"Parto registrado com cria viva | animal_mae: {parto.animal_id} | "
+                f"brinco_cria: {parto.brinco_cria} | usuário: {usuario.id}"
+            )
+        else:
+            logger_partos.info(f"Parto registrado | animal: {parto.animal_id} | usuário: {usuario.id}")
+
+        return montar_resposta_parto(novo_parto)
     except HTTPException:
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()
@@ -196,8 +303,9 @@ def atualizar_parto(
         banco.commit()
         banco.refresh(parto)
         logger_partos.info(f"Parto atualizado | id: {parto_id} | usuário: {usuario.id}")
-        return parto
+        return montar_resposta_parto(parto)
     except HTTPException:
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()

@@ -1,3 +1,7 @@
+# ─── Carrega variáveis de ambiente ANTES de qualquer import ──────────────────
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,7 +12,6 @@ from jose import JWTError
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
-from dotenv import load_dotenv
 import time
 import os
 
@@ -25,8 +28,6 @@ from app.erros import (
 from app.logger import logger_app
 from app.limitador import limitador
 
-load_dotenv()
-
 # ─── Origens permitidas ───────────────────────────────────────────────────────
 
 AMBIENTE = os.getenv("AMBIENTE", "development")
@@ -37,7 +38,6 @@ if AMBIENTE == "production":
     if not ORIGENS_PERMITIDAS:
         raise RuntimeError("ALLOWED_ORIGINS não definido para ambiente de produção.")
 else:
-    # Em desenvolvimento libera tudo para facilitar testes
     ORIGENS_PERMITIDAS = ["*"]
 
 # ─── Aplicação ────────────────────────────────────────────────────────────────

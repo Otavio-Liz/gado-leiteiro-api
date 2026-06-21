@@ -26,12 +26,12 @@ MAX_TENTATIVAS = 5
 TEMPO_BLOQUEIO_MINUTOS = 15
 
 
-def registrar_tentativa_falha(username: str):
+def registrar_tentativa_falha(email: str):
     agora = datetime.now(timezone.utc)
-    if username not in _tentativas_login:
-        _tentativas_login[username] = {"tentativas": 0, "bloqueado_ate": None}
+    if email not in _tentativas_login:
+        _tentativas_login[email] = {"tentativas": 0, "bloqueado_ate": None}
 
-    entrada = _tentativas_login[username]
+    entrada = _tentativas_login[email]
 
     if entrada["bloqueado_ate"] and agora > entrada["bloqueado_ate"]:
         entrada["tentativas"] = 0
@@ -43,11 +43,11 @@ def registrar_tentativa_falha(username: str):
         entrada["bloqueado_ate"] = agora + timedelta(minutes=TEMPO_BLOQUEIO_MINUTOS)
 
 
-def verificar_bloqueio(username: str):
-    if username not in _tentativas_login:
+def verificar_bloqueio(email: str):
+    if email not in _tentativas_login:
         return
 
-    entrada = _tentativas_login[username]
+    entrada = _tentativas_login[email]
     agora = datetime.now(timezone.utc)
 
     if entrada["bloqueado_ate"] and agora < entrada["bloqueado_ate"]:
@@ -58,15 +58,15 @@ def verificar_bloqueio(username: str):
         )
 
 
-def resetar_tentativas(username: str):
-    if username in _tentativas_login:
-        del _tentativas_login[username]
+def resetar_tentativas(email: str):
+    if email in _tentativas_login:
+        del _tentativas_login[email]
 
 
-def tentativas_restantes(username: str) -> int:
-    if username not in _tentativas_login:
+def tentativas_restantes(email: str) -> int:
+    if email not in _tentativas_login:
         return MAX_TENTATIVAS
-    entrada = _tentativas_login[username]
+    entrada = _tentativas_login[email]
     return max(0, MAX_TENTATIVAS - entrada["tentativas"])
 
 
@@ -101,16 +101,16 @@ def pegar_usuario_atual(
     banco: Session = Depends(pegar_banco)
 ):
     from app.models.usuario import Usuario
-    username = verificar_token(token, tipo="access")
-    if username is None:
+    email = verificar_token(token, tipo="access")
+    if email is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Token inválido ou expirado",
             headers={"WWW-Authenticate": "Bearer"}
         )
-    usuario = banco.query(Usuario).filter(Usuario.username == username).first()
+    usuario = banco.query(Usuario).filter(Usuario.email == email).first()
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
     if not usuario.ativo:
-        raise HTTPException(status_code=403, detail="Usuário desativado")
+        raise HTTPException(status_code=403, detail="Usuário desativado ou email não verificado")
     return usuario

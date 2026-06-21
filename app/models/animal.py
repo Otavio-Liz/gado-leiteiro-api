@@ -33,6 +33,8 @@ class Animal(Base):
     data_ultima_inseminacao = Column(Date)
     data_prevista_parto     = Column(Date)
     dias_em_lactacao        = Column(Integer, default=0)
+    quantidade_partos       = Column(Integer, nullable=False, default=0)
+    data_ultimo_parto       = Column(Date)
 
     # Informações adicionais
     peso_kg             = Column(Integer)

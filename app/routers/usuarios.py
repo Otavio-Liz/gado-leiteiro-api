@@ -1,9 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Request
-from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+from datetime import datetime, timedelta
 from app.database import pegar_banco
 from app.models.usuario import Usuario
-from app.schemas.usuarios import UsuarioCreate, UsuarioResponse, UsuarioAtualizar
+from app.schemas.usuarios import (
+    UsuarioCreate, UsuarioResponse, UsuarioAtualizar, LoginRequest,
+    EsqueciSenhaRequest, RedefinirSenhaRequest,
+    VerificarCodigoRequest, ReenviarConfirmacaoRequest
+)
 from app.security import verificar_senha, gerar_hash_senha
 from app.auth import (
     criar_token, criar_refresh_token, verificar_token,
@@ -13,30 +17,240 @@ from app.auth import (
 )
 from app.logger import logger_usuario
 from app.limitador import limitador
-from pydantic import BaseModel
 import cloudinary.uploader
+import resend
+import os
+import secrets
+
+resend.api_key = os.getenv("RESEND_API_KEY")
+APP_URL = os.getenv("APP_URL", "http://localhost:8000")
+FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "onboarding@resend.dev")
 
 roteador = APIRouter(prefix="/usuarios", tags=["Usuários"])
 
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
-class RefreshTokenRequest(BaseModel):
-    refresh_token: str
+MINUTOS_VALIDADE_CODIGO = 4
+
+
+def gerar_codigo_verificacao() -> str:
+    return f"{secrets.randbelow(1000000):06d}"
+
+
+def enviar_email_verificacao(email: str, nome: str, codigo: str):
+    try:
+        resend.Emails.send({
+            "from": FROM_EMAIL,
+            "to": email,
+            "subject": "✅ Confirme seu e-mail — LisboTech",
+            "html": f"""
+            <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#050d0a;color:#fff;border-radius:12px;">
+                <h1 style="font-size:20px;color:#00ff88;margin-bottom:8px;">LisboTech</h1>
+                <h2 style="font-size:16px;font-weight:500;color:#fff;margin-bottom:16px;">Olá, {nome}! Confirme seu e-mail</h2>
+                <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6;margin-bottom:24px;">
+                    Use o código abaixo para ativar sua conta. Ele expira em {MINUTOS_VALIDADE_CODIGO} minutos.
+                </p>
+                <div style="text-align:center;margin-bottom:24px;">
+                    <span style="display:inline-block;padding:14px 28px;background:rgba(0,255,136,0.08);border:1px solid #00ff88;color:#00ff88;border-radius:8px;font-size:28px;font-weight:700;letter-spacing:0.2em;">
+                        {codigo}
+                    </span>
+                </div>
+                <p style="color:rgba(255,255,255,0.3);font-size:11px;margin-top:24px;">
+                    Se não criou uma conta, ignore este e-mail.
+                </p>
+            </div>
+            """
+        })
+    except Exception as e:
+        logger_usuario.error(f"Erro ao enviar email de verificação para {email}: {e}")
+
+
+def enviar_email_reset(email: str, nome: str, token: str):
+    link = f"{FRONTEND_URL}/redefinir-senha?token={token}"
+    try:
+        resend.Emails.send({
+            "from": FROM_EMAIL,
+            "to": email,
+            "subject": "🔑 Redefinição de senha — LisboTech",
+            "html": f"""
+            <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#050d0a;color:#fff;border-radius:12px;">
+                <h1 style="font-size:20px;color:#00ff88;margin-bottom:8px;">LisboTech</h1>
+                <h2 style="font-size:16px;font-weight:500;color:#fff;margin-bottom:16px;">Olá, {nome}! Redefina sua senha</h2>
+                <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6;margin-bottom:24px;">
+                    Clique no botão abaixo para criar uma nova senha. O link expira em 1 hora.
+                </p>
+                <a href="{link}" style="display:inline-block;padding:12px 24px;background:transparent;border:1px solid #00ff88;color:#00ff88;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;">
+                    REDEFINIR SENHA
+                </a>
+                <p style="color:rgba(255,255,255,0.3);font-size:11px;margin-top:24px;">
+                    Se não solicitou a redefinição, ignore este e-mail. Sua senha não será alterada.
+                </p>
+            </div>
+            """
+        })
+    except Exception as e:
+        logger_usuario.error(f"Erro ao enviar email de reset para {email}: {e}")
+
+
+@roteador.post("/cadastrar", response_model=dict)
+@limitador.limit("5/minute")
+def cadastrar(
+    request: Request,
+    dados: UsuarioCreate,
+    banco: Session = Depends(pegar_banco)
+):
+    usuario_existente = banco.query(Usuario).filter(Usuario.email == dados.email).first()
+
+    if usuario_existente and usuario_existente.ativo:
+        raise HTTPException(status_code=400, detail="E-mail já está em uso.")
+
+    codigo = gerar_codigo_verificacao()
+    expira_em = datetime.utcnow() + timedelta(minutes=MINUTOS_VALIDADE_CODIGO)
+
+    try:
+        if usuario_existente:
+            # Conta existe mas nunca foi ativada (ex: e-mail anterior falhou
+            # ou o código expirou) — em vez de bloquear, atualiza os dados
+            # com o que foi reenviado agora e manda um código novo.
+            usuario_existente.nome = dados.nome
+            usuario_existente.senha_hash = gerar_hash_senha(dados.senha)
+            usuario_existente.codigo_verificacao = codigo
+            usuario_existente.codigo_verificacao_expira = expira_em
+            banco.commit()
+            mensagem_resposta = "Você já tinha um cadastro pendente de confirmação. Enviamos um novo código para seu e-mail."
+        else:
+            novo_usuario = Usuario(
+                nome=dados.nome,
+                email=dados.email,
+                senha_hash=gerar_hash_senha(dados.senha),
+                ativo=False,
+                codigo_verificacao=codigo,
+                codigo_verificacao_expira=expira_em
+            )
+            banco.add(novo_usuario)
+            banco.commit()
+            banco.refresh(novo_usuario)
+            mensagem_resposta = "Cadastro realizado! Enviamos um código de confirmação para seu e-mail."
+
+        enviar_email_verificacao(dados.email, dados.nome, codigo)
+
+        logger_usuario.info(f"Cadastro/reenvio de código | email: {dados.email}")
+
+        return {
+            "mensagem": mensagem_resposta,
+            "email": dados.email
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        banco.rollback()
+        logger_usuario.error(f"Erro ao cadastrar usuário | email: {dados.email} | erro: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao cadastrar usuário. Tente novamente."
+        )
+
+
+@roteador.post("/verificar-codigo", response_model=dict)
+@limitador.limit("10/minute")
+def verificar_codigo(
+    request: Request,
+    dados: VerificarCodigoRequest,
+    banco: Session = Depends(pegar_banco)
+):
+    usuario = banco.query(Usuario).filter(Usuario.email == dados.email).first()
+
+    if not usuario or not usuario.codigo_verificacao:
+        raise HTTPException(status_code=400, detail="Código inválido ou expirado.")
+
+    if usuario.ativo:
+        raise HTTPException(status_code=400, detail="Esta conta já está confirmada.")
+
+    if usuario.codigo_verificacao != dados.codigo:
+        raise HTTPException(status_code=400, detail="Código incorreto.")
+
+    if usuario.codigo_verificacao_expira < datetime.utcnow():
+        raise HTTPException(status_code=400, detail="Código expirado. Solicite um novo.")
+
+    usuario.ativo = True
+    usuario.codigo_verificacao = None
+    usuario.codigo_verificacao_expira = None
+    banco.commit()
+
+    logger_usuario.info(f"E-mail verificado por código | email: {usuario.email}")
+
+    return {"mensagem": "E-mail confirmado com sucesso! Você já pode fazer login."}
+
+
+@roteador.post("/reenviar-confirmacao", response_model=dict)
+@limitador.limit("3/minute")
+def reenviar_confirmacao(
+    request: Request,
+    dados: ReenviarConfirmacaoRequest,
+    banco: Session = Depends(pegar_banco)
+):
+    usuario = banco.query(Usuario).filter(Usuario.email == dados.email).first()
+
+    if usuario and not usuario.ativo:
+        codigo = gerar_codigo_verificacao()
+        usuario.codigo_verificacao = codigo
+        usuario.codigo_verificacao_expira = datetime.utcnow() + timedelta(minutes=MINUTOS_VALIDADE_CODIGO)
+        banco.commit()
+        enviar_email_verificacao(usuario.email, usuario.nome, codigo)
+        logger_usuario.info(f"Código de confirmação reenviado | email: {dados.email}")
+
+    # Mesma resposta independente do resultado, para não revelar se o
+    # e-mail existe ou já está confirmado (mesmo padrão de /esqueci-senha).
+    return {"mensagem": "Se este e-mail estiver cadastrado e pendente de confirmação, enviamos um novo código."}
+
+
+@roteador.post("/refresh")
+def renovar_token(
+    request: Request,
+    banco: Session = Depends(pegar_banco)
+):
+    from pydantic import BaseModel
+    class RefreshTokenRequest(BaseModel):
+        refresh_token: str
+
+    dados = RefreshTokenRequest(**request.json())
+    email = verificar_token(dados.refresh_token, tipo="refresh")
+
+    if email is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Refresh token inválido ou expirado. Faça login novamente."
+        )
+
+    usuario = banco.query(Usuario).filter(Usuario.email == email).first()
+    if not usuario or not usuario.ativo:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Usuário não encontrado ou desativado."
+        )
+
+    novo_access_token = criar_token({"sub": usuario.email})
+    return {
+        "access_token": novo_access_token,
+        "token_type": "bearer",
+        "expira_em_minutos": 30
+    }
 
 
 @roteador.post("/login")
 @limitador.limit("10/minute")
 def login(
     request: Request,
-    form: OAuth2PasswordRequestForm = Depends(),
+    dados: LoginRequest,
     banco: Session = Depends(pegar_banco)
 ):
-    verificar_bloqueio(form.username)
+    verificar_bloqueio(dados.email)
 
-    usuario = banco.query(Usuario).filter(Usuario.username == form.username).first()
+    usuario = banco.query(Usuario).filter(Usuario.email == dados.email).first()
 
-    if not usuario or not verificar_senha(form.password, usuario.senha_hash):
-        registrar_tentativa_falha(form.username)
-        restantes = tentativas_restantes(form.username)
+    if not usuario or not verificar_senha(dados.senha, usuario.senha_hash):
+        registrar_tentativa_falha(dados.email)
+        restantes = tentativas_restantes(dados.email)
 
         if restantes == 0:
             raise HTTPException(
@@ -46,21 +260,21 @@ def login(
 
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Usuário ou senha incorretos."
+            detail=f"E-mail ou senha incorretos. {restantes} tentativa(s) restante(s)."
         )
 
     if not usuario.ativo:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Usuário desativado. Entre em contato com o suporte."
+            detail="Conta não verificada. Verifique seu e-mail para ativar a conta."
         )
 
-    resetar_tentativas(form.username)
+    resetar_tentativas(dados.email)
 
-    access_token = criar_token({"sub": usuario.username})
-    refresh_token = criar_refresh_token({"sub": usuario.username})
+    access_token = criar_token({"sub": usuario.email})
+    refresh_token = criar_refresh_token({"sub": usuario.email})
 
-    logger_usuario.info(f"Login realizado | usuário: {usuario.username}")
+    logger_usuario.info(f"Login realizado | email: {usuario.email}")
 
     return {
         "access_token": access_token,
@@ -70,63 +284,54 @@ def login(
     }
 
 
-@roteador.post("/refresh")
-def renovar_token(
-    dados: RefreshTokenRequest,
-    banco: Session = Depends(pegar_banco)
-):
-    username = verificar_token(dados.refresh_token, tipo="refresh")
-    if username is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Refresh token inválido ou expirado. Faça login novamente."
-        )
-
-    usuario = banco.query(Usuario).filter(Usuario.username == username).first()
-    if not usuario or not usuario.ativo:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Usuário não encontrado ou desativado."
-        )
-
-    novo_access_token = criar_token({"sub": usuario.username})
-    return {
-        "access_token": novo_access_token,
-        "token_type": "bearer",
-        "expira_em_minutos": 30
-    }
-
-
-@roteador.post("/cadastrar", response_model=UsuarioResponse)
-@limitador.limit("5/minute")
-def cadastrar(
+@roteador.post("/esqueci-senha", response_model=dict)
+@limitador.limit("3/minute")
+def esqueci_senha(
     request: Request,
-    dados: UsuarioCreate,
+    dados: EsqueciSenhaRequest,
     banco: Session = Depends(pegar_banco)
 ):
-    if banco.query(Usuario).filter(Usuario.username == dados.username).first():
-        raise HTTPException(status_code=400, detail="Username já está em uso.")
-    if dados.email and banco.query(Usuario).filter(Usuario.email == dados.email).first():
-        raise HTTPException(status_code=400, detail="E-mail já está em uso.")
+    usuario = banco.query(Usuario).filter(Usuario.email == dados.email).first()
+
+    if usuario and usuario.ativo:
+        token_reset = secrets.token_urlsafe(32)
+        usuario.token_reset = token_reset
+        usuario.token_reset_expira = datetime.utcnow() + timedelta(hours=1)
+        banco.commit()
+        enviar_email_reset(dados.email, usuario.nome, token_reset)
+        logger_usuario.info(f"Reset de senha solicitado | email: {dados.email}")
+
+    return {"mensagem": "Se este e-mail estiver cadastrado, você receberá as instruções em breve."}
+
+
+@roteador.post("/redefinir-senha", response_model=dict)
+def redefinir_senha(
+    dados: RedefinirSenhaRequest,
+    banco: Session = Depends(pegar_banco)
+):
+    usuario = banco.query(Usuario).filter(Usuario.token_reset == dados.token).first()
+
+    if not usuario:
+        raise HTTPException(status_code=400, detail="Link de redefinição inválido ou expirado.")
+
+    if usuario.token_reset_expira < datetime.utcnow():
+        usuario.token_reset = None
+        usuario.token_reset_expira = None
+        banco.commit()
+        raise HTTPException(status_code=400, detail="Link de redefinição expirado. Solicite um novo.")
 
     try:
-        novo_usuario = Usuario(
-            username=dados.username,
-            senha_hash=gerar_hash_senha(dados.senha),
-            nome_completo=dados.nome_completo,
-            email=dados.email
-        )
-        banco.add(novo_usuario)
+        usuario.senha_hash = gerar_hash_senha(dados.nova_senha)
+        usuario.token_reset = None
+        usuario.token_reset_expira = None
         banco.commit()
-        banco.refresh(novo_usuario)
-        logger_usuario.info(f"Novo usuário cadastrado | username: {dados.username}")
-        return novo_usuario
+        logger_usuario.info(f"Senha redefinida | email: {usuario.email}")
+        return {"mensagem": "Senha redefinida com sucesso! Você já pode fazer login."}
     except Exception:
         banco.rollback()
-        logger_usuario.error(f"Erro ao cadastrar usuário | username: {dados.username}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Erro ao cadastrar usuário. Tente novamente."
+            detail="Erro ao redefinir senha. Tente novamente."
         )
 
 
@@ -150,18 +355,17 @@ def atualizar_perfil(
     try:
         if dados.senha:
             usuario.senha_hash = gerar_hash_senha(dados.senha)
-        if dados.nome_completo is not None:
-            usuario.nome_completo = dados.nome_completo
+        if dados.nome is not None:
+            usuario.nome = dados.nome
         if dados.email is not None:
-            usuario.email = dados.email
+            usuario.email = dados.email.lower().strip()
 
         banco.commit()
         banco.refresh(usuario)
-        logger_usuario.info(f"Perfil atualizado | usuário: {usuario.username}")
+        logger_usuario.info(f"Perfil atualizado | email: {usuario.email}")
         return usuario
     except Exception:
         banco.rollback()
-        logger_usuario.error(f"Erro ao atualizar perfil | usuário: {usuario.username}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Erro ao atualizar perfil. Tente novamente."
@@ -176,29 +380,20 @@ def upload_foto_perfil(
 ):
     tipos_permitidos = ["image/jpeg", "image/png", "image/webp", "image/jpg"]
     if foto.content_type not in tipos_permitidos:
-        raise HTTPException(
-            status_code=400,
-            detail="Formato inválido. Use JPG, PNG ou WEBP."
-        )
+        raise HTTPException(status_code=400, detail="Formato inválido. Use JPG, PNG ou WEBP.")
 
     try:
         conteudo = foto.file.read()
     except Exception:
-        raise HTTPException(
-            status_code=400,
-            detail="Erro ao ler o arquivo enviado. Tente novamente."
-        )
+        raise HTTPException(status_code=400, detail="Erro ao ler o arquivo enviado.")
 
     if len(conteudo) > 5 * 1024 * 1024:
-        raise HTTPException(
-            status_code=400,
-            detail="Foto muito grande. Tamanho máximo: 5MB."
-        )
+        raise HTTPException(status_code=400, detail="Foto muito grande. Tamanho máximo: 5MB.")
 
     try:
         resultado = cloudinary.uploader.upload(
             conteudo,
-            folder="gado_leiteiro/perfis",
+            folder="lisbotech/perfis",
             public_id=f"usuario_{usuario.id}",
             overwrite=True,
             transformation=[
@@ -210,13 +405,12 @@ def upload_foto_perfil(
         usuario.foto_url = resultado["secure_url"]
         banco.commit()
         banco.refresh(usuario)
-        logger_usuario.info(f"Foto de perfil atualizada | usuário: {usuario.username}")
+        logger_usuario.info(f"Foto de perfil atualizada | email: {usuario.email}")
         return usuario
     except HTTPException:
         raise
     except Exception:
         banco.rollback()
-        logger_usuario.error(f"Erro no upload de foto | usuário: {usuario.username}")
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="Erro ao fazer upload da foto. Tente novamente."
@@ -229,20 +423,16 @@ def remover_foto_perfil(
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
     if not usuario.foto_url:
-        raise HTTPException(
-            status_code=404,
-            detail="Você não possui foto de perfil cadastrada."
-        )
+        raise HTTPException(status_code=404, detail="Você não possui foto de perfil cadastrada.")
 
     try:
-        cloudinary.uploader.destroy(f"gado_leiteiro/perfis/usuario_{usuario.id}")
+        cloudinary.uploader.destroy(f"lisbotech/perfis/usuario_{usuario.id}")
         usuario.foto_url = None
         banco.commit()
-        logger_usuario.info(f"Foto de perfil removida | usuário: {usuario.username}")
+        logger_usuario.info(f"Foto de perfil removida | email: {usuario.email}")
         return {"mensagem": "Foto de perfil removida com sucesso."}
     except Exception:
         banco.rollback()
-        logger_usuario.error(f"Erro ao remover foto | usuário: {usuario.username}")
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="Erro ao remover foto. Tente novamente."

@@ -38,6 +38,7 @@ class AplicacaoMedicamento(Base):
     data_aplicacao          = Column(Date, nullable=False)
     dose_aplicada           = Column(Numeric(8, 2), nullable=False)
     motivo                  = Column(String(200))
+    responsavel             = Column(String(100))
     dias_carencia           = Column(Integer, default=0)
     carencia_encerra_em     = Column(Date, index=True)
     observacao              = Column(Text)

@@ -1,0 +1,1272 @@
+2026-06-15 15:34:25 | INFO | app | → OPTIONS /usuarios/login
+2026-06-15 15:34:25 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 5.96ms
+2026-06-15 15:34:25 | INFO | app | → POST /usuarios/login
+2026-06-15 15:34:25 | WARNING | app | Erro de validação | POST /usuarios/login | 2 erro(s)
+2026-06-15 15:34:25 | INFO | app | ← POST /usuarios/login | Status: 422 | 141.32ms
+2026-06-15 15:34:37 | INFO | app | → GET /docs
+2026-06-15 15:34:37 | INFO | app | ← GET /docs | Status: 200 | 3.41ms
+2026-06-15 15:34:37 | INFO | app | → GET /openapi.json
+2026-06-15 15:34:38 | INFO | app | ← GET /openapi.json | Status: 200 | 963.59ms
+2026-06-15 15:35:51 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 15:35:52 | INFO | app | ← POST /usuarios/cadastrar | Status: 400 | 728.83ms
+2026-06-15 15:39:38 | INFO | app | → POST /usuarios/login
+2026-06-15 15:39:38 | WARNING | app | Erro de validação | POST /usuarios/login | 2 erro(s)
+2026-06-15 15:39:38 | INFO | app | ← POST /usuarios/login | Status: 422 | 11.92ms
+2026-06-15 15:41:56 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 15:41:56 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-06-15 15:41:56 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 10.1ms
+2026-06-15 15:42:29 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 15:42:29 | INFO | app | ← POST /usuarios/cadastrar | Status: 400 | 27.1ms
+2026-06-15 15:42:44 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 15:42:45 | INFO | usuarios | Novo usuário cadastrado | username: lisboa
+2026-06-15 15:42:45 | INFO | app | ← POST /usuarios/cadastrar | Status: 200 | 826.85ms
+2026-06-15 15:43:46 | INFO | app | → POST /usuarios/login
+2026-06-15 15:43:46 | WARNING | app | Erro de validação | POST /usuarios/login | 2 erro(s)
+2026-06-15 15:43:46 | INFO | app | ← POST /usuarios/login | Status: 422 | 12.58ms
+2026-06-15 15:44:48 | INFO | app | → OPTIONS /usuarios/login
+2026-06-15 15:44:48 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 2.63ms
+2026-06-15 15:44:48 | INFO | app | → POST /usuarios/login
+2026-06-15 15:44:48 | WARNING | app | Erro de validação | POST /usuarios/login | 2 erro(s)
+2026-06-15 15:44:48 | INFO | app | ← POST /usuarios/login | Status: 422 | 9.1ms
+2026-06-15 15:46:12 | INFO | app | → POST /usuarios/login
+2026-06-15 15:46:13 | INFO | usuarios | Login realizado | usuário: lisboa
+2026-06-15 15:46:13 | INFO | app | ← POST /usuarios/login | Status: 200 | 821.24ms
+2026-06-15 15:46:30 | INFO | app | → POST /usuarios/login
+2026-06-15 15:46:31 | INFO | usuarios | Login realizado | usuário: lisboa
+2026-06-15 15:46:31 | INFO | app | ← POST /usuarios/login | Status: 200 | 781.8ms
+2026-06-15 15:48:46 | INFO | app | → POST /usuarios/login
+2026-06-15 15:48:46 | WARNING | app | Erro de validação | POST /usuarios/login | 2 erro(s)
+2026-06-15 15:48:46 | INFO | app | ← POST /usuarios/login | Status: 422 | 11.54ms
+2026-06-15 15:49:25 | INFO | app | → POST /usuarios/login
+2026-06-15 15:49:25 | WARNING | app | Erro de validação | POST /usuarios/login | 2 erro(s)
+2026-06-15 15:49:25 | INFO | app | ← POST /usuarios/login | Status: 422 | 6.94ms
+2026-06-15 15:49:46 | INFO | app | → POST /usuarios/login
+2026-06-15 15:49:46 | WARNING | app | Erro de validação | POST /usuarios/login | 2 erro(s)
+2026-06-15 15:49:46 | INFO | app | ← POST /usuarios/login | Status: 422 | 11.14ms
+2026-06-15 15:50:36 | INFO | app | → GET /docs
+2026-06-15 15:50:36 | INFO | app | ← GET /docs | Status: 200 | 4.8ms
+2026-06-15 15:50:36 | INFO | app | → GET /openapi.json
+2026-06-15 15:50:36 | INFO | app | ← GET /openapi.json | Status: 200 | 11.79ms
+2026-06-15 15:51:08 | INFO | app | → POST /usuarios/login
+2026-06-15 15:51:08 | INFO | app | ← POST /usuarios/login | Status: 401 | 17.85ms
+2026-06-15 16:17:14 | INFO | app | → GET /docs
+2026-06-15 16:17:14 | INFO | app | ← GET /docs | Status: 200 | 28.28ms
+2026-06-15 16:17:15 | INFO | app | → GET /openapi.json
+2026-06-15 16:17:16 | INFO | app | ← GET /openapi.json | Status: 200 | 1015.73ms
+2026-06-15 16:18:22 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 16:18:24 | ERROR | usuarios | Erro ao cadastrar usuário | email: otavio19@gmail.com
+2026-06-15 16:18:24 | INFO | app | ← POST /usuarios/cadastrar | Status: 500 | 1512.31ms
+2026-06-15 16:18:36 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 16:18:36 | ERROR | usuarios | Erro ao cadastrar usuário | email: otavio19@gmail.com
+2026-06-15 16:18:36 | INFO | app | ← POST /usuarios/cadastrar | Status: 500 | 713.12ms
+2026-06-15 16:19:51 | INFO | app | → GET /docs
+2026-06-15 16:19:51 | INFO | app | ← GET /docs | Status: 200 | 4.6ms
+2026-06-15 16:19:51 | INFO | app | → GET /openapi.json
+2026-06-15 16:19:51 | INFO | app | ← GET /openapi.json | Status: 200 | 6.69ms
+2026-06-15 16:20:29 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 16:20:30 | ERROR | usuarios | Erro ao cadastrar usuário | email: otaviolisboa19@gmail.com
+2026-06-15 16:20:30 | INFO | app | ← POST /usuarios/cadastrar | Status: 500 | 742.1ms
+2026-06-15 16:24:00 | INFO | app | → GET /docs
+2026-06-15 16:24:00 | INFO | app | ← GET /docs | Status: 200 | 7.0ms
+2026-06-15 16:24:00 | INFO | app | → GET /openapi.json
+2026-06-15 16:24:01 | INFO | app | ← GET /openapi.json | Status: 200 | 794.06ms
+2026-06-15 16:24:43 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 16:24:44 | ERROR | usuarios | Erro ao cadastrar usuário | email: otaviolisboa19@gmail.com | erro: (pymysql.err.OperationalError) (1364, "Field 'username' doesn't have a default value")
+[SQL: INSERT INTO usuarios (nome, email, senha_hash, foto_url, ativo, token_verificacao) VALUES (%(nome)s, %(email)s, %(senha_hash)s, %(foto_url)s, %(ativo)s, %(token_verificacao)s)]
+[parameters: {'nome': 'Otávio', 'email': 'otaviolisboa19@gmail.com', 'senha_hash': '$2b$12$72ECyEQHM0IgqJjHv6vpwemKrJlhtTJUqyPaTHWTEM28j133nMSdO', 'foto_url': None, 'ativo': 0, 'token_verificacao': '6U-ZMeyxirdJE4m5B3gZNHjZROLlRQdZ2-mUjsX59v0'}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-06-15 16:24:44 | ERROR | app | ✗ POST /usuarios/cadastrar | Erro: TypeError | 1135.64ms
+2026-06-15 16:24:44 | CRITICAL | app | Erro inesperado | POST /usuarios/cadastrar | TypeError: HTTPException.__init__() missing 1 required positional argument: 'status_code'
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\cursors.py", line 159, in execute
+    result = self._query(query)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\cursors.py", line 330, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\connections.py", line 582, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\connections.py", line 847, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\connections.py", line 1245, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\connections.py", line 803, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\err.py", line 154, in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+pymysql.err.OperationalError: (1364, "Field 'username' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 75, in cadastrar
+    banco.commit()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2034, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1315, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4352, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4487, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4448, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\cursors.py", line 159, in execute
+    result = self._query(query)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\cursors.py", line 330, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\connections.py", line 582, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\connections.py", line 847, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\connections.py", line 1245, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\connections.py", line 803, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\pymysql\err.py", line 154, in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1364, "Field 'username' doesn't have a default value")
+[SQL: INSERT INTO usuarios (nome, email, senha_hash, foto_url, ativo, token_verificacao) VALUES (%(nome)s, %(email)s, %(senha_hash)s, %(foto_url)s, %(ativo)s, %(token_verificacao)s)]
+[parameters: {'nome': 'Otávio', 'email': 'otaviolisboa19@gmail.com', 'senha_hash': '$2b$12$72ECyEQHM0IgqJjHv6vpwemKrJlhtTJUqyPaTHWTEM28j133nMSdO', 'foto_url': None, 'ativo': 0, 'token_verificacao': '6U-ZMeyxirdJE4m5B3gZNHjZROLlRQdZ2-mUjsX59v0'}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 91, in cadastrar
+    raise HTTPException(
+          ~~~~~~~~~~~~~^
+    )
+    ^
+TypeError: HTTPException.__init__() missing 1 required positional argument: 'status_code'
+2026-06-15 16:27:20 | INFO | app | → GET /docs
+2026-06-15 16:27:21 | INFO | app | ← GET /docs | Status: 200 | 5.38ms
+2026-06-15 16:27:21 | INFO | app | → GET /openapi.json
+2026-06-15 16:27:22 | INFO | app | ← GET /openapi.json | Status: 200 | 874.82ms
+2026-06-15 16:27:52 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 16:27:54 | INFO | usuarios | Novo usuário cadastrado | email: otaviolisboa19@gmail.com
+2026-06-15 16:27:54 | INFO | app | ← POST /usuarios/cadastrar | Status: 200 | 2310.78ms
+2026-06-15 16:29:04 | INFO | app | → GET /usuarios/verificar-email/RankcKb6wEcaY95CIu0nQLgHiffO5K4Yf08OH_xl9X8
+2026-06-15 16:29:04 | INFO | usuarios | E-mail verificado | email: otaviolisboa19@gmail.com
+2026-06-15 16:29:04 | INFO | app | ← GET /usuarios/verificar-email/RankcKb6wEcaY95CIu0nQLgHiffO5K4Yf08OH_xl9X8 | Status: 200 | 63.3ms
+2026-06-15 16:29:04 | INFO | app | → GET /favicon.ico
+2026-06-15 16:29:04 | WARNING | app | Rota não encontrada | GET /favicon.ico
+2026-06-15 16:29:04 | INFO | app | ← GET /favicon.ico | Status: 404 | 7.51ms
+2026-06-15 16:36:26 | INFO | app | → OPTIONS /usuarios/login
+2026-06-15 16:36:26 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 5.42ms
+2026-06-15 16:36:26 | INFO | app | → POST /usuarios/login
+2026-06-15 16:36:28 | INFO | app | ← POST /usuarios/login | Status: 401 | 1560.57ms
+2026-06-15 16:37:07 | INFO | app | → POST /usuarios/login
+2026-06-15 16:37:08 | INFO | app | ← POST /usuarios/login | Status: 401 | 986.07ms
+2026-06-15 16:42:31 | INFO | app | → POST /usuarios/login
+2026-06-15 16:42:32 | INFO | app | ← POST /usuarios/login | Status: 401 | 856.58ms
+2026-06-15 16:43:08 | INFO | app | → POST /usuarios/login
+2026-06-15 16:43:09 | INFO | app | ← POST /usuarios/login | Status: 401 | 741.28ms
+2026-06-15 16:44:58 | INFO | app | → POST /usuarios/login
+2026-06-15 16:44:59 | INFO | app | ← POST /usuarios/login | Status: 429 | 776.53ms
+2026-06-15 16:46:03 | INFO | app | → POST /usuarios/login
+2026-06-15 16:46:04 | INFO | app | ← POST /usuarios/login | Status: 401 | 1293.32ms
+2026-06-15 16:47:00 | INFO | app | → OPTIONS /usuarios/login
+2026-06-15 16:47:00 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 2.68ms
+2026-06-15 16:47:00 | INFO | app | → POST /usuarios/login
+2026-06-15 16:47:01 | INFO | app | ← POST /usuarios/login | Status: 401 | 772.69ms
+2026-06-15 16:49:34 | INFO | app | → POST /usuarios/login
+2026-06-15 16:49:35 | INFO | app | ← POST /usuarios/login | Status: 401 | 712.27ms
+2026-06-15 16:56:01 | INFO | app | → POST /usuarios/login
+2026-06-15 16:56:02 | INFO | app | ← POST /usuarios/login | Status: 401 | 828.28ms
+2026-06-15 17:01:03 | INFO | app | → OPTIONS /usuarios/login
+2026-06-15 17:01:03 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 98.83ms
+2026-06-15 17:01:04 | INFO | app | → POST /usuarios/login
+2026-06-15 17:01:05 | INFO | app | ← POST /usuarios/login | Status: 429 | 1198.06ms
+2026-06-15 17:02:02 | INFO | app | → POST /usuarios/login
+2026-06-15 17:02:04 | INFO | app | ← POST /usuarios/login | Status: 401 | 1741.68ms
+2026-06-15 17:04:29 | INFO | app | → POST /usuarios/login
+2026-06-15 17:04:30 | INFO | app | ← POST /usuarios/login | Status: 401 | 766.17ms
+2026-06-15 17:08:04 | INFO | app | → GET /docs
+2026-06-15 17:08:04 | INFO | app | ← GET /docs | Status: 200 | 6.68ms
+2026-06-15 17:08:05 | INFO | app | → GET /openapi.json
+2026-06-15 17:08:06 | INFO | app | ← GET /openapi.json | Status: 200 | 987.69ms
+2026-06-15 17:08:24 | INFO | app | → POST /usuarios/cadastrar
+2026-06-15 17:08:27 | ERROR | usuarios | Erro ao enviar email de verificação para temp@temp.com: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
+2026-06-15 17:08:27 | INFO | usuarios | Novo usuário cadastrado | email: temp@temp.com
+2026-06-15 17:08:27 | INFO | app | ← POST /usuarios/cadastrar | Status: 200 | 2718.98ms
+2026-06-15 17:10:36 | INFO | app | → GET /docs
+2026-06-15 17:10:36 | INFO | app | ← GET /docs | Status: 200 | 4.53ms
+2026-06-15 17:10:36 | INFO | app | → GET /openapi.json
+2026-06-15 17:10:36 | INFO | app | ← GET /openapi.json | Status: 200 | 9.27ms
+2026-06-15 17:10:52 | INFO | app | → POST /usuarios/login
+2026-06-15 17:10:53 | INFO | usuarios | Login realizado | email: otaviolisboa19@gmail.com
+2026-06-15 17:10:53 | INFO | app | ← POST /usuarios/login | Status: 200 | 954.5ms
+2026-06-15 17:10:53 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-15 17:10:53 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 3.59ms
+2026-06-15 17:10:53 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:10:53 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 60.81ms
+2026-06-15 17:10:53 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-15 17:10:53 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 6.35ms
+2026-06-15 17:10:53 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-15 17:10:53 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:10:53 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 12.7ms
+2026-06-15 17:10:53 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:10:53 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:10:53 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 327.33ms
+2026-06-15 17:10:54 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:10:54 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 452.41ms
+2026-06-15 17:14:59 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:14:59 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 61.03ms
+2026-06-15 17:14:59 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:14:59 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 34.98ms
+2026-06-15 17:15:17 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:15:17 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 17.19ms
+2026-06-15 17:15:17 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:15:17 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 30.09ms
+2026-06-15 17:15:18 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:15:18 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:15:18 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:15:18 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 123.73ms
+2026-06-15 17:15:18 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:15:18 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 143.28ms
+2026-06-15 17:16:18 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:16:18 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:16:18 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:16:18 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 33.82ms
+2026-06-15 17:16:18 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:16:18 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 67.28ms
+2026-06-15 17:17:06 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:17:06 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:17:06 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:17:06 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 83.1ms
+2026-06-15 17:17:06 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:17:06 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 131.46ms
+2026-06-15 17:17:19 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:17:19 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 18.15ms
+2026-06-15 17:17:19 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:17:19 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 43.64ms
+2026-06-15 17:17:20 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:17:20 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:17:20 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:17:20 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 71.39ms
+2026-06-15 17:17:20 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:17:20 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 102.39ms
+2026-06-15 17:18:35 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:18:35 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 21.56ms
+2026-06-15 17:18:35 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:18:35 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 26.8ms
+2026-06-15 17:18:35 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:18:35 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:18:35 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:18:35 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 82.93ms
+2026-06-15 17:18:35 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:18:35 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 106.84ms
+2026-06-15 17:18:37 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:18:37 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 20.83ms
+2026-06-15 17:18:37 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:18:37 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 34.14ms
+2026-06-15 17:18:37 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:18:37 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:18:37 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:18:37 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 79.86ms
+2026-06-15 17:18:37 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:18:37 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 96.98ms
+2026-06-15 17:18:39 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:18:39 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 18.32ms
+2026-06-15 17:18:39 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:18:39 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 28.14ms
+2026-06-15 17:18:39 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:18:39 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:18:39 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:18:39 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 46.36ms
+2026-06-15 17:18:39 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:18:39 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 62.83ms
+2026-06-15 17:18:40 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:18:40 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 13.95ms
+2026-06-15 17:18:40 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:18:40 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 19.71ms
+2026-06-15 17:18:40 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:18:40 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:18:40 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:18:40 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 65.88ms
+2026-06-15 17:18:40 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:18:40 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 87.65ms
+2026-06-15 17:20:22 | INFO | app | → GET /docs
+2026-06-15 17:20:22 | INFO | app | ← GET /docs | Status: 200 | 13.03ms
+2026-06-15 17:20:23 | INFO | app | → GET /openapi.json
+2026-06-15 17:20:23 | INFO | app | ← GET /openapi.json | Status: 200 | 37.74ms
+2026-06-15 17:20:35 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:20:35 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 14.93ms
+2026-06-15 17:20:35 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:20:35 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 32.1ms
+2026-06-15 17:20:35 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:20:35 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:20:35 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:20:35 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 60.96ms
+2026-06-15 17:20:35 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:20:35 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 98.24ms
+2026-06-15 17:25:35 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-15 17:25:35 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-15 17:25:35 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 14.4ms
+2026-06-15 17:25:35 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 6.58ms
+2026-06-15 17:25:35 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:25:35 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:25:35 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:25:35 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 169.88ms
+2026-06-15 17:25:35 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:25:35 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 180.95ms
+2026-06-15 17:26:35 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:26:35 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:26:35 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:26:35 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 59.88ms
+2026-06-15 17:26:35 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:26:35 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 80.37ms
+2026-06-15 17:27:35 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:27:35 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:27:35 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 18.14ms
+2026-06-15 17:27:35 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:27:35 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:27:35 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 64.74ms
+2026-06-15 17:28:35 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:28:35 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:28:35 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 16.48ms
+2026-06-15 17:28:35 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:28:36 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:28:36 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 29.9ms
+2026-06-15 17:28:44 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-15 17:28:44 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 1.31ms
+2026-06-15 17:28:44 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-15 17:28:44 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:28:44 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 7.79ms
+2026-06-15 17:28:44 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 43.6ms
+2026-06-15 17:28:45 | INFO | app | → GET /usuarios/perfil
+2026-06-15 17:28:45 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 30.56ms
+2026-06-15 17:28:45 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:28:45 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:28:45 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:28:45 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 73.16ms
+2026-06-15 17:28:45 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:28:45 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 92.22ms
+2026-06-15 17:29:45 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:29:45 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:29:45 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 16.6ms
+2026-06-15 17:29:45 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:29:45 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:29:45 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 48.97ms
+2026-06-15 17:30:45 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:30:45 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:30:45 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 18.73ms
+2026-06-15 17:30:45 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:30:45 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:30:45 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 33.83ms
+2026-06-15 17:31:45 | INFO | app | → GET /dashboard/alertas
+2026-06-15 17:31:45 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-15 17:31:45 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 35.92ms
+2026-06-15 17:31:45 | INFO | app | → GET /dashboard/resumo
+2026-06-15 17:31:45 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-15 17:31:45 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 39.1ms
+2026-06-15 18:35:04 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-15 18:35:04 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-15 18:35:04 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 92.13ms
+2026-06-15 18:35:04 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 59.31ms
+2026-06-15 18:35:04 | INFO | app | → GET /dashboard/alertas
+2026-06-15 18:35:04 | INFO | app | → GET /dashboard/resumo
+2026-06-15 18:35:04 | INFO | app | ← GET /dashboard/resumo | Status: 401 | 255.91ms
+2026-06-15 18:35:04 | INFO | app | ← GET /dashboard/alertas | Status: 401 | 285.68ms
+2026-06-15 18:35:04 | INFO | app | → OPTIONS /usuarios/refresh
+2026-06-15 18:35:04 | INFO | app | ← OPTIONS /usuarios/refresh | Status: 200 | 4.73ms
+2026-06-15 18:35:04 | INFO | app | → POST /usuarios/refresh
+2026-06-15 18:35:04 | INFO | app | → POST /usuarios/refresh
+2026-06-15 18:35:06 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 1787.28ms
+2026-06-15 18:35:06 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 1762.04ms
+2026-06-15 18:35:06 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 169, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 169, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+2026-06-15 18:35:06 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 169, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 169, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+2026-06-15 18:35:06 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-15 18:35:06 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-15 18:35:06 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 7.47ms
+2026-06-15 18:35:06 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 5.01ms
+2026-06-15 18:35:06 | INFO | app | → GET /usuarios/perfil
+2026-06-15 18:35:07 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 20.08ms
+2026-06-15 18:35:07 | INFO | app | → GET /usuarios/perfil
+2026-06-15 18:35:07 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 9.92ms
+2026-06-15 18:35:07 | INFO | app | → POST /usuarios/refresh
+2026-06-15 18:35:07 | INFO | app | → POST /usuarios/refresh
+2026-06-15 18:35:07 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 22.31ms
+2026-06-15 18:35:07 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 169, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 169, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+2026-06-15 18:35:07 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 82.13ms
+2026-06-15 18:35:07 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 169, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 101, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 88, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 169, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine

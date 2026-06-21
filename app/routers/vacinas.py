@@ -28,11 +28,11 @@ def validar_vacina(dados, banco, usuario_id, vacina_id=None):
             status_code=400,
             detail=f"Animal está '{animal.status}' e não pode ser vacinado."
         )
-    if dados.data_aplicacao > date.today():
-        raise HTTPException(
-            status_code=400,
-            detail="Data de aplicação não pode ser no futuro."
-        )
+
+    # Nota: "data_aplicacao não pode ser no futuro" foi movida para
+    # VacinaCriar (field_validator), pois é regra pura de campo.
+    # Não duplicar aqui.
+
     if dados.proxima_dose and dados.proxima_dose <= dados.data_aplicacao:
         raise HTTPException(
             status_code=400,
@@ -60,6 +60,19 @@ def validar_vacina(dados, banco, usuario_id, vacina_id=None):
                     detail=f"Intervalo mínimo entre doses é de 30 dias. Última aplicação em {ultima.data_aplicacao}."
                 )
 
+    return animal
+
+
+def montar_resposta_vacina(vacina):
+    """
+    Converte um objeto Vacina (SQLAlchemy) em VacinaResposta, preenchendo
+    animal_nome e animal_foto_url a partir do relacionamento vacina.animal.
+    """
+    resposta = VacinaResposta.model_validate(vacina)
+    resposta.animal_nome = vacina.animal.nome if vacina.animal else None
+    resposta.animal_foto_url = vacina.animal.foto_url if vacina.animal else None
+    return resposta
+
 
 @roteador.get("/", response_model=List[VacinaResposta])
 def listar_vacinas(
@@ -67,9 +80,10 @@ def listar_vacinas(
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
     try:
-        return banco.query(Vacina).join(Animal).filter(
+        vacinas = banco.query(Vacina).join(Animal).filter(
             Animal.usuario_id == usuario.id
         ).order_by(Vacina.data_aplicacao.desc()).all()
+        return [montar_resposta_vacina(v) for v in vacinas]
     except Exception:
         logger_vacinas.error(f"Erro ao listar vacinas | usuário: {usuario.id}")
         raise HTTPException(
@@ -95,8 +109,8 @@ def vacinas_vencendo(
             {
                 "vacina_id": v.id,
                 "animal_id": v.animal_id,
-                "animal_nome": v.animal.nome,
-                "animal_brinco": v.animal.brinco,
+                "animal_nome": v.animal.nome if v.animal else None,
+                "animal_brinco": v.animal.brinco if v.animal else None,
                 "nome_vacina": v.nome_vacina,
                 "proxima_dose": v.proxima_dose,
                 "dias_restantes": (v.proxima_dose - hoje).days
@@ -126,9 +140,10 @@ def listar_vacinas_por_animal(
         ).first()
         if not animal:
             raise HTTPException(status_code=404, detail="Animal não encontrado.")
-        return banco.query(Vacina).filter(
+        vacinas = banco.query(Vacina).filter(
             Vacina.animal_id == animal_id
         ).order_by(Vacina.data_aplicacao.desc()).all()
+        return [montar_resposta_vacina(v) for v in vacinas]
     except HTTPException:
         raise
     except Exception:
@@ -145,15 +160,16 @@ def criar_vacina(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    validar_vacina(vacina, banco, usuario.id)
     try:
+        validar_vacina(vacina, banco, usuario.id)
         nova_vacina = Vacina(**vacina.model_dump())
         banco.add(nova_vacina)
         banco.commit()
         banco.refresh(nova_vacina)
         logger_vacinas.info(f"Vacina criada | animal: {vacina.animal_id} | usuário: {usuario.id}")
-        return nova_vacina
+        return montar_resposta_vacina(nova_vacina)
     except HTTPException:
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()
@@ -181,18 +197,17 @@ def atualizar_vacina(
         if not vacina:
             raise HTTPException(status_code=404, detail="Vacina não encontrada.")
 
-        dados_atualizados = dados.model_dump(exclude_unset=True)
-        for campo, valor in dados_atualizados.items():
+        for campo, valor in dados.model_dump(exclude_unset=True).items():
             setattr(vacina, campo, valor)
 
-        # Revalidar regras após atualização
         validar_vacina(vacina, banco, usuario.id, vacina_id=vacina_id)
 
         banco.commit()
         banco.refresh(vacina)
         logger_vacinas.info(f"Vacina atualizada | id: {vacina_id} | usuário: {usuario.id}")
-        return vacina
+        return montar_resposta_vacina(vacina)
     except HTTPException:
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()

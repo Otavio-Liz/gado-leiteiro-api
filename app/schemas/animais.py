@@ -26,6 +26,7 @@ class AnimalBase(BaseModel):
     data_ultima_inseminacao: Optional[date] = None
     data_prevista_parto:     Optional[date] = None
     dias_em_lactacao:        Optional[int] = None
+    quantidade_partos:       Optional[int] = 0
 
     # Informações adicionais
     peso_kg:                Optional[int] = None
@@ -69,6 +70,13 @@ class AnimalBase(BaseModel):
             raise ValueError("Peso deve ser maior que zero")
         return v
 
+    @field_validator("quantidade_partos")
+    @classmethod
+    def validar_quantidade_partos(cls, v):
+        if v is not None and v < 0:
+            raise ValueError("Quantidade de partos não pode ser negativa")
+        return v
+
 
 class AnimalCriar(AnimalBase):
     pass
@@ -89,6 +97,8 @@ class AnimalAtualizar(BaseModel):
     data_ultima_inseminacao: Optional[date] = None
     data_prevista_parto:    Optional[date] = None
     dias_em_lactacao:       Optional[int] = None
+    quantidade_partos:      Optional[int] = None
+    data_ultimo_parto:      Optional[date] = None
     peso_kg:                Optional[int] = None
     observacao:             Optional[str] = Field(default=None, max_length=500)
     foto_url:               Optional[HttpUrl] = None
@@ -132,12 +142,20 @@ class AnimalAtualizar(BaseModel):
             raise ValueError("Peso deve ser maior que zero")
         return v
 
+    @field_validator("quantidade_partos")
+    @classmethod
+    def validar_quantidade_partos(cls, v):
+        if v is not None and v < 0:
+            raise ValueError("Quantidade de partos não pode ser negativa")
+        return v
+
 
 class AnimalResposta(AnimalBase):
-    id:         int
-    usuario_id: int
-    criado_em:  Optional[datetime] = None
-    atualizado_em: Optional[datetime] = None
+    id:                int
+    usuario_id:        int
+    data_ultimo_parto: Optional[date] = None
+    criado_em:         Optional[datetime] = None
+    atualizado_em:     Optional[datetime] = None
 
     class Config:
         from_attributes = True

@@ -19,6 +19,16 @@ roteador = APIRouter(
 )
 
 
+def montar_resposta_aplicacao(aplicacao: AplicacaoMedicamento) -> AplicacaoMedicamentoResposta:
+    """Preenche animal_nome e medicamento_nome a partir dos relacionamentos,
+    já que esses campos não existem na tabela e não vêm automaticamente
+    do from_attributes."""
+    resposta = AplicacaoMedicamentoResposta.model_validate(aplicacao)
+    resposta.animal_nome = aplicacao.animal.nome if aplicacao.animal else None
+    resposta.medicamento_nome = aplicacao.medicamento.nome if aplicacao.medicamento else None
+    return resposta
+
+
 # ─── Medicamentos (Estoque) ───────────────────────────────────────────────────
 
 @roteador.get("/", response_model=List[MedicamentoResposta])
@@ -186,9 +196,10 @@ def listar_aplicacoes(
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
     try:
-        return banco.query(AplicacaoMedicamento).join(Animal).filter(
+        aplicacoes = banco.query(AplicacaoMedicamento).join(Animal).filter(
             Animal.usuario_id == usuario.id
         ).all()
+        return [montar_resposta_aplicacao(a) for a in aplicacoes]
     except Exception:
         logger_med.error(f"Erro ao listar aplicações | usuário: {usuario.id}")
         raise HTTPException(
@@ -212,9 +223,10 @@ def listar_aplicacoes_por_animal(
         ).first()
         if not animal:
             raise HTTPException(status_code=404, detail="Animal não encontrado.")
-        return banco.query(AplicacaoMedicamento).filter(
+        aplicacoes = banco.query(AplicacaoMedicamento).filter(
             AplicacaoMedicamento.animal_id == animal_id
         ).order_by(AplicacaoMedicamento.data_aplicacao.desc()).all()
+        return [montar_resposta_aplicacao(a) for a in aplicacoes]
     except HTTPException:
         raise
     except Exception:
@@ -239,9 +251,10 @@ def animais_em_carencia(
 
         return [
             {
+                "id": a.id,
                 "animal_id": a.animal_id,
-                "animal_nome": a.animal.nome,
-                "medicamento": a.medicamento.nome,
+                "animal_nome": a.animal.nome if a.animal else None,
+                "medicamento_nome": a.medicamento.nome if a.medicamento else None,
                 "data_aplicacao": a.data_aplicacao,
                 "carencia_encerra_em": a.carencia_encerra_em,
                 "dias_restantes": (a.carencia_encerra_em - hoje).days
@@ -288,12 +301,6 @@ def registrar_aplicacao(
                 detail=f"Estoque insuficiente. Disponível: {medicamento.estoque_atual} {medicamento.unidade}."
             )
 
-        if dados.data_aplicacao > date.today():
-            raise HTTPException(
-                status_code=400,
-                detail="Data de aplicação não pode ser no futuro."
-            )
-
         dias_carencia = medicamento.dias_carencia
         carencia_encerra_em = dados.data_aplicacao + timedelta(days=dias_carencia)
 
@@ -311,7 +318,7 @@ def registrar_aplicacao(
             f"Aplicação registrada | animal: {dados.animal_id} | "
             f"medicamento: {dados.medicamento_id} | usuário: {usuario.id}"
         )
-        return nova_aplicacao
+        return montar_resposta_aplicacao(nova_aplicacao)
     except HTTPException:
         raise
     except Exception:

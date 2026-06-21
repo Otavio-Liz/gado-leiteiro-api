@@ -14,10 +14,11 @@ class Parto(Base):
     tipo_parto              = Column(Enum("normal", "cesariana", "distocico"), nullable=False, default="normal")
 
     # Cria
-    status_cria             = Column(Enum("vivo", "morto", "natimorto"), nullable=False, default="vivo")
-    sexo_cria               = Column(Enum("F", "M"))
-    nome_cria               = Column(String(100))
-    peso_cria_kg            = Column(Integer)
+    status_cria              = Column(Enum("vivo", "morto", "natimorto"), nullable=False, default="vivo")
+    sexo_cria                = Column(Enum("F", "M"))
+    nome_cria                = Column(String(100))
+    brinco_cria              = Column(String(50))
+    peso_cria_kg             = Column(Integer)
 
     # Carência pós-parto (colostro)
     dias_carencia_colostro  = Column(Integer, default=7)

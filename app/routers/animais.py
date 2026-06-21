@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from app.database import pegar_banco
 from app.models.animal import Animal
 from app.schemas.animais import AnimalCriar, AnimalResposta, AnimalAtualizar
@@ -22,6 +23,7 @@ def validar_animal(animal_data, usuario_id, banco, animal_id=None):
             status_code=400,
             detail="Data de nascimento não pode ser no futuro."
         )
+    brinco_duplicado = False
     if animal_data.brinco:
         query = banco.query(Animal).filter(
             Animal.brinco == animal_data.brinco,
@@ -30,10 +32,40 @@ def validar_animal(animal_data, usuario_id, banco, animal_id=None):
         if animal_id:
             query = query.filter(Animal.id != animal_id)
         if query.first():
-            raise HTTPException(
-                status_code=400,
-                detail="Já existe um animal com esse brinco cadastrado."
-            )
+            brinco_duplicado = True
+
+    nome_duplicado = False
+    if animal_data.nome:
+        query = banco.query(Animal).filter(
+            func.lower(Animal.nome) == animal_data.nome.lower(),
+            Animal.usuario_id == usuario_id
+        )
+        if animal_id:
+            query = query.filter(Animal.id != animal_id)
+        if query.first():
+            nome_duplicado = True
+
+    # Se os dois falharem juntos, devolve uma lista com os dois erros,
+    # cada um já indicando o campo certo (mesmo formato usado pela
+    # validação automática do Pydantic: [{campo, mensagem}]).
+    if brinco_duplicado and nome_duplicado:
+        raise HTTPException(
+            status_code=400,
+            detail=[
+                {"campo": "brinco", "mensagem": "Já existe um animal com esse brinco cadastrado."},
+                {"campo": "nome", "mensagem": "Já existe um animal com esse nome cadastrado."},
+            ]
+        )
+    if brinco_duplicado:
+        raise HTTPException(
+            status_code=400,
+            detail="Já existe um animal com esse brinco cadastrado."
+        )
+    if nome_duplicado:
+        raise HTTPException(
+            status_code=400,
+            detail="Já existe um animal com esse nome cadastrado."
+        )
     if animal_data.sexo == "M" and animal_data.producao_diaria_litros and animal_data.producao_diaria_litros > 0:
         raise HTTPException(
             status_code=400,
