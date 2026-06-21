@@ -40,6 +40,8 @@ def validar_periodo(ano: int, mes: int):
         raise HTTPException(status_code=400, detail="Mês deve ser entre 1 e 12.")
     if ano < ANO_MINIMO or ano > ANO_MAXIMO:
         raise HTTPException(status_code=400, detail=f"Ano deve ser entre {ANO_MINIMO} e {ANO_MAXIMO}.")
+    if (ano, mes) > (hoje.year, hoje.month):
+        raise HTTPException(status_code=400, detail="Não é possível gerar relatório de um mês futuro.")
     return ano, mes
 
 
@@ -100,7 +102,7 @@ def exportar_pdf_producao_mensal(
             f"Relatório de Produção — {NOMES_MESES[mes-1]}/{ano}", subtitulo_style
         ))
         elementos.append(Paragraph(
-            f"Produtor: {usuario.nome_completo or usuario.username}", normal_style
+            f"Produtor: {usuario.nome}", normal_style
         ))
         elementos.append(Paragraph(
             f"Preço do leite: R$ {preco_litro:.2f}/litro", normal_style
@@ -134,6 +136,12 @@ def exportar_pdf_producao_mensal(
                 f"{total:.2f}L", f"{aproveitado:.2f}L",
                 f"{descartado:.2f}L", f"R$ {valor:.2f}"
             ])
+
+        if total_geral == 0:
+            raise HTTPException(
+                status_code=404,
+                detail="Sem dados de produção para o período selecionado."
+            )
 
         dados_tabela.append([
             "TOTAL", "",
@@ -228,7 +236,7 @@ def exportar_excel_producao_mensal(
         ws["A1"].alignment = Alignment(horizontal="center")
 
         ws.merge_cells("A2:F2")
-        ws["A2"] = f"Produtor: {usuario.nome_completo or usuario.username} | Preço: R$ {preco_litro:.4f}/L"
+        ws["A2"] = f"Produtor: {usuario.nome} | Preço: R$ {preco_litro:.2f}/L"
         ws["A2"].alignment = Alignment(horizontal="center")
 
         cabecalhos = ["Animal", "Brinco", "Total Litros", "Aproveitado", "Descartado", "Valor (R$)"]
@@ -271,6 +279,12 @@ def exportar_excel_producao_mensal(
                 cell.alignment = centralizado
                 cell.border = borda
             linha += 1
+
+        if total_geral == 0:
+            raise HTTPException(
+                status_code=404,
+                detail="Sem dados de produção para o período selecionado."
+            )
 
         totais = ["TOTAL", "", float(total_geral), float(total_aproveitado),
                   float(total_descartado), float(total_aproveitado * preco_litro)]
@@ -316,6 +330,14 @@ def exportar_excel_rebanho(
             Animal.usuario_id == usuario.id
         ).order_by(Animal.nome).all()
 
+        # animal.producao_diaria_litros nunca é preenchido em lugar nenhum do
+        # sistema (sempre fica 0) — a coluna "Prod. Diária" do relatório usa,
+        # em vez disso, a média real dos últimos 30 dias de produção
+        # registrada, dividida pelos dias que de fato têm registro (não por
+        # 30 fixo, pra não subestimar um animal que começou a produzir há
+        # poucos dias).
+        inicio_periodo = date.today() - timedelta(days=30)
+
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = "Rebanho"
@@ -335,7 +357,7 @@ def exportar_excel_rebanho(
         ws["A1"].alignment = Alignment(horizontal="center")
 
         cabecalhos = ["Nome", "Brinco", "Raça", "Sexo", "Nascimento",
-                      "Status", "Status Reprodutivo", "Prod. Diária (L)", "Peso (kg)", "Observação"]
+                      "Status", "Status Reprodutivo", "Prod. Diária Média (L)", "Peso (kg)", "Observação"]
         for col, cab in enumerate(cabecalhos, 1):
             cell = ws.cell(row=3, column=col, value=cab)
             cell.fill = verde_escuro
@@ -344,13 +366,21 @@ def exportar_excel_rebanho(
             cell.border = borda
 
         for i, animal in enumerate(animais):
+            producoes_recentes = banco.query(Producao).filter(
+                Producao.animal_id == animal.id,
+                Producao.data >= inicio_periodo
+            ).all()
+            dias_com_registro = len({p.data for p in producoes_recentes})
+            total_litros = sum((p.quantidade_litros for p in producoes_recentes), Decimal("0"))
+            media_diaria = float(total_litros / dias_com_registro) if dias_com_registro > 0 else 0.0
+
             fill = verde_linha if i % 2 == 0 else PatternFill("solid", fgColor="FFFFFF")
             valores = [
                 animal.nome, animal.brinco, animal.raca or "",
                 "Fêmea" if animal.sexo == "F" else "Macho",
                 animal.nascimento.strftime("%d/%m/%Y") if animal.nascimento else "",
                 animal.status, animal.status_reprodutivo,
-                float(animal.producao_diaria_litros or 0),
+                round(media_diaria, 2),
                 animal.peso_kg or "", animal.observacao or ""
             ]
             for col, val in enumerate(valores, 1):
@@ -359,7 +389,7 @@ def exportar_excel_rebanho(
                 cell.alignment = centralizado
                 cell.border = borda
 
-        larguras = [20, 12, 15, 8, 12, 12, 18, 14, 10, 25]
+        larguras = [20, 12, 15, 8, 12, 12, 18, 18, 10, 25]
         for col, largura in enumerate(larguras, 1):
             ws.column_dimensions[openpyxl.utils.get_column_letter(col)].width = largura
 
