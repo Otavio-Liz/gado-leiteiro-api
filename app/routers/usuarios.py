@@ -1,3 +1,4 @@
+# ESTE ARQUIVO VAI EM: app/routers/usuarios.py (tem @roteador.get/@roteador.put — NAO é o de animais)
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Request
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
@@ -365,6 +366,8 @@ def atualizar_perfil(
             usuario.senha_hash = gerar_hash_senha(dados.senha)
         if dados.nome is not None:
             usuario.nome = dados.nome
+        if dados.nome_fazenda is not None:
+            usuario.nome_fazenda = dados.nome_fazenda
         if dados.email is not None:
             usuario.email = dados.email  # já normalizado pelo schema (lower/strip)
 

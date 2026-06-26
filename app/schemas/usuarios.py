@@ -1,3 +1,4 @@
+# ESTE ARQUIVO VAI EM: app/schemas/usuarios.py (classes BaseModel, sem rota)
 from pydantic import BaseModel, field_validator, EmailStr, Field
 from datetime import datetime
 from typing import Optional
@@ -43,11 +44,17 @@ class LoginRequest(BaseModel):
 
 
 class UsuarioAtualizar(BaseModel):
-    nome:        Optional[str] = Field(default=None, min_length=2, max_length=150)
-    email:       Optional[EmailStr] = None
-    senha_atual: Optional[str] = None
-    senha:       Optional[str] = Field(default=None, min_length=6, max_length=100)
-    foto_url:    Optional[str] = None
+    nome:         Optional[str] = Field(default=None, min_length=2, max_length=150)
+    nome_fazenda: Optional[str] = Field(default=None, max_length=150)
+    email:        Optional[EmailStr] = None
+    senha_atual:  Optional[str] = None
+    senha:        Optional[str] = Field(default=None, min_length=6, max_length=100)
+    foto_url:     Optional[str] = None
+
+    @field_validator("nome_fazenda")
+    @classmethod
+    def validar_nome_fazenda(cls, v):
+        return v.strip() if v is not None else v
 
     @field_validator("email")
     @classmethod
@@ -74,12 +81,13 @@ class UsuarioAtualizar(BaseModel):
 
 
 class UsuarioResponse(BaseModel):
-    id:         int
-    nome:       str
-    email:      str
-    foto_url:   Optional[str] = None
-    ativo:      bool
-    criado_em:  Optional[datetime] = None
+    id:           int
+    nome:         str
+    nome_fazenda: Optional[str] = None
+    email:        str
+    foto_url:     Optional[str] = None
+    ativo:        bool
+    criado_em:    Optional[datetime] = None
 
     class Config:
         from_attributes = True

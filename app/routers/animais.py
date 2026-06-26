@@ -1,3 +1,4 @@
+# ESTE ARQUIVO VAI EM: app/routers/animais.py (restaura o original, sem nenhuma mudança minha)
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from sqlalchemy.orm import Session
 from sqlalchemy import func

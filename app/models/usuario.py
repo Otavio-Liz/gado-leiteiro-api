@@ -1,3 +1,4 @@
+# ESTE ARQUIVO VAI EM: app/models/usuario.py (com o campo nome_fazenda adicionado)
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
@@ -9,6 +10,7 @@ class Usuario(Base):
 
     id                          = Column(Integer, primary_key=True, index=True)
     nome                        = Column(String(150), nullable=False)
+    nome_fazenda                = Column(String(150), nullable=True)
     email                       = Column(String(150), unique=True, nullable=False, index=True)
     senha_hash                  = Column(String(255), nullable=False)
     foto_url                    = Column(String(500))
