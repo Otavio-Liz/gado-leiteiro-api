@@ -1,12 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy import func as sqlfunc
 from app.database import pegar_banco
 from app.models.animal import Animal
 from app.models.vacina import Vacina
 from app.models.medicamento import Medicamento, AplicacaoMedicamento
 from app.models.parto import Parto
 from app.models.producao import Producao, PrecoLeite
-from app.models.reproducao import Ocorrencia
+from app.models.reproducao import Ocorrencia, Reproducao
+from app.models.acao_diaria import AcaoDiariaConcluida
 from app.auth import pegar_usuario_atual
 from app.models.usuario import Usuario
 from app.logger import logger_dash
@@ -17,6 +19,12 @@ roteador = APIRouter(
     prefix="/dashboard",
     tags=["Dashboard e Alertas"]
 )
+
+
+def idade_em_meses(nascimento, hoje):
+    if not nascimento:
+        return None
+    return (hoje.year - nascimento.year) * 12 + (hoje.month - nascimento.month) - (1 if hoje.day < nascimento.day else 0)
 
 
 @roteador.get("/alertas")
@@ -72,6 +80,7 @@ def alertas_consolidados(
                 "animal_id": a.id,
                 "animal_nome": a.nome,
                 "animal_brinco": a.brinco,
+                "foto_url": a.foto_url,
                 "data_prevista_parto": a.data_prevista_parto,
                 "dias_restantes": (a.data_prevista_parto - hoje).days
             }
@@ -184,17 +193,58 @@ def resumo_dashboard(
             Animal.sexo == "M"
         ).count()
 
-        em_lactacao = banco.query(Animal).filter(
+        # Distribuição do rebanho — classificação por precedência:
+        # 1) idade < 12 meses -> bezerro/bezerra (qualquer sexo)
+        # 2) 12+ meses, macho -> novilho (machos não têm conceito de parto,
+        #    então não há uma regra de "graduação" — fica só por idade)
+        # 3) 12+ meses, fêmea, NUNCA teve parto -> novilha, MESMO que esteja
+        #    prenha do primeiro filho (regra explícita: só deixa de ser
+        #    novilha quando o parto for de fato registrado no sistema)
+        # 4) 12+ meses, fêmea, já teve 1+ parto -> classifica pelo status
+        #    reprodutivo atual (em lactação / prenha / seca-ou-vazia)
+        animais_ativos = banco.query(Animal).filter(
             Animal.usuario_id == usuario.id,
-            Animal.status == "ativo",
-            Animal.status_reprodutivo == "em_lactacao"
-        ).count()
+            Animal.status == "ativo"
+        ).all()
 
-        prenhas = banco.query(Animal).filter(
-            Animal.usuario_id == usuario.id,
-            Animal.status == "ativo",
-            Animal.status_reprodutivo == "prenha"
-        ).count()
+        em_lactacao = 0
+        prenhas = 0
+        secas = 0
+        novilhas = 0
+        novilhos = 0
+        bezerros = 0
+
+        for a in animais_ativos:
+            meses = idade_em_meses(a.nascimento, hoje)
+            if meses is None:
+                continue  # sem data de nascimento cadastrada — não entra em nenhuma categoria por idade
+
+            if meses < 12:
+                bezerros += 1
+                continue
+
+            if a.sexo == "M":
+                novilhos += 1
+                continue
+
+            partos = a.quantidade_partos or 0
+            if partos == 0:
+                novilhas += 1
+            elif a.status_reprodutivo == "em_lactacao":
+                em_lactacao += 1
+            elif a.status_reprodutivo == "prenha":
+                prenhas += 1
+            else:
+                secas += 1  # seca oficialmente, ou vazia/em_cio/não_aplicável — sem uma 6ª categoria pra "vaca ociosa"
+
+        distribuicao_rebanho = {
+            "em_lactacao": em_lactacao,
+            "prenhas": prenhas,
+            "secas": secas,
+            "novilhas": novilhas,
+            "novilhos": novilhos,
+            "bezerros": bezerros,
+        }
 
         producoes_hoje = banco.query(Producao).join(Animal).filter(
             Animal.usuario_id == usuario.id,
@@ -225,6 +275,22 @@ def resumo_dashboard(
         valor_hoje = litros_hoje_aproveitados * preco_litro
         valor_mes = litros_mes_aproveitados * preco_litro
 
+        # Produção diária dos últimos 7 dias (hoje incluso) — sempre com os 7
+        # dias presentes, mesmo sem produção, pra não quebrar a linha do gráfico.
+        inicio_semana = hoje - timedelta(days=6)
+        producoes_semana = banco.query(Producao).join(Animal).filter(
+            Animal.usuario_id == usuario.id,
+            Producao.data.between(inicio_semana, hoje)
+        ).all()
+        litros_por_dia = {}
+        for p in producoes_semana:
+            litros_por_dia[p.data] = litros_por_dia.get(p.data, 0) + float(p.quantidade_litros)
+
+        producao_semanal = [
+            {"data": (inicio_semana + timedelta(days=i)), "total": round(litros_por_dia.get(inicio_semana + timedelta(days=i), 0), 2)}
+            for i in range(7)
+        ]
+
         limite_30 = hoje + timedelta(days=30)
 
         total_alertas = (
@@ -247,19 +313,6 @@ def resumo_dashboard(
             ).count()
         )
 
-        # Produção dos últimos 7 dias (incluindo hoje) — usado pelo gráfico
-        # "Produção — 7 dias" do dashboard, que antes não tinha nenhum dado
-        # real vindo do backend.
-        producao_semanal = []
-        for i in range(6, -1, -1):
-            dia = hoje - timedelta(days=i)
-            producoes_dia = banco.query(Producao).join(Animal).filter(
-                Animal.usuario_id == usuario.id,
-                Producao.data == dia
-            ).all()
-            total_dia = sum((p.quantidade_litros for p in producoes_dia), Decimal("0"))
-            producao_semanal.append({"data": dia, "total": round(total_dia, 2)})
-
         logger_dash.info(f"Resumo consultado | usuário: {usuario.id}")
 
         return {
@@ -271,6 +324,7 @@ def resumo_dashboard(
                 "em_lactacao": em_lactacao,
                 "prenhas": prenhas
             },
+            "distribuicao_rebanho": distribuicao_rebanho,
             "producao_hoje": {
                 "total_litros": round(litros_hoje, 2),
                 "litros_aproveitados": round(litros_hoje_aproveitados, 2),
@@ -293,4 +347,267 @@ def resumo_dashboard(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Erro ao buscar resumo do dashboard. Tente novamente."
+        )
+
+@roteador.get("/producao-por-animal")
+def producao_por_animal(
+    banco: Session = Depends(pegar_banco),
+    usuario: Usuario = Depends(pegar_usuario_atual)
+):
+    """Ranking dos animais com mais litros produzidos hoje (top 5)."""
+    try:
+        hoje = date.today()
+
+        linhas = banco.query(
+            Animal.id, Animal.nome, Animal.foto_url,
+            sqlfunc.sum(Producao.quantidade_litros).label("litros")
+        ).join(Producao, Producao.animal_id == Animal.id).filter(
+            Animal.usuario_id == usuario.id,
+            Producao.data == hoje,
+            Producao.status == "aproveitado"
+        ).group_by(Animal.id, Animal.nome, Animal.foto_url).order_by(
+            sqlfunc.sum(Producao.quantidade_litros).desc()
+        ).limit(5).all()
+
+        ranking = [
+            {
+                "animal_id": linha.id,
+                "animal_nome": linha.nome,
+                "foto_url": linha.foto_url,
+                "litros": round(float(linha.litros), 2),
+            }
+            for linha in linhas
+        ]
+
+        logger_dash.info(f"Produção por animal consultada | usuário: {usuario.id}")
+        return {"data_consulta": hoje, "ranking": ranking}
+    except Exception:
+        logger_dash.error(f"Erro ao buscar produção por animal | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao buscar produção por animal. Tente novamente."
+        )
+
+
+@roteador.get("/animais-lactacao")
+def animais_em_lactacao(
+    banco: Session = Depends(pegar_banco),
+    usuario: Usuario = Depends(pegar_usuario_atual)
+):
+    """
+    Animais em lactação com dados consolidados pra tabela do Dashboard:
+    produção de hoje, última ordenha registrada e última vacina aplicada.
+    """
+    try:
+        hoje = date.today()
+
+        animais = banco.query(Animal).filter(
+            Animal.usuario_id == usuario.id,
+            Animal.status == "ativo",
+            Animal.status_reprodutivo == "em_lactacao"
+        ).all()
+
+        resultado = []
+        for a in animais:
+            producao_hoje = banco.query(Producao).filter(
+                Producao.animal_id == a.id,
+                Producao.data == hoje
+            ).first()
+
+            ultima_producao = banco.query(Producao).filter(
+                Producao.animal_id == a.id
+            ).order_by(Producao.data.desc(), Producao.criado_em.desc()).first()
+
+            ultima_vacina = banco.query(Vacina).filter(
+                Vacina.animal_id == a.id
+            ).order_by(Vacina.data_aplicacao.desc()).first()
+
+            resultado.append({
+                "animal_id": a.id,
+                "nome": a.nome,
+                "brinco": a.brinco,
+                "raca": a.raca,
+                "nascimento": a.nascimento,
+                "foto_url": a.foto_url,
+                "producao_hoje_litros": round(float(producao_hoje.quantidade_litros), 2) if producao_hoje else None,
+                "ultima_ordenha": {
+                    "data": ultima_producao.data,
+                    "registrada_em": ultima_producao.criado_em,
+                } if ultima_producao else None,
+                "ultima_vacina": {
+                    "nome": ultima_vacina.nome_vacina,
+                    "data_aplicacao": ultima_vacina.data_aplicacao,
+                } if ultima_vacina else None,
+            })
+
+        logger_dash.info(f"Animais em lactação consultados | usuário: {usuario.id}")
+        return {"data_consulta": hoje, "total": len(resultado), "animais": resultado}
+    except Exception:
+        logger_dash.error(f"Erro ao buscar animais em lactação | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao buscar animais em lactação. Tente novamente."
+        )
+
+
+def _gerar_acoes_do_dia(banco: Session, usuario_id: int, hoje: date) -> list[dict]:
+    """
+    Monta a lista de ações sugeridas pra hoje, com base em dados reais
+    (não é uma lista fixa) — cada ação só aparece se a condição dela for
+    verdadeira. As duas últimas (produção da manhã e limpeza do tanque)
+    são lembretes fixos do dia a dia, sempre presentes.
+    """
+    acoes = [{
+        "chave": "registrar_producao_manha",
+        "titulo": "Registrar produção da manhã",
+        "subtitulo": "Ordenha inicial do dia",
+    }]
+
+    em_tratamento = banco.query(AplicacaoMedicamento).join(Animal).filter(
+        Animal.usuario_id == usuario_id,
+        AplicacaoMedicamento.carencia_encerra_em >= hoje
+    ).count()
+    if em_tratamento > 0:
+        acoes.append({
+            "chave": "verificar_tratamento",
+            "titulo": "Verificar animais em tratamento",
+            "subtitulo": f"{em_tratamento} animal{'is' if em_tratamento != 1 else ''}",
+        })
+
+    vacinas_hoje = banco.query(Vacina).join(Animal).filter(
+        Animal.usuario_id == usuario_id,
+        Vacina.proxima_dose == hoje
+    ).all()
+    if vacinas_hoje:
+        nomes_distintos = {v.nome_vacina for v in vacinas_hoje}
+        sub = f"{next(iter(nomes_distintos))} — vence hoje" if len(nomes_distintos) == 1 else f"{len(vacinas_hoje)} vacinas vencem hoje"
+        acoes.append({
+            "chave": "aplicar_vacina_hoje",
+            "titulo": f"Aplicar vacina em {len(vacinas_hoje)} animal{'is' if len(vacinas_hoje) != 1 else ''}",
+            "subtitulo": sub,
+        })
+
+    # Inseminações sem diagnóstico ainda, feitas há 25+ dias — já dá pra checar prenhez
+    limite_diagnostico = hoje - timedelta(days=25)
+    aguardando_diagnostico = banco.query(Reproducao).join(Animal).filter(
+        Animal.usuario_id == usuario_id,
+        Reproducao.resultado_diagnostico.is_(None),
+        Reproducao.data_cobertura.isnot(None),
+        Reproducao.data_cobertura <= limite_diagnostico
+    ).count()
+    if aguardando_diagnostico > 0:
+        acoes.append({
+            "chave": "verificar_prenhez",
+            "titulo": "Verificar prenhez das inseminadas",
+            "subtitulo": f"{aguardando_diagnostico} animal{'is' if aguardando_diagnostico != 1 else ''}",
+        })
+
+    acoes.append({
+        "chave": "limpeza_tanque",
+        "titulo": "Limpeza do tanque de leite",
+        "subtitulo": "Programado",
+    })
+
+    return acoes
+
+
+@roteador.get("/acoes")
+def listar_acoes_do_dia(
+    banco: Session = Depends(pegar_banco),
+    usuario: Usuario = Depends(pegar_usuario_atual)
+):
+    try:
+        hoje = date.today()
+        acoes = _gerar_acoes_do_dia(banco, usuario.id, hoje)
+
+        concluidas = banco.query(AcaoDiariaConcluida.chave_acao).filter(
+            AcaoDiariaConcluida.usuario_id == usuario.id,
+            AcaoDiariaConcluida.data == hoje
+        ).all()
+        chaves_concluidas = {c.chave_acao for c in concluidas}
+
+        for a in acoes:
+            a["concluida"] = a["chave"] in chaves_concluidas
+
+        return {"data_consulta": hoje, "acoes": acoes}
+    except Exception:
+        logger_dash.error(f"Erro ao buscar ações do dia | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao buscar ações do dia. Tente novamente."
+        )
+
+
+@roteador.put("/acoes/{chave_acao}/alternar")
+def alternar_acao_do_dia(
+    chave_acao: str,
+    banco: Session = Depends(pegar_banco),
+    usuario: Usuario = Depends(pegar_usuario_atual)
+):
+    """Marca/desmarca uma ação do dia. Idempotente — chamar de novo desfaz."""
+    try:
+        hoje = date.today()
+        existente = banco.query(AcaoDiariaConcluida).filter(
+            AcaoDiariaConcluida.usuario_id == usuario.id,
+            AcaoDiariaConcluida.data == hoje,
+            AcaoDiariaConcluida.chave_acao == chave_acao
+        ).first()
+
+        if existente:
+            banco.delete(existente)
+            banco.commit()
+            return {"chave_acao": chave_acao, "concluida": False}
+
+        nova = AcaoDiariaConcluida(usuario_id=usuario.id, data=hoje, chave_acao=chave_acao)
+        banco.add(nova)
+        banco.commit()
+        return {"chave_acao": chave_acao, "concluida": True}
+    except Exception:
+        banco.rollback()
+        logger_dash.error(f"Erro ao alternar ação do dia | usuário: {usuario.id} | chave: {chave_acao}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao atualizar ação do dia. Tente novamente."
+        )
+
+
+@roteador.get("/gestantes")
+def listar_gestantes(
+    banco: Session = Depends(pegar_banco),
+    usuario: Usuario = Depends(pegar_usuario_atual)
+):
+    """
+    Todas as vacas/novilhas atualmente prenhas (status_reprodutivo == "prenha"),
+    independente de quão longe está o parto previsto — diferente do alerta de
+    "partos próximos" (que só pega os que vencem nos próximos 30 dias). Usado
+    pelo widget "Próximos partos" do Dashboard.
+    """
+    try:
+        hoje = date.today()
+
+        prenhas = banco.query(Animal).filter(
+            Animal.usuario_id == usuario.id,
+            Animal.status == "ativo",
+            Animal.status_reprodutivo == "prenha"
+        ).order_by(Animal.data_prevista_parto.is_(None), Animal.data_prevista_parto.asc()).all()
+
+        resultado = [
+            {
+                "animal_id": a.id,
+                "animal_nome": a.nome,
+                "animal_brinco": a.brinco,
+                "foto_url": a.foto_url,
+                "data_prevista_parto": a.data_prevista_parto,
+                "dias_restantes": (a.data_prevista_parto - hoje).days if a.data_prevista_parto else None,
+            }
+            for a in prenhas
+        ]
+
+        logger_dash.info(f"Gestantes consultadas | usuário: {usuario.id}")
+        return {"data_consulta": hoje, "total": len(resultado), "gestantes": resultado}
+    except Exception:
+        logger_dash.error(f"Erro ao buscar gestantes | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao buscar gestantes. Tente novamente."
         )

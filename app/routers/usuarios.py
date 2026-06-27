@@ -1,4 +1,3 @@
-# ESTE ARQUIVO VAI EM: app/routers/usuarios.py (tem @roteador.get/@roteador.put — NAO é o de animais)
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Request
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
@@ -43,10 +42,10 @@ def enviar_email_verificacao(email: str, nome: str, codigo: str):
         resend.Emails.send({
             "from": FROM_EMAIL,
             "to": email,
-            "subject": "✅ Confirme seu e-mail — LisboTech",
+            "subject": "✅ Confirme seu e-mail — LeiteTech",
             "html": f"""
             <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#050d0a;color:#fff;border-radius:12px;">
-                <h1 style="font-size:20px;color:#00ff88;margin-bottom:8px;">LisboTech</h1>
+                <h1 style="font-size:20px;color:#00ff88;margin-bottom:8px;">LeiteTech</h1>
                 <h2 style="font-size:16px;font-weight:500;color:#fff;margin-bottom:16px;">Olá, {nome}! Confirme seu e-mail</h2>
                 <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6;margin-bottom:24px;">
                     Use o código abaixo para ativar sua conta. Ele expira em {MINUTOS_VALIDADE_CODIGO} minutos.
@@ -72,10 +71,10 @@ def enviar_email_reset(email: str, nome: str, token: str):
         resend.Emails.send({
             "from": FROM_EMAIL,
             "to": email,
-            "subject": "🔑 Redefinição de senha — LisboTech",
+            "subject": "🔑 Redefinição de senha — LeiteTech",
             "html": f"""
             <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#050d0a;color:#fff;border-radius:12px;">
-                <h1 style="font-size:20px;color:#00ff88;margin-bottom:8px;">LisboTech</h1>
+                <h1 style="font-size:20px;color:#00ff88;margin-bottom:8px;">LeiteTech</h1>
                 <h2 style="font-size:16px;font-weight:500;color:#fff;margin-bottom:16px;">Olá, {nome}! Redefina sua senha</h2>
                 <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6;margin-bottom:24px;">
                     Clique no botão abaixo para criar uma nova senha. O link expira em 1 hora.
@@ -404,7 +403,7 @@ def upload_foto_perfil(
     try:
         resultado = cloudinary.uploader.upload(
             conteudo,
-            folder="lisbotech/perfis",
+            folder="leitetech/perfis",
             public_id=f"usuario_{usuario.id}",
             overwrite=True,
             transformation=[
@@ -437,7 +436,7 @@ def remover_foto_perfil(
         raise HTTPException(status_code=404, detail="Você não possui foto de perfil cadastrada.")
 
     try:
-        cloudinary.uploader.destroy(f"lisbotech/perfis/usuario_{usuario.id}")
+        cloudinary.uploader.destroy(f"leitetech/perfis/usuario_{usuario.id}")
         usuario.foto_url = None
         banco.commit()
         logger_usuario.info(f"Foto de perfil removida | email: {usuario.email}")
