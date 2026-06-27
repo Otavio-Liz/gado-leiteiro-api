@@ -21,10 +21,19 @@ import cloudinary.uploader
 import resend
 import os
 import secrets
+from PIL import Image
+import io
 
 resend.api_key = os.getenv("RESEND_API_KEY")
 APP_URL = os.getenv("APP_URL", "http://localhost:8000")
 FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "onboarding@resend.dev")
+
+# Hash "morto" — nunca corresponde a senha real nenhuma. Usado só quando o
+# e-mail não existe, pra que verificar_senha() SEMPRE rode (o bcrypt é a
+# parte lenta da operação). Sem isso, login com e-mail inexistente retorna
+# quase instantâneo enquanto e-mail existente demora ~100-300ms — uma
+# diferença de tempo que dá pra usar pra descobrir quais e-mails têm conta.
+HASH_DUMMY_TIMING = gerar_hash_senha(secrets.token_urlsafe(32))
 
 roteador = APIRouter(prefix="/usuarios", tags=["Usuários"])
 
@@ -244,13 +253,14 @@ def login(
     dados: LoginRequest,
     banco: Session = Depends(pegar_banco)
 ):
-    verificar_bloqueio(dados.email)
+    verificar_bloqueio(dados.email, banco)
 
     usuario = banco.query(Usuario).filter(Usuario.email == dados.email).first()
+    senha_correta = verificar_senha(dados.senha, usuario.senha_hash if usuario else HASH_DUMMY_TIMING)
 
-    if not usuario or not verificar_senha(dados.senha, usuario.senha_hash):
-        registrar_tentativa_falha(dados.email)
-        restantes = tentativas_restantes(dados.email)
+    if not usuario or not senha_correta:
+        registrar_tentativa_falha(dados.email, banco)
+        restantes = tentativas_restantes(dados.email, banco)
 
         if restantes == 0:
             raise HTTPException(
@@ -269,7 +279,7 @@ def login(
             detail="Conta não verificada. Verifique seu e-mail para ativar a conta."
         )
 
-    resetar_tentativas(dados.email)
+    resetar_tentativas(dados.email, banco)
 
     access_token = criar_token({"sub": usuario.email})
     refresh_token = criar_refresh_token({"sub": usuario.email})
@@ -399,6 +409,17 @@ def upload_foto_perfil(
 
     if len(conteudo) > 5 * 1024 * 1024:
         raise HTTPException(status_code=400, detail="Foto muito grande. Tamanho máximo: 5MB.")
+
+    # O content_type acima vem do cliente e pode ser falsificado — confere
+    # o conteúdo real do arquivo, abrindo-o de fato como imagem.
+    try:
+        imagem_verificacao = Image.open(io.BytesIO(conteudo))
+        imagem_verificacao.verify()
+        imagem_formato = Image.open(io.BytesIO(conteudo)).format
+    except Exception:
+        raise HTTPException(status_code=400, detail="Arquivo não é uma imagem válida.")
+    if imagem_formato not in ("JPEG", "PNG", "WEBP"):
+        raise HTTPException(status_code=400, detail="Formato inválido. Use JPG, PNG ou WEBP.")
 
     try:
         resultado = cloudinary.uploader.upload(

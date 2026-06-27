@@ -1,4 +1,3 @@
-# ESTE ARQUIVO VAI EM: app/routers/animais.py (restaura o original, sem nenhuma mudança minha)
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from sqlalchemy.orm import Session
 from sqlalchemy import func
@@ -11,6 +10,8 @@ from app.cloudinary_config import upload_foto_animal, deletar_foto_animal
 from app.logger import logger_animais
 from datetime import date
 from typing import List
+from PIL import Image
+import io
 
 roteador = APIRouter(
     prefix="/animais",
@@ -279,6 +280,24 @@ def upload_foto(
             raise HTTPException(
                 status_code=400,
                 detail="Foto muito grande. Tamanho máximo: 5MB."
+            )
+
+        # O content_type do passo acima vem do cliente e pode ser falsificado
+        # (é só um texto no cabeçalho da requisição) — aqui confere o conteúdo
+        # real do arquivo, abrindo-o de fato como imagem.
+        try:
+            imagem_verificacao = Image.open(io.BytesIO(conteudo))
+            imagem_verificacao.verify()
+            imagem_formato = Image.open(io.BytesIO(conteudo)).format  # verify() invalida o objeto, reabre pra checar o formato
+        except Exception:
+            raise HTTPException(
+                status_code=400,
+                detail="Arquivo não é uma imagem válida."
+            )
+        if imagem_formato not in ("JPEG", "PNG", "WEBP"):
+            raise HTTPException(
+                status_code=400,
+                detail="Formato inválido. Use JPG, PNG ou WEBP."
             )
 
         url = upload_foto_animal(conteudo, animal_id)

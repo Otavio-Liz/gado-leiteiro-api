@@ -19,55 +19,66 @@ EXPIRACAO_REFRESH_DIAS = 7
 
 oauth2_esquema = OAuth2PasswordBearer(tokenUrl="/usuarios/login")
 
-# ── Controle de tentativas de login em memória ────────────────────────────────
-_tentativas_login: dict = {}
+# ── Controle de tentativas de login (persistido no banco) ─────────────────────
+#
+# Antes vivia num dict em memória do processo Python — funcionava bem com
+# 1 único processo, mas não sobrevivia a um reinício e, em produção com
+# múltiplos workers, cada worker tinha sua própria contagem (um atacante
+# distribuindo requisições entre workers contornava o limite de tentativas).
+# Persistido no banco, o bloqueio é o mesmo independente de quantos
+# processos estejam rodando.
 
 MAX_TENTATIVAS = 5
 TEMPO_BLOQUEIO_MINUTOS = 15
 
 
-def registrar_tentativa_falha(email: str):
-    agora = datetime.now(timezone.utc)
-    if email not in _tentativas_login:
-        _tentativas_login[email] = {"tentativas": 0, "bloqueado_ate": None}
+def registrar_tentativa_falha(email: str, banco: Session):
+    from app.models.tentativa_login import TentativaLogin
+    agora = datetime.utcnow()
 
-    entrada = _tentativas_login[email]
+    entrada = banco.query(TentativaLogin).filter(TentativaLogin.email == email).first()
+    if not entrada:
+        entrada = TentativaLogin(email=email, tentativas=0, bloqueado_until=None)
+        banco.add(entrada)
 
-    if entrada["bloqueado_ate"] and agora > entrada["bloqueado_ate"]:
-        entrada["tentativas"] = 0
-        entrada["bloqueado_ate"] = None
+    if entrada.bloqueado_until and agora > entrada.bloqueado_until:
+        entrada.tentativas = 0
+        entrada.bloqueado_until = None
 
-    entrada["tentativas"] += 1
+    entrada.tentativas += 1
+    if entrada.tentativas >= MAX_TENTATIVAS:
+        entrada.bloqueado_until = agora + timedelta(minutes=TEMPO_BLOQUEIO_MINUTOS)
 
-    if entrada["tentativas"] >= MAX_TENTATIVAS:
-        entrada["bloqueado_ate"] = agora + timedelta(minutes=TEMPO_BLOQUEIO_MINUTOS)
+    banco.commit()
 
 
-def verificar_bloqueio(email: str):
-    if email not in _tentativas_login:
+def verificar_bloqueio(email: str, banco: Session):
+    from app.models.tentativa_login import TentativaLogin
+    entrada = banco.query(TentativaLogin).filter(TentativaLogin.email == email).first()
+    if not entrada or not entrada.bloqueado_until:
         return
 
-    entrada = _tentativas_login[email]
-    agora = datetime.now(timezone.utc)
-
-    if entrada["bloqueado_ate"] and agora < entrada["bloqueado_ate"]:
-        minutos_restantes = int((entrada["bloqueado_ate"] - agora).total_seconds() / 60) + 1
+    agora = datetime.utcnow()
+    if agora < entrada.bloqueado_until:
+        minutos_restantes = int((entrada.bloqueado_until - agora).total_seconds() / 60) + 1
         raise HTTPException(
             status_code=status.HTTP_429_TOO_MANY_REQUESTS,
             detail=f"Conta bloqueada por excesso de tentativas. Tente novamente em {minutos_restantes} minuto(s)"
         )
 
 
-def resetar_tentativas(email: str):
-    if email in _tentativas_login:
-        del _tentativas_login[email]
+def resetar_tentativas(email: str, banco: Session):
+    from app.models.tentativa_login import TentativaLogin
+    banco.query(TentativaLogin).filter(TentativaLogin.email == email).delete()
+    banco.commit()
 
 
-def tentativas_restantes(email: str) -> int:
-    if email not in _tentativas_login:
+def tentativas_restantes(email: str, banco: Session) -> int:
+    from app.models.tentativa_login import TentativaLogin
+    entrada = banco.query(TentativaLogin).filter(TentativaLogin.email == email).first()
+    if not entrada:
         return MAX_TENTATIVAS
-    entrada = _tentativas_login[email]
-    return max(0, MAX_TENTATIVAS - entrada["tentativas"])
+    return max(0, MAX_TENTATIVAS - entrada.tentativas)
 
 
 # ── Tokens ────────────────────────────────────────────────────────────────────
