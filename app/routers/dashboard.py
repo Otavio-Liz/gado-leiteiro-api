@@ -6,9 +6,10 @@ from app.models.animal import Animal
 from app.models.vacina import Vacina
 from app.models.medicamento import Medicamento, AplicacaoMedicamento
 from app.models.parto import Parto
-from app.models.producao import Producao, PrecoLeite
+from app.models.producao import Producao
 from app.models.reproducao import Ocorrencia, Reproducao
 from app.models.acao_diaria import AcaoDiariaConcluida
+from app.utils_financeiro import construir_tabela_precos
 from app.auth import pegar_usuario_atual
 from app.models.usuario import Usuario
 from app.logger import logger_dash
@@ -266,14 +267,17 @@ def resumo_dashboard(
             p.quantidade_litros for p in producoes_mes if p.status == "aproveitado"
         )
 
-        preco = banco.query(PrecoLeite).filter(
-            PrecoLeite.usuario_id == usuario.id,
-            PrecoLeite.vigente_a_partir <= hoje
-        ).order_by(PrecoLeite.vigente_a_partir.desc()).first()
-
-        preco_litro = preco.preco_litro if preco else Decimal("0")
+        preco_em = construir_tabela_precos(usuario.id, banco)
+        preco_litro = preco_em(hoje)
         valor_hoje = litros_hoje_aproveitados * preco_litro
-        valor_mes = litros_mes_aproveitados * preco_litro
+        # valor_mes soma dia a dia, com o preço vigente em CADA dia — não
+        # um preço único pro mês inteiro (bug real: se o preço mudasse no
+        # meio do mês, a receita de todos os dias saía calculada com o
+        # preço mais novo, mesmo os dias vendidos pelo preço antigo).
+        valor_mes = sum(
+            (p.quantidade_litros * preco_em(p.data) for p in producoes_mes if p.status == "aproveitado"),
+            Decimal("0")
+        )
 
         # Produção diária dos últimos 7 dias (hoje incluso) — sempre com os 7
         # dias presentes, mesmo sem produção, pra não quebrar a linha do gráfico.
@@ -406,21 +410,50 @@ def animais_em_lactacao(
             Animal.status == "ativo",
             Animal.status_reprodutivo == "em_lactacao"
         ).all()
+        animal_ids = [a.id for a in animais]
+
+        # 3 consultas no TOTAL (não 3 por animal) — antes, cada uma dessas
+        # 3 buscas rodava dentro do loop, uma vez por animal; com 50 vacas
+        # em lactação isso eram 150 idas ao banco a cada recarregamento do
+        # Dashboard (a cada 60s). Agora busca tudo de uma vez e indexa em
+        # dicionários por animal_id, pra olhar na memória dentro do loop.
+        producoes_hoje_por_animal = {
+            p.animal_id: p
+            for p in banco.query(Producao).filter(
+                Producao.animal_id.in_(animal_ids),
+                Producao.data == hoje
+            ).all()
+        } if animal_ids else {}
+
+        subq_ultima_producao = banco.query(
+            Producao.animal_id, sqlfunc.max(Producao.data).label("ultima_data")
+        ).filter(Producao.animal_id.in_(animal_ids)).group_by(Producao.animal_id).subquery()
+        ultimas_producoes_por_animal = {
+            p.animal_id: p
+            for p in banco.query(Producao).join(
+                subq_ultima_producao,
+                (Producao.animal_id == subq_ultima_producao.c.animal_id) &
+                (Producao.data == subq_ultima_producao.c.ultima_data)
+            ).all()
+        } if animal_ids else {}
+
+        subq_ultima_vacina = banco.query(
+            Vacina.animal_id, sqlfunc.max(Vacina.data_aplicacao).label("ultima_data")
+        ).filter(Vacina.animal_id.in_(animal_ids)).group_by(Vacina.animal_id).subquery()
+        ultimas_vacinas_por_animal = {
+            v.animal_id: v
+            for v in banco.query(Vacina).join(
+                subq_ultima_vacina,
+                (Vacina.animal_id == subq_ultima_vacina.c.animal_id) &
+                (Vacina.data_aplicacao == subq_ultima_vacina.c.ultima_data)
+            ).all()
+        } if animal_ids else {}
 
         resultado = []
         for a in animais:
-            producao_hoje = banco.query(Producao).filter(
-                Producao.animal_id == a.id,
-                Producao.data == hoje
-            ).first()
-
-            ultima_producao = banco.query(Producao).filter(
-                Producao.animal_id == a.id
-            ).order_by(Producao.data.desc(), Producao.criado_em.desc()).first()
-
-            ultima_vacina = banco.query(Vacina).filter(
-                Vacina.animal_id == a.id
-            ).order_by(Vacina.data_aplicacao.desc()).first()
+            producao_hoje = producoes_hoje_por_animal.get(a.id)
+            ultima_producao = ultimas_producoes_por_animal.get(a.id)
+            ultima_vacina = ultimas_vacinas_por_animal.get(a.id)
 
             resultado.append({
                 "animal_id": a.id,

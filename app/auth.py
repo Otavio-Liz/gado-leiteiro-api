@@ -91,20 +91,19 @@ def criar_token(dados: dict):
 
 
 def criar_refresh_token(dados: dict):
+    """Retorna (token, jti) — o chamador é responsável por persistir o jti
+    em RefreshTokenValido pra esse token poder ser revogado depois."""
+    import uuid
     dados_copia = dados.copy()
+    jti = str(uuid.uuid4())
     expiracao = datetime.now(timezone.utc) + timedelta(days=EXPIRACAO_REFRESH_DIAS)
-    dados_copia.update({"exp": expiracao, "tipo": "refresh"})
-    return jwt.encode(dados_copia, CHAVE_SECRETA, algorithm=ALGORITMO)
+    dados_copia.update({"exp": expiracao, "tipo": "refresh", "jti": jti})
+    token = jwt.encode(dados_copia, CHAVE_SECRETA, algorithm=ALGORITMO)
+    return token, jti
 
 
 def verificar_token(token: str, tipo: str = "access"):
     try:
-        # Checagem explícita ANTES de decodificar — não depende só do parâmetro
-        # algorithms= do jose.jwt.decode aceitar/rejeitar corretamente por
-        # dentro (CVE-2025-61152: algumas versões da biblioteca aceitavam
-        # token com alg=none, ou seja, sem assinatura nenhuma, mesmo
-        # passando algorithms=["HS256"]). Rejeita aqui, de forma
-        # independente, antes de chegar na decodificação de verdade.
         cabecalho = jwt.get_unverified_header(token)
         if cabecalho.get("alg") != ALGORITMO:
             return None
@@ -115,6 +114,36 @@ def verificar_token(token: str, tipo: str = "access"):
         return payload.get("sub")
     except JWTError:
         return None
+
+
+def extrair_jti(token: str):
+    """Pega o jti de um refresh token já com assinatura/expiração válidas
+    confirmadas (chamar só depois de verificar_token ter aceitado o token)."""
+    try:
+        payload = jwt.decode(token, CHAVE_SECRETA, algorithms=[ALGORITMO])
+        return payload.get("jti")
+    except JWTError:
+        return None
+
+
+def jti_esta_valido(jti: str, banco: Session) -> bool:
+    from app.models.refresh_token_valido import RefreshTokenValido
+    if not jti:
+        return False
+    entrada = banco.query(RefreshTokenValido).filter(RefreshTokenValido.jti == jti).first()
+    if not entrada or entrada.revogado:
+        return False
+    if entrada.expira_em < datetime.utcnow():
+        return False
+    return True
+
+
+def revogar_jti(jti: str, banco: Session):
+    from app.models.refresh_token_valido import RefreshTokenValido
+    entrada = banco.query(RefreshTokenValido).filter(RefreshTokenValido.jti == jti).first()
+    if entrada:
+        entrada.revogado = True
+        banco.commit()
 
 
 def pegar_usuario_atual(

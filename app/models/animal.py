@@ -23,15 +23,15 @@ class Animal(Base):
     registro_genealogico = Column(String(100))
 
     # Status
-    status              = Column(Enum("ativo", "inativo", "vendido", "morto", "seco"), nullable=False, default="ativo")
-    status_reprodutivo  = Column(Enum("vazia", "prenha", "em_cio", "em_lactacao", "seca", "nao_aplicavel"), nullable=False, default="nao_aplicavel")
+    status              = Column(Enum("ativo", "inativo", "vendido", "morto", "seco"), nullable=False, default="ativo", index=True)
+    status_reprodutivo  = Column(Enum("vazia", "prenha", "em_cio", "em_lactacao", "seca", "nao_aplicavel"), nullable=False, default="nao_aplicavel", index=True)
 
     # Produção
     producao_diaria_litros = Column(Integer, default=0)
 
     # Reprodução
     data_ultima_inseminacao = Column(Date)
-    data_prevista_parto     = Column(Date)
+    data_prevista_parto     = Column(Date, index=True)
     dias_em_lactacao        = Column(Integer, default=0)
     quantidade_partos       = Column(Integer, nullable=False, default=0)
     data_ultimo_parto       = Column(Date)
@@ -44,9 +44,15 @@ class Animal(Base):
     criado_em           = Column(DateTime, server_default=func.now())
     atualizado_em       = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
-    # Índice composto — brinco único por produtor
+    # Índice composto — brinco único por produtor. Os outros dois cobrem o
+    # padrão de filtro mais comum do sistema: praticamente toda consulta
+    # filtra por usuario_id + status (animais "ativo" do usuário), e boa
+    # parte também por status_reprodutivo (em lactação, prenha, etc.) — um
+    # índice composto atende essa combinação melhor que índices isolados.
     __table_args__ = (
         Index("ix_animais_usuario_brinco", "usuario_id", "brinco", unique=True),
+        Index("ix_animais_usuario_status", "usuario_id", "status"),
+        Index("ix_animais_usuario_status_reprodutivo", "usuario_id", "status_reprodutivo"),
     )
 
     # Relacionamentos sem cascade — histórico preservado

@@ -51,14 +51,23 @@ def validar_vacina(dados, banco, usuario_id, vacina_id=None):
         )
         if vacina_id:
             query = query.filter(Vacina.id != vacina_id)
-        ultima = query.order_by(Vacina.data_aplicacao.desc()).first()
-        if ultima:
-            diferenca = abs((dados.data_aplicacao - ultima.data_aplicacao).days)
-            if diferenca < 30:
-                raise HTTPException(
-                    status_code=400,
-                    detail=f"Intervalo mínimo entre doses é de 30 dias. Última aplicação em {ultima.data_aplicacao}."
-                )
+        # Confere contra TODOS os registros da mesma vacina nesse animal, não
+        # só o mais recente por data — se alguém cadastrar/corrigir vacinas
+        # fora de ordem cronológica (data retroativa, preenchendo histórico),
+        # checar só "a última por data" deixava passar um intervalo violado
+        # contra um registro mais antigo que ficasse mais próximo da nova data.
+        mais_proxima = None
+        menor_diferenca = None
+        for v in query.all():
+            diferenca = abs((dados.data_aplicacao - v.data_aplicacao).days)
+            if menor_diferenca is None or diferenca < menor_diferenca:
+                menor_diferenca = diferenca
+                mais_proxima = v
+        if mais_proxima and menor_diferenca < 30:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Intervalo mínimo entre doses é de 30 dias. Última aplicação em {mais_proxima.data_aplicacao}."
+            )
 
     return animal
 

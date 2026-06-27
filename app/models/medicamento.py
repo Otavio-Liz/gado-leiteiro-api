@@ -35,7 +35,7 @@ class AplicacaoMedicamento(Base):
     animal_id               = Column(Integer, ForeignKey("animais.id"), nullable=False, index=True)
     medicamento_id          = Column(Integer, ForeignKey("medicamentos.id"), nullable=False, index=True)
 
-    data_aplicacao          = Column(Date, nullable=False)
+    data_aplicacao          = Column(Date, nullable=False, index=True)
     dose_aplicada           = Column(Numeric(8, 2), nullable=False)
     motivo                  = Column(String(200))
     responsavel             = Column(String(100))

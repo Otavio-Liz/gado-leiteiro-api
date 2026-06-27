@@ -15,6 +15,7 @@ from app.logger import logger_prod
 from datetime import date, timedelta
 from decimal import Decimal
 from typing import List, Optional
+from app.utils_financeiro import construir_tabela_precos
 
 roteador = APIRouter(
     prefix="/producoes",
@@ -39,7 +40,7 @@ def verificar_carencia(animal_id: int, data: date, banco: Session):
         Parto.data_parto <= data
     ).first()
     if parto_carencia:
-        return True, f"Carência pós-parto (colostro) até {parto_carencia.carencia_encerra_em.strftime('%d/%m/%Y')}"
+        return True, f"Carência pós-parto (colostro) até {parto_carencia.carencia_encerra_em}"
 
     med_carencia = banco.query(AplicacaoMedicamento).filter(
         AplicacaoMedicamento.animal_id == animal_id,
@@ -47,7 +48,7 @@ def verificar_carencia(animal_id: int, data: date, banco: Session):
         AplicacaoMedicamento.data_aplicacao <= data
     ).first()
     if med_carencia:
-        return True, f"Carência medicamento '{med_carencia.medicamento.nome}' até {med_carencia.carencia_encerra_em.strftime('%d/%m/%Y')}"
+        return True, f"Carência medicamento '{med_carencia.medicamento.nome}' até {med_carencia.carencia_encerra_em}"
 
     return False, None
 
@@ -191,6 +192,17 @@ def atualizar_producao(
             )
         for campo, valor in dados.model_dump(exclude_unset=True).items():
             setattr(producao, campo, valor)
+
+        # Reconfere a carência depois de aplicar as mudanças — se a edição
+        # fez a data cair numa janela de carência (ou alguém tentou virar
+        # o status pra "aproveitado" manualmente), força "descartado" de
+        # novo, igual já acontece na criação. Sem isso, dava pra burlar o
+        # bloqueio de carência só editando um registro já existente.
+        em_carencia, motivo = verificar_carencia(producao.animal_id, producao.data, banco)
+        if em_carencia:
+            producao.status = "descartado"
+            producao.motivo_descarte = motivo
+
         banco.commit()
         banco.refresh(producao)
         logger_prod.info(f"Produção atualizada | id: {producao_id} | usuário: {usuario.id}")
@@ -247,7 +259,8 @@ def relatorio_diario(
     try:
         if not data_ref:
             data_ref = date.today()
-        return _gerar_relatorio(usuario.id, data_ref, data_ref, banco)
+        preco_em = construir_tabela_precos(usuario.id, banco)
+        return _gerar_relatorio(usuario.id, data_ref, data_ref, preco_em, banco)
     except HTTPException:
         raise
     except Exception:
@@ -269,7 +282,8 @@ def relatorio_semanal(
             data_ref = date.today()
         inicio = data_ref - timedelta(days=data_ref.weekday())
         fim = inicio + timedelta(days=6)
-        return _gerar_relatorio(usuario.id, inicio, fim, banco)
+        preco_em = construir_tabela_precos(usuario.id, banco)
+        return _gerar_relatorio(usuario.id, inicio, fim, preco_em, banco)
     except HTTPException:
         raise
     except Exception:
@@ -302,8 +316,9 @@ def relatorio_mensal(
     try:
         inicio = date(ano, mes, 1)
         fim = date(ano, mes + 1, 1) - timedelta(days=1) if mes < 12 else date(ano + 1, 1, 1) - timedelta(days=1)
-        relatorio = _gerar_relatorio(usuario.id, inicio, fim, banco)
-        relatorio["semanas"] = _calcular_semanas(usuario.id, inicio, fim, relatorio["preco_litro_vigente"], banco)
+        preco_em = construir_tabela_precos(usuario.id, banco)
+        relatorio = _gerar_relatorio(usuario.id, inicio, fim, preco_em, banco)
+        relatorio["semanas"] = _calcular_semanas(usuario.id, inicio, fim, preco_em, banco)
         return relatorio
     except HTTPException:
         raise
@@ -315,9 +330,8 @@ def relatorio_mensal(
         )
 
 
-def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, banco: Session):
-    preco = pegar_preco_vigente(usuario_id, fim, banco)
-    preco_litro = preco.preco_litro if preco else Decimal("0")
+def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, preco_em, banco: Session):
+    preco_litro_exibicao = preco_em(fim)  # só pra mostrar "preço atual" na tela — o cálculo de receita usa preco_em(data) por dia
 
     animais = banco.query(Animal).filter(
         Animal.usuario_id == usuario_id,
@@ -325,16 +339,27 @@ def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, banco: Session):
         Animal.sexo == "F"
     ).all()
 
+    # Uma única consulta pra todos os animais do período, agrupada em
+    # memória — antes era 1 consulta por animal dentro do loop, o que em
+    # rebanhos grandes significava dezenas de idas ao banco pra um único
+    # relatório.
+    animal_ids = [a.id for a in animais]
+    producoes_por_animal = {}
+    if animal_ids:
+        for p in banco.query(Producao).filter(
+            Producao.animal_id.in_(animal_ids),
+            Producao.data.between(inicio, fim)
+        ).all():
+            producoes_por_animal.setdefault(p.animal_id, []).append(p)
+
     animais_relatorio = []
     total_geral = Decimal("0")
     total_aproveitado_geral = Decimal("0")
     total_descartado_geral = Decimal("0")
+    valor_total_geral = Decimal("0")
 
     for animal in animais:
-        producoes = banco.query(Producao).filter(
-            Producao.animal_id == animal.id,
-            Producao.data.between(inicio, fim)
-        ).all()
+        producoes = producoes_por_animal.get(animal.id, [])
         if not producoes:
             continue
 
@@ -343,7 +368,12 @@ def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, banco: Session):
         descartado = sum(p.quantidade_litros for p in producoes if p.status == "descartado")
         dias = (fim - inicio).days + 1
         media = total / dias if dias > 0 else Decimal("0")
-        valor = aproveitado * preco_litro
+        # Receita somada dia a dia, usando o preço que estava vigente em
+        # CADA dia específico — não um preço único pro período inteiro.
+        valor = sum(
+            (p.quantidade_litros * preco_em(p.data) for p in producoes if p.status == "aproveitado"),
+            Decimal("0")
+        )
 
         animais_relatorio.append({
             "animal_id": animal.id,
@@ -354,12 +384,13 @@ def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, banco: Session):
             "total_litros_descartados": round(descartado, 2),
             "media_diaria": round(media, 2),
             "valor_total": round(valor, 2),
-            "preco_litro_vigente": preco_litro
+            "preco_litro_vigente": preco_litro_exibicao
         })
 
         total_geral += total
         total_aproveitado_geral += aproveitado
         total_descartado_geral += descartado
+        valor_total_geral += valor
 
     dias_periodo = (fim - inicio).days + 1
 
@@ -371,13 +402,13 @@ def _gerar_relatorio(usuario_id: int, inicio: date, fim: date, banco: Session):
         "total_litros_aproveitados": round(total_aproveitado_geral, 2),
         "total_litros_descartados": round(total_descartado_geral, 2),
         "media_diaria_rebanho": round(total_geral / dias_periodo, 2) if dias_periodo > 0 else 0,
-        "valor_total": round(total_aproveitado_geral * preco_litro, 2),
-        "preco_litro_vigente": preco_litro,
+        "valor_total": round(valor_total_geral, 2),
+        "preco_litro_vigente": preco_litro_exibicao,
         "animais": animais_relatorio
     }
 
 
-def _calcular_semanas(usuario_id: int, inicio: date, fim: date, preco_litro: Decimal, banco: Session):
+def _calcular_semanas(usuario_id: int, inicio: date, fim: date, preco_em, banco: Session):
     """
     Recorta o período em semanas de calendário (segunda a domingo, com a
     primeira e a última possivelmente parciais nas bordas do período) e soma
@@ -405,13 +436,19 @@ def _calcular_semanas(usuario_id: int, inicio: date, fim: date, preco_litro: Dec
         do_periodo = [p for p in producoes if cursor <= p.data <= fim_semana]
         total = sum((p.quantidade_litros for p in do_periodo), Decimal("0"))
         aproveitado = sum((p.quantidade_litros for p in do_periodo if p.status == "aproveitado"), Decimal("0"))
+        # Receita por dia, com o preço vigente em cada dia — não um preço
+        # único pra semana inteira.
+        receita = sum(
+            (p.quantidade_litros * preco_em(p.data) for p in do_periodo if p.status == "aproveitado"),
+            Decimal("0")
+        )
 
         semanas.append({
             "inicio": cursor,
             "fim": fim_semana,
             "total_litros": round(total, 2),
             "total_litros_aproveitados": round(aproveitado, 2),
-            "receita": round(aproveitado * preco_litro, 2),
+            "receita": round(receita, 2),
         })
         cursor = fim_semana + timedelta(days=1)
 

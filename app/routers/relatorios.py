@@ -10,6 +10,7 @@ from app.logger import logger_rel
 from datetime import date, timedelta
 from decimal import Decimal
 import io
+from app.utils_financeiro import construir_tabela_precos
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -75,14 +76,25 @@ def exportar_pdf_producao_mensal(
     inicio, fim = calcular_periodo(ano, mes)
 
     try:
-        preco = pegar_preco_vigente(usuario.id, fim, banco)
-        preco_litro = preco.preco_litro if preco else Decimal("0")
+        preco_em = construir_tabela_precos(usuario.id, banco)
+        preco_litro_exibicao = preco_em(fim)
 
         animais = banco.query(Animal).filter(
             Animal.usuario_id == usuario.id,
             Animal.status == "ativo",
             Animal.sexo == "F"
         ).all()
+
+        # Uma única consulta pra todos os animais, agrupada em memória —
+        # evita 1 consulta por animal dentro do loop abaixo.
+        animal_ids = [a.id for a in animais]
+        producoes_por_animal = {}
+        if animal_ids:
+            for p in banco.query(Producao).filter(
+                Producao.animal_id.in_(animal_ids),
+                Producao.data.between(inicio, fim)
+            ).all():
+                producoes_por_animal.setdefault(p.animal_id, []).append(p)
 
         buffer = io.BytesIO()
         doc = SimpleDocTemplate(buffer, pagesize=A4,
@@ -105,7 +117,7 @@ def exportar_pdf_producao_mensal(
             f"Produtor: {usuario.nome}", normal_style
         ))
         elementos.append(Paragraph(
-            f"Preço do leite: R$ {preco_litro:.2f}/litro", normal_style
+            f"Preço do leite: R$ {preco_litro_exibicao:.2f}/litro", normal_style
         ))
         elementos.append(Spacer(1, 0.5*cm))
 
@@ -113,23 +125,25 @@ def exportar_pdf_producao_mensal(
         total_geral = Decimal("0")
         total_aproveitado = Decimal("0")
         total_descartado = Decimal("0")
+        valor_total_geral = Decimal("0")
 
         for animal in animais:
-            producoes = banco.query(Producao).filter(
-                Producao.animal_id == animal.id,
-                Producao.data.between(inicio, fim)
-            ).all()
+            producoes = producoes_por_animal.get(animal.id, [])
             if not producoes:
                 continue
 
             total = sum(p.quantidade_litros for p in producoes)
             aproveitado = sum(p.quantidade_litros for p in producoes if p.status == "aproveitado")
             descartado = total - aproveitado
-            valor = aproveitado * preco_litro
+            valor = sum(
+                (p.quantidade_litros * preco_em(p.data) for p in producoes if p.status == "aproveitado"),
+                Decimal("0")
+            )
 
             total_geral += total
             total_aproveitado += aproveitado
             total_descartado += descartado
+            valor_total_geral += valor
 
             dados_tabela.append([
                 animal.nome, animal.brinco,
@@ -148,7 +162,7 @@ def exportar_pdf_producao_mensal(
             f"{total_geral:.2f}L",
             f"{total_aproveitado:.2f}L",
             f"{total_descartado:.2f}L",
-            f"R$ {total_aproveitado * preco_litro:.2f}"
+            f"R$ {valor_total_geral:.2f}"
         ])
 
         tabela = Table(dados_tabela, colWidths=[4*cm, 3*cm, 3*cm, 3*cm, 3*cm, 3*cm])
@@ -206,14 +220,23 @@ def exportar_excel_producao_mensal(
     inicio, fim = calcular_periodo(ano, mes)
 
     try:
-        preco = pegar_preco_vigente(usuario.id, fim, banco)
-        preco_litro = preco.preco_litro if preco else Decimal("0")
+        preco_em = construir_tabela_precos(usuario.id, banco)
+        preco_litro_exibicao = preco_em(fim)
 
         animais = banco.query(Animal).filter(
             Animal.usuario_id == usuario.id,
             Animal.status == "ativo",
             Animal.sexo == "F"
         ).all()
+
+        animal_ids = [a.id for a in animais]
+        producoes_por_animal = {}
+        if animal_ids:
+            for p in banco.query(Producao).filter(
+                Producao.animal_id.in_(animal_ids),
+                Producao.data.between(inicio, fim)
+            ).all():
+                producoes_por_animal.setdefault(p.animal_id, []).append(p)
 
         wb = openpyxl.Workbook()
         ws = wb.active
@@ -236,7 +259,7 @@ def exportar_excel_producao_mensal(
         ws["A1"].alignment = Alignment(horizontal="center")
 
         ws.merge_cells("A2:F2")
-        ws["A2"] = f"Produtor: {usuario.nome} | Preço: R$ {preco_litro:.2f}/L"
+        ws["A2"] = f"Produtor: {usuario.nome} | Preço: R$ {preco_litro_exibicao:.2f}/L"
         ws["A2"].alignment = Alignment(horizontal="center")
 
         cabecalhos = ["Animal", "Brinco", "Total Litros", "Aproveitado", "Descartado", "Valor (R$)"]
@@ -251,23 +274,26 @@ def exportar_excel_producao_mensal(
         total_geral = Decimal("0")
         total_aproveitado = Decimal("0")
         total_descartado = Decimal("0")
+        valor_total_geral = Decimal("0")
 
         for i, animal in enumerate(animais):
-            producoes = banco.query(Producao).filter(
-                Producao.animal_id == animal.id,
-                Producao.data.between(inicio, fim)
-            ).all()
+            producoes = producoes_por_animal.get(animal.id, [])
             if not producoes:
                 continue
 
             total = sum(p.quantidade_litros for p in producoes)
             aproveitado = sum(p.quantidade_litros for p in producoes if p.status == "aproveitado")
             descartado = total - aproveitado
-            valor = float(aproveitado * preco_litro)
+            valor_decimal = sum(
+                (p.quantidade_litros * preco_em(p.data) for p in producoes if p.status == "aproveitado"),
+                Decimal("0")
+            )
+            valor = float(valor_decimal)
 
             total_geral += total
             total_aproveitado += aproveitado
             total_descartado += descartado
+            valor_total_geral += valor_decimal
 
             fill = verde_linha if i % 2 == 0 else PatternFill("solid", fgColor="FFFFFF")
             valores = [animal.nome, animal.brinco, float(total),
@@ -287,7 +313,7 @@ def exportar_excel_producao_mensal(
             )
 
         totais = ["TOTAL", "", float(total_geral), float(total_aproveitado),
-                  float(total_descartado), float(total_aproveitado * preco_litro)]
+                  float(total_descartado), float(valor_total_geral)]
         for col, val in enumerate(totais, 1):
             cell = ws.cell(row=linha, column=col, value=val)
             cell.fill = verde_claro

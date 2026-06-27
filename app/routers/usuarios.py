@@ -13,8 +13,10 @@ from app.auth import (
     criar_token, criar_refresh_token, verificar_token,
     verificar_bloqueio, registrar_tentativa_falha,
     resetar_tentativas, tentativas_restantes,
-    pegar_usuario_atual
+    pegar_usuario_atual, extrair_jti, jti_esta_valido, revogar_jti,
+    EXPIRACAO_REFRESH_DIAS
 )
+from app.models.refresh_token_valido import RefreshTokenValido
 from app.logger import logger_usuario
 from app.limitador import limitador
 import cloudinary.uploader
@@ -231,6 +233,13 @@ def renovar_token(
             detail="Refresh token inválido ou expirado. Faça login novamente."
         )
 
+    jti_antigo = extrair_jti(dados.refresh_token)
+    if not jti_esta_valido(jti_antigo, banco):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Refresh token inválido ou já utilizado. Faça login novamente."
+        )
+
     usuario = banco.query(Usuario).filter(Usuario.email == email).first()
     if not usuario or not usuario.ativo:
         raise HTTPException(
@@ -238,12 +247,48 @@ def renovar_token(
             detail="Usuário não encontrado ou desativado."
         )
 
+    # Rotação: revoga o token usado e emite um novo — um refresh token só
+    # serve pra uma renovação por vez. Se alguém usar um já rotacionado
+    # (ex.: token roubado e usado depois do dono já ter renovado o dele),
+    # essa tentativa cai no "jti_esta_valido" acima e é rejeitada.
+    revogar_jti(jti_antigo, banco)
     novo_access_token = criar_token({"sub": usuario.email})
+    novo_refresh_token, novo_jti = criar_refresh_token({"sub": usuario.email})
+    banco.add(RefreshTokenValido(
+        jti=novo_jti, usuario_id=usuario.id,
+        expira_em=datetime.utcnow() + timedelta(days=EXPIRACAO_REFRESH_DIAS)
+    ))
+    banco.commit()
+
     return {
         "access_token": novo_access_token,
+        "refresh_token": novo_refresh_token,
         "token_type": "bearer",
         "expira_em_minutos": 30
     }
+
+
+@roteador.post("/logout")
+def logout(
+    request: Request,
+    banco: Session = Depends(pegar_banco)
+):
+    """Revoga o refresh token no servidor — diferente de só limpar o
+    token do navegador, isso garante que ele não funcione mais em
+    lugar nenhum, mesmo que tenha sido copiado/roubado antes."""
+    from pydantic import BaseModel
+    class LogoutRequest(BaseModel):
+        refresh_token: str
+
+    try:
+        dados = LogoutRequest(**request.json())
+        jti = extrair_jti(dados.refresh_token)
+        if jti:
+            revogar_jti(jti, banco)
+    except Exception:
+        pass  # logout nunca falha visivelmente pro usuário, mesmo com token já inválido/mal formado
+
+    return {"mensagem": "Sessão encerrada."}
 
 
 @roteador.post("/login")
@@ -282,7 +327,12 @@ def login(
     resetar_tentativas(dados.email, banco)
 
     access_token = criar_token({"sub": usuario.email})
-    refresh_token = criar_refresh_token({"sub": usuario.email})
+    refresh_token, jti = criar_refresh_token({"sub": usuario.email})
+    banco.add(RefreshTokenValido(
+        jti=jti, usuario_id=usuario.id,
+        expira_em=datetime.utcnow() + timedelta(days=EXPIRACAO_REFRESH_DIAS)
+    ))
+    banco.commit()
 
     logger_usuario.info(f"Login realizado | email: {usuario.email}")
 
@@ -334,6 +384,13 @@ def redefinir_senha(
         usuario.senha_hash = gerar_hash_senha(dados.nova_senha)
         usuario.token_reset = None
         usuario.token_reset_expira = None
+        # Mesmo motivo da troca de senha pelo Perfil: redefinição por
+        # "esqueci minha senha" é tipicamente usada justamente por suspeita
+        # de conta comprometida — revoga todas as sessões ativas.
+        banco.query(RefreshTokenValido).filter(
+            RefreshTokenValido.usuario_id == usuario.id,
+            RefreshTokenValido.revogado == False
+        ).update({"revogado": True})
         banco.commit()
         logger_usuario.info(f"Senha redefinida | email: {usuario.email}")
         return {"mensagem": "Senha redefinida com sucesso! Você já pode fazer login."}
@@ -373,6 +430,15 @@ def atualizar_perfil(
     try:
         if dados.senha:
             usuario.senha_hash = gerar_hash_senha(dados.senha)
+            # Revoga TODOS os refresh tokens ativos desse usuário — se a
+            # senha foi trocada por suspeita de acesso indevido, um token
+            # roubado continuar funcionando normalmente depois da troca
+            # anularia o motivo de ter trocado a senha. Forçar login de
+            # novo em qualquer dispositivo/sessão é o comportamento esperado.
+            banco.query(RefreshTokenValido).filter(
+                RefreshTokenValido.usuario_id == usuario.id,
+                RefreshTokenValido.revogado == False
+            ).update({"revogado": True})
         if dados.nome is not None:
             usuario.nome = dados.nome
         if dados.nome_fazenda is not None:
