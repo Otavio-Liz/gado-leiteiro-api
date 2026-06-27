@@ -78,6 +78,25 @@ aplicacao.add_middleware(
     allow_headers=["Authorization", "Content-Type"],
 )
 
+# ─── Cabeçalhos de segurança HTTP ──────────────────────────────────────────────
+#
+# Nenhum desses depende de domínio ou hospedagem definidos — são respostas
+# que o próprio backend já controla. O Strict-Transport-Security é a única
+# exceção parcial: é seguro adicionar já (o navegador simplesmente ignora
+# esse cabeçalho quando recebido via HTTP puro, por especificação), mas só
+# passa a ter efeito de verdade quando o site for servido via HTTPS.
+
+@aplicacao.middleware("http")
+async def cabecalhos_seguranca(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
+    response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'"
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    return response
+
 # ─── Middleware de log de requisições ─────────────────────────────────────────
 
 @aplicacao.middleware("http")

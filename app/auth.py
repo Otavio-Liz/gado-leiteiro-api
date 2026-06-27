@@ -99,6 +99,16 @@ def criar_refresh_token(dados: dict):
 
 def verificar_token(token: str, tipo: str = "access"):
     try:
+        # Checagem explícita ANTES de decodificar — não depende só do parâmetro
+        # algorithms= do jose.jwt.decode aceitar/rejeitar corretamente por
+        # dentro (CVE-2025-61152: algumas versões da biblioteca aceitavam
+        # token com alg=none, ou seja, sem assinatura nenhuma, mesmo
+        # passando algorithms=["HS256"]). Rejeita aqui, de forma
+        # independente, antes de chegar na decodificação de verdade.
+        cabecalho = jwt.get_unverified_header(token)
+        if cabecalho.get("alg") != ALGORITMO:
+            return None
+
         payload = jwt.decode(token, CHAVE_SECRETA, algorithms=[ALGORITMO])
         if payload.get("tipo") != tipo:
             return None
