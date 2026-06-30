@@ -1,6 +1,7 @@
 from pydantic import BaseModel, field_validator, HttpUrl, Field
 from datetime import date, datetime
 from typing import Optional
+from decimal import Decimal
 
 
 class AnimalBase(BaseModel):
@@ -29,7 +30,10 @@ class AnimalBase(BaseModel):
     quantidade_partos:       Optional[int] = 0
 
     # Informações adicionais
-    peso_kg:                Optional[int] = None
+    # peso_kg é Decimal (não int) — peso de animal é uma medida contínua,
+    # faz sentido aceitar casas decimais (ex: 375.50). Numeric(6,2) no
+    # banco, ver migration correspondente.
+    peso_kg:                Optional[Decimal] = None
     observacao:             Optional[str] = Field(default=None, max_length=500)
     foto_url:               Optional[HttpUrl] = None
 
@@ -99,7 +103,7 @@ class AnimalAtualizar(BaseModel):
     dias_em_lactacao:       Optional[int] = None
     quantidade_partos:      Optional[int] = None
     data_ultimo_parto:      Optional[date] = None
-    peso_kg:                Optional[int] = None
+    peso_kg:                Optional[Decimal] = None
     observacao:             Optional[str] = Field(default=None, max_length=500)
     foto_url:               Optional[HttpUrl] = None
 

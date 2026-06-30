@@ -1,0 +1,707 @@
+2026-06-29 14:59:05 | INFO | app | → OPTIONS /usuarios/login
+2026-06-29 14:59:05 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 4.25ms
+2026-06-29 14:59:05 | INFO | app | → POST /usuarios/login
+2026-06-29 14:59:07 | INFO | usuarios | Login realizado | email: otaviolisboa19@gmail.com
+2026-06-29 14:59:07 | INFO | app | ← POST /usuarios/login | Status: 200 | 1796.48ms
+2026-06-29 14:59:07 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-29 14:59:07 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 4.45ms
+2026-06-29 14:59:07 | INFO | app | → GET /usuarios/perfil
+2026-06-29 14:59:07 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 53.35ms
+2026-06-29 14:59:08 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-29 14:59:08 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-29 14:59:08 | INFO | app | → OPTIONS /dashboard/producao-por-animal
+2026-06-29 14:59:08 | INFO | app | → OPTIONS /dashboard/gestantes
+2026-06-29 14:59:08 | INFO | app | → OPTIONS /dashboard/acoes
+2026-06-29 14:59:08 | INFO | app | → OPTIONS /dashboard/animais-lactacao
+2026-06-29 14:59:08 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 33.5ms
+2026-06-29 14:59:08 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 30.56ms
+2026-06-29 14:59:08 | INFO | app | ← OPTIONS /dashboard/producao-por-animal | Status: 200 | 28.59ms
+2026-06-29 14:59:08 | INFO | app | ← OPTIONS /dashboard/gestantes | Status: 200 | 21.67ms
+2026-06-29 14:59:08 | INFO | app | ← OPTIONS /dashboard/acoes | Status: 200 | 21.76ms
+2026-06-29 14:59:08 | INFO | app | ← OPTIONS /dashboard/animais-lactacao | Status: 200 | 20.49ms
+2026-06-29 14:59:08 | INFO | app | → GET /dashboard/resumo
+2026-06-29 14:59:08 | INFO | app | → GET /dashboard/alertas
+2026-06-29 14:59:08 | INFO | app | → GET /dashboard/producao-por-animal
+2026-06-29 14:59:08 | INFO | app | → GET /dashboard/gestantes
+2026-06-29 14:59:08 | INFO | app | → GET /dashboard/acoes
+2026-06-29 14:59:08 | INFO | app | → GET /dashboard/animais-lactacao
+2026-06-29 14:59:08 | INFO | dashboard | Produção por animal consultada | usuário: 4
+2026-06-29 14:59:08 | INFO | app | ← GET /dashboard/producao-por-animal | Status: 200 | 489.56ms
+2026-06-29 14:59:08 | INFO | dashboard | Gestantes consultadas | usuário: 4
+2026-06-29 14:59:08 | INFO | app | ← GET /dashboard/gestantes | Status: 200 | 560.22ms
+2026-06-29 14:59:08 | INFO | dashboard | Animais em lactação consultados | usuário: 4
+2026-06-29 14:59:08 | INFO | app | ← GET /dashboard/animais-lactacao | Status: 200 | 721.89ms
+2026-06-29 14:59:08 | INFO | app | ← GET /dashboard/acoes | Status: 200 | 770.29ms
+2026-06-29 14:59:08 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-29 14:59:08 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-29 14:59:08 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 881.15ms
+2026-06-29 14:59:08 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 880.82ms
+2026-06-29 14:59:11 | INFO | app | → OPTIONS /animais/em-lactacao
+2026-06-29 14:59:11 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-29 14:59:11 | INFO | app | → OPTIONS /producoes/
+2026-06-29 14:59:11 | INFO | app | ← OPTIONS /animais/em-lactacao | Status: 200 | 9.76ms
+2026-06-29 14:59:11 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 14.68ms
+2026-06-29 14:59:11 | INFO | app | ← OPTIONS /producoes/ | Status: 200 | 19.11ms
+2026-06-29 14:59:11 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-29 14:59:11 | INFO | app | → GET /animais/em-lactacao
+2026-06-29 14:59:11 | INFO | app | → GET /producoes/
+2026-06-29 14:59:11 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 195.97ms
+2026-06-29 14:59:11 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 205.04ms
+2026-06-29 14:59:11 | INFO | app | ← GET /producoes/ | Status: 200 | 211.6ms
+2026-06-29 14:59:23 | INFO | app | → POST /producoes/
+2026-06-29 14:59:23 | INFO | producoes | Produção registrada | animal: 5 | usuário: 4
+2026-06-29 14:59:23 | INFO | app | ← POST /producoes/ | Status: 200 | 114.18ms
+2026-06-29 14:59:23 | INFO | app | → GET /dashboard/alertas
+2026-06-29 14:59:23 | INFO | app | → GET /producoes/
+2026-06-29 14:59:23 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-29 14:59:23 | INFO | app | → GET /animais/em-lactacao
+2026-06-29 14:59:24 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 82.42ms
+2026-06-29 14:59:24 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-29 14:59:24 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 108.53ms
+2026-06-29 14:59:24 | INFO | app | → GET /animais/em-lactacao
+2026-06-29 14:59:24 | INFO | app | ← GET /producoes/ | Status: 200 | 163.47ms
+2026-06-29 14:59:24 | INFO | app | → GET /producoes/
+2026-06-29 14:59:24 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 118.56ms
+2026-06-29 14:59:24 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-29 14:59:24 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-29 14:59:24 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 123.67ms
+2026-06-29 14:59:24 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 281.3ms
+2026-06-29 14:59:24 | INFO | app | → GET /animais/em-lactacao
+2026-06-29 14:59:24 | INFO | app | → GET /dashboard/alertas
+2026-06-29 14:59:24 | INFO | app | ← GET /producoes/ | Status: 200 | 125.23ms
+2026-06-29 14:59:24 | INFO | app | → GET /producoes/
+2026-06-29 14:59:24 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 106.81ms
+2026-06-29 14:59:24 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 103.03ms
+2026-06-29 14:59:24 | INFO | app | ← GET /producoes/ | Status: 200 | 87.86ms
+2026-06-29 14:59:24 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-29 14:59:24 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 151.04ms
+2026-06-29 14:59:24 | INFO | app | → GET /dashboard/alertas
+2026-06-29 14:59:24 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-29 14:59:24 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 69.38ms
+2026-06-29 14:59:28 | INFO | app | → OPTIONS /animais/
+2026-06-29 14:59:28 | INFO | app | ← OPTIONS /animais/ | Status: 200 | 2.12ms
+2026-06-29 14:59:28 | INFO | app | → GET /animais/
+2026-06-29 14:59:28 | INFO | app | ← GET /animais/ | Status: 200 | 42.33ms
+2026-06-29 14:59:29 | INFO | app | → GET /dashboard/resumo
+2026-06-29 14:59:29 | INFO | app | → GET /dashboard/animais-lactacao
+2026-06-29 14:59:29 | INFO | app | → GET /dashboard/gestantes
+2026-06-29 14:59:29 | INFO | app | → GET /dashboard/producao-por-animal
+2026-06-29 14:59:29 | INFO | app | → GET /dashboard/acoes
+2026-06-29 14:59:29 | INFO | dashboard | Produção por animal consultada | usuário: 4
+2026-06-29 14:59:29 | INFO | app | ← GET /dashboard/producao-por-animal | Status: 200 | 201.38ms
+2026-06-29 14:59:29 | INFO | dashboard | Gestantes consultadas | usuário: 4
+2026-06-29 14:59:29 | INFO | app | ← GET /dashboard/gestantes | Status: 200 | 245.29ms
+2026-06-29 14:59:29 | INFO | dashboard | Animais em lactação consultados | usuário: 4
+2026-06-29 14:59:29 | INFO | app | ← GET /dashboard/acoes | Status: 200 | 298.96ms
+2026-06-29 14:59:30 | INFO | app | ← GET /dashboard/animais-lactacao | Status: 200 | 342.47ms
+2026-06-29 14:59:30 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-29 14:59:30 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 420.96ms
+2026-06-29 15:12:45 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-29 15:12:45 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-29 15:12:45 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 36.4ms
+2026-06-29 15:12:45 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 23.53ms
+2026-06-29 15:12:45 | INFO | app | → GET /usuarios/perfil
+2026-06-29 15:12:45 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 250.77ms
+2026-06-29 15:12:45 | INFO | app | → GET /usuarios/perfil
+2026-06-29 15:12:45 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-29 15:12:45 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-29 15:12:45 | INFO | app | → OPTIONS /dashboard/gestantes
+2026-06-29 15:12:45 | INFO | app | → OPTIONS /dashboard/animais-lactacao
+2026-06-29 15:12:45 | INFO | app | → OPTIONS /dashboard/producao-por-animal
+2026-06-29 15:12:45 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 16.49ms
+2026-06-29 15:12:45 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 17.76ms
+2026-06-29 15:12:45 | INFO | app | ← OPTIONS /dashboard/gestantes | Status: 200 | 19.98ms
+2026-06-29 15:12:45 | INFO | app | ← OPTIONS /dashboard/animais-lactacao | Status: 200 | 22.21ms
+2026-06-29 15:12:45 | INFO | app | ← OPTIONS /dashboard/producao-por-animal | Status: 200 | 24.03ms
+2026-06-29 15:12:45 | INFO | app | → OPTIONS /dashboard/acoes
+2026-06-29 15:12:45 | INFO | app | → GET /dashboard/alertas
+2026-06-29 15:12:45 | INFO | app | → GET /dashboard/resumo
+2026-06-29 15:12:45 | INFO | app | → GET /dashboard/gestantes
+2026-06-29 15:12:45 | INFO | app | → GET /dashboard/animais-lactacao
+2026-06-29 15:12:45 | INFO | app | ← OPTIONS /dashboard/acoes | Status: 200 | 23.57ms
+2026-06-29 15:12:45 | INFO | app | → GET /dashboard/producao-por-animal
+2026-06-29 15:12:45 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 393.45ms
+2026-06-29 15:12:45 | INFO | app | → GET /dashboard/acoes
+2026-06-29 15:12:45 | INFO | dashboard | Gestantes consultadas | usuário: 4
+2026-06-29 15:12:46 | INFO | app | ← GET /dashboard/gestantes | Status: 200 | 215.95ms
+2026-06-29 15:12:46 | INFO | dashboard | Produção por animal consultada | usuário: 4
+2026-06-29 15:12:46 | INFO | app | ← GET /dashboard/producao-por-animal | Status: 200 | 243.64ms
+2026-06-29 15:12:46 | INFO | dashboard | Animais em lactação consultados | usuário: 4
+2026-06-29 15:12:46 | INFO | app | ← GET /dashboard/animais-lactacao | Status: 200 | 311.61ms
+2026-06-29 15:12:46 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-29 15:12:46 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-29 15:12:46 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 379.76ms
+2026-06-29 15:12:46 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 383.34ms
+2026-06-29 15:12:46 | INFO | app | ← GET /dashboard/acoes | Status: 200 | 320.8ms
+2026-06-29 16:39:05 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-29 16:39:05 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-29 16:39:05 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 333.66ms
+2026-06-29 16:39:05 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 119.76ms
+2026-06-29 16:39:08 | INFO | app | → GET /usuarios/perfil
+2026-06-29 16:39:08 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 43.13ms
+2026-06-29 16:39:08 | INFO | app | → GET /usuarios/perfil
+2026-06-29 16:39:08 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 15.97ms
+2026-06-29 16:39:08 | INFO | app | → OPTIONS /usuarios/refresh
+2026-06-29 16:39:08 | INFO | app | ← OPTIONS /usuarios/refresh | Status: 200 | 5.46ms
+2026-06-29 16:39:08 | INFO | app | → POST /usuarios/refresh
+2026-06-29 16:39:08 | INFO | app | → POST /usuarios/refresh
+2026-06-29 16:39:08 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 280.88ms
+2026-06-29 16:39:08 | ERROR | app | ✗ POST /usuarios/refresh | Erro: TypeError | 272.65ms
+2026-06-29 16:39:08 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 120, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 107, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 91, in cabecalhos_seguranca
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 227, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 120, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 107, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 91, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 227, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+2026-06-29 16:39:10 | CRITICAL | app | Erro inesperado | POST /usuarios/refresh | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 120, in log_requisicoes
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 107, in log_requisicoes
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 91, in cabecalhos_seguranca
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 227, in renovar_token
+    |     dados = RefreshTokenRequest(**request.json())
+    | TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 120, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 107, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 91, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 136, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\routers\usuarios.py", line 227, in renovar_token
+    dados = RefreshTokenRequest(**request.json())
+TypeError: app.routers.usuarios.renovar_token.<locals>.RefreshTokenRequest() argument after ** must be a mapping, not coroutine
+2026-06-30 11:52:29 | INFO | app | → OPTIONS /usuarios/login
+2026-06-30 11:52:29 | INFO | app | ← OPTIONS /usuarios/login | Status: 200 | 60.32ms
+2026-06-30 11:52:29 | INFO | app | → POST /usuarios/login
+2026-06-30 11:52:32 | INFO | usuarios | Login realizado | email: otaviolisboa19@gmail.com
+2026-06-30 11:52:32 | INFO | app | ← POST /usuarios/login | Status: 200 | 2986.14ms
+2026-06-30 11:52:32 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-30 11:52:32 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 5.3ms
+2026-06-30 11:52:32 | INFO | app | → GET /usuarios/perfil
+2026-06-30 11:52:32 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 174.55ms
+2026-06-30 11:52:32 | INFO | app | → OPTIONS /dashboard/resumo
+2026-06-30 11:52:32 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-30 11:52:32 | INFO | app | ← OPTIONS /dashboard/resumo | Status: 200 | 17.69ms
+2026-06-30 11:52:32 | INFO | app | → OPTIONS /dashboard/producao-por-animal
+2026-06-30 11:52:32 | INFO | app | → OPTIONS /dashboard/gestantes
+2026-06-30 11:52:32 | INFO | app | → GET /dashboard/resumo
+2026-06-30 11:52:32 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 80.12ms
+2026-06-30 11:52:32 | INFO | app | → OPTIONS /dashboard/animais-lactacao
+2026-06-30 11:52:32 | INFO | app | → OPTIONS /dashboard/acoes
+2026-06-30 11:52:32 | INFO | app | ← OPTIONS /dashboard/producao-por-animal | Status: 200 | 102.4ms
+2026-06-30 11:52:32 | INFO | app | ← OPTIONS /dashboard/gestantes | Status: 200 | 57.8ms
+2026-06-30 11:52:32 | INFO | app | → GET /dashboard/alertas
+2026-06-30 11:52:32 | INFO | app | ← OPTIONS /dashboard/animais-lactacao | Status: 200 | 64.85ms
+2026-06-30 11:52:32 | INFO | app | ← OPTIONS /dashboard/acoes | Status: 200 | 62.24ms
+2026-06-30 11:52:32 | INFO | app | → GET /dashboard/producao-por-animal
+2026-06-30 11:52:32 | INFO | app | → GET /dashboard/gestantes
+2026-06-30 11:52:33 | INFO | app | → GET /dashboard/animais-lactacao
+2026-06-30 11:52:33 | INFO | app | → GET /dashboard/acoes
+2026-06-30 11:52:33 | INFO | dashboard | Produção por animal consultada | usuário: 4
+2026-06-30 11:52:33 | INFO | app | ← GET /dashboard/producao-por-animal | Status: 200 | 397.38ms
+2026-06-30 11:52:33 | INFO | dashboard | Gestantes consultadas | usuário: 4
+2026-06-30 11:52:33 | INFO | app | ← GET /dashboard/gestantes | Status: 200 | 497.99ms
+2026-06-30 11:52:33 | INFO | app | ← GET /dashboard/acoes | Status: 200 | 424.24ms
+2026-06-30 11:52:33 | INFO | dashboard | Animais em lactação consultados | usuário: 4
+2026-06-30 11:52:33 | INFO | app | ← GET /dashboard/animais-lactacao | Status: 200 | 611.4ms
+2026-06-30 11:52:33 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 11:52:33 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 761.38ms
+2026-06-30 11:52:33 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-30 11:52:33 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 860.66ms
+2026-06-30 11:52:37 | INFO | app | → OPTIONS /animais/em-lactacao
+2026-06-30 11:52:37 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-30 11:52:37 | INFO | app | → OPTIONS /producoes/
+2026-06-30 11:52:37 | INFO | app | ← OPTIONS /animais/em-lactacao | Status: 200 | 9.29ms
+2026-06-30 11:52:37 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 12.17ms
+2026-06-30 11:52:37 | INFO | app | ← OPTIONS /producoes/ | Status: 200 | 19.19ms
+2026-06-30 11:52:37 | INFO | app | → GET /animais/em-lactacao
+2026-06-30 11:52:37 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-30 11:52:37 | INFO | app | → GET /producoes/
+2026-06-30 11:52:37 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 307.33ms
+2026-06-30 11:52:37 | INFO | app | ← GET /producoes/ | Status: 200 | 273.48ms
+2026-06-30 11:52:37 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 420.99ms
+2026-06-30 11:54:18 | INFO | app | → GET /usuarios/perfil
+2026-06-30 11:54:18 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 75.32ms
+2026-06-30 11:54:18 | INFO | app | → GET /usuarios/perfil
+2026-06-30 11:54:18 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 68.66ms
+2026-06-30 11:54:18 | INFO | app | → GET /animais/em-lactacao
+2026-06-30 11:54:18 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-30 11:54:18 | INFO | app | → GET /dashboard/alertas
+2026-06-30 11:54:18 | INFO | app | → GET /producoes/
+2026-06-30 11:54:18 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 178.9ms
+2026-06-30 11:54:18 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 221.41ms
+2026-06-30 11:54:18 | INFO | app | ← GET /producoes/ | Status: 200 | 234.4ms
+2026-06-30 11:54:18 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 11:54:18 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 339.48ms
+2026-06-30 11:55:47 | INFO | app | → POST /producoes/
+2026-06-30 11:55:47 | INFO | producoes | Produção registrada | animal: 5 | usuário: 4
+2026-06-30 11:55:47 | INFO | app | ← POST /producoes/ | Status: 200 | 184.75ms
+2026-06-30 11:55:47 | INFO | app | → GET /producoes/
+2026-06-30 11:55:47 | INFO | app | → GET /animais/em-lactacao
+2026-06-30 11:55:47 | INFO | app | → GET /dashboard/alertas
+2026-06-30 11:55:47 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-30 11:55:48 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 83.46ms
+2026-06-30 11:55:48 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 123.96ms
+2026-06-30 11:55:48 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-30 11:55:48 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 11:55:48 | INFO | app | → GET /animais/em-lactacao
+2026-06-30 11:55:48 | INFO | app | ← GET /producoes/ | Status: 200 | 164.27ms
+2026-06-30 11:55:48 | INFO | app | → GET /producoes/
+2026-06-30 11:55:48 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 167.98ms
+2026-06-30 11:55:48 | INFO | app | → GET /dashboard/alertas
+2026-06-30 11:55:48 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 125.89ms
+2026-06-30 11:55:48 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-30 11:55:48 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 143.06ms
+2026-06-30 11:55:48 | INFO | app | → GET /animais/em-lactacao
+2026-06-30 11:55:48 | INFO | app | ← GET /producoes/ | Status: 200 | 164.41ms
+2026-06-30 11:55:48 | INFO | app | → GET /producoes/
+2026-06-30 11:55:48 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 119.28ms
+2026-06-30 11:55:48 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 11:55:48 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 113.65ms
+2026-06-30 11:55:48 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 234.33ms
+2026-06-30 11:55:48 | INFO | app | ← GET /producoes/ | Status: 200 | 94.23ms
+2026-06-30 11:55:48 | INFO | app | → GET /dashboard/alertas
+2026-06-30 11:55:48 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 11:55:48 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 79.2ms
+2026-06-30 11:55:50 | INFO | app | → GET /dashboard/resumo
+2026-06-30 11:55:50 | INFO | app | → GET /dashboard/gestantes
+2026-06-30 11:55:50 | INFO | app | → GET /dashboard/producao-por-animal
+2026-06-30 11:55:50 | INFO | app | → GET /dashboard/acoes
+2026-06-30 11:55:50 | INFO | app | → GET /dashboard/animais-lactacao
+2026-06-30 11:55:51 | INFO | dashboard | Produção por animal consultada | usuário: 4
+2026-06-30 11:55:51 | INFO | dashboard | Gestantes consultadas | usuário: 4
+2026-06-30 11:55:51 | INFO | app | ← GET /dashboard/producao-por-animal | Status: 200 | 177.98ms
+2026-06-30 11:55:51 | INFO | app | ← GET /dashboard/acoes | Status: 200 | 206.74ms
+2026-06-30 11:55:51 | INFO | app | ← GET /dashboard/gestantes | Status: 200 | 224.98ms
+2026-06-30 11:55:51 | INFO | dashboard | Animais em lactação consultados | usuário: 4
+2026-06-30 11:55:51 | INFO | app | ← GET /dashboard/animais-lactacao | Status: 200 | 288.2ms
+2026-06-30 11:55:51 | INFO | dashboard | Resumo consultado | usuário: 4
+2026-06-30 11:55:51 | INFO | app | ← GET /dashboard/resumo | Status: 200 | 333.38ms
+2026-06-30 11:56:01 | INFO | app | → OPTIONS /animais/
+2026-06-30 11:56:01 | INFO | app | ← OPTIONS /animais/ | Status: 200 | 3.29ms
+2026-06-30 11:56:01 | INFO | app | → GET /animais/
+2026-06-30 11:56:01 | INFO | app | ← GET /animais/ | Status: 200 | 49.58ms
+2026-06-30 12:07:14 | INFO | app | → OPTIONS /animais/
+2026-06-30 12:07:14 | INFO | app | → OPTIONS /dashboard/alertas
+2026-06-30 12:07:14 | INFO | app | ← OPTIONS /animais/ | Status: 200 | 67.61ms
+2026-06-30 12:07:14 | INFO | app | ← OPTIONS /dashboard/alertas | Status: 200 | 48.43ms
+2026-06-30 12:07:14 | INFO | app | → GET /animais/
+2026-06-30 12:07:14 | INFO | app | → GET /dashboard/alertas
+2026-06-30 12:07:15 | INFO | app | ← GET /animais/ | Status: 200 | 585.84ms
+2026-06-30 12:07:15 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 12:07:15 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 663.73ms
+2026-06-30 12:07:17 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-30 12:07:17 | INFO | app | → OPTIONS /usuarios/perfil
+2026-06-30 12:07:17 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 6.98ms
+2026-06-30 12:07:17 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 10.1ms
+2026-06-30 12:07:17 | INFO | app | → GET /usuarios/perfil
+2026-06-30 12:07:17 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 44.01ms
+2026-06-30 12:07:17 | INFO | app | → GET /usuarios/perfil
+2026-06-30 12:07:17 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 25.56ms
+2026-06-30 12:07:17 | INFO | app | → GET /animais/
+2026-06-30 12:07:17 | INFO | app | → GET /dashboard/alertas
+2026-06-30 12:07:17 | INFO | app | ← GET /animais/ | Status: 200 | 47.21ms
+2026-06-30 12:07:17 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 12:07:17 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 99.53ms
+2026-06-30 12:07:23 | INFO | app | → OPTIONS /animais/em-lactacao
+2026-06-30 12:07:23 | INFO | app | → OPTIONS /producoes/
+2026-06-30 12:07:23 | INFO | app | → OPTIONS /producoes/preco-leite/vigente
+2026-06-30 12:07:23 | INFO | app | ← OPTIONS /animais/em-lactacao | Status: 200 | 9.27ms
+2026-06-30 12:07:23 | INFO | app | ← OPTIONS /producoes/ | Status: 200 | 9.19ms
+2026-06-30 12:07:23 | INFO | app | ← OPTIONS /producoes/preco-leite/vigente | Status: 200 | 10.81ms
+2026-06-30 12:07:23 | INFO | app | → GET /animais/em-lactacao
+2026-06-30 12:07:23 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-30 12:07:23 | INFO | app | → GET /producoes/
+2026-06-30 12:07:23 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 94.66ms
+2026-06-30 12:07:23 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 106.31ms
+2026-06-30 12:07:23 | INFO | app | ← GET /producoes/ | Status: 200 | 118.93ms
+2026-06-30 12:09:17 | INFO | app | → GET /dashboard/alertas
+2026-06-30 12:09:17 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 12:09:17 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 86.47ms
+2026-06-30 12:09:32 | INFO | app | → POST /animais/
+2026-06-30 12:09:33 | INFO | animais | Animal criado | Asa Branca | usuário: 4
+2026-06-30 12:09:33 | INFO | app | ← POST /animais/ | Status: 200 | 617.59ms
+2026-06-30 12:09:33 | INFO | app | → GET /animais/
+2026-06-30 12:09:33 | INFO | app | → GET /dashboard/alertas
+2026-06-30 12:09:33 | INFO | app | ← GET /animais/ | Status: 200 | 61.26ms
+2026-06-30 12:09:33 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 12:09:33 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 93.63ms
+2026-06-30 12:09:37 | INFO | app | → GET /producoes/preco-leite/vigente
+2026-06-30 12:09:37 | INFO | app | → GET /producoes/
+2026-06-30 12:09:37 | INFO | app | → GET /animais/em-lactacao
+2026-06-30 12:09:37 | INFO | app | ← GET /producoes/preco-leite/vigente | Status: 200 | 73.25ms
+2026-06-30 12:09:37 | INFO | app | ← GET /animais/em-lactacao | Status: 200 | 87.41ms
+2026-06-30 12:09:37 | INFO | app | ← GET /producoes/ | Status: 200 | 109.68ms
+2026-06-30 12:09:54 | INFO | app | → OPTIONS /animais/15
+2026-06-30 12:09:54 | INFO | app | ← OPTIONS /animais/15 | Status: 200 | 5.35ms
+2026-06-30 12:09:54 | INFO | app | → PUT /animais/15
+2026-06-30 12:09:54 | INFO | animais | Animal atualizado | id: 15 | usuário: 4
+2026-06-30 12:09:54 | INFO | app | ← PUT /animais/15 | Status: 200 | 96.6ms
+2026-06-30 12:09:54 | INFO | app | → GET /dashboard/alertas
+2026-06-30 12:09:54 | INFO | app | → GET /animais/
+2026-06-30 12:09:54 | INFO | app | ← GET /animais/ | Status: 200 | 41.01ms
+2026-06-30 12:09:54 | INFO | dashboard | Alertas consultados | usuário: 4
+2026-06-30 12:09:54 | INFO | app | ← GET /dashboard/alertas | Status: 200 | 82.28ms
