@@ -6,14 +6,15 @@ from app.models.usuario import Usuario
 from app.schemas.usuarios import (
     UsuarioCreate, UsuarioResponse, UsuarioAtualizar, LoginRequest,
     EsqueciSenhaRequest, RedefinirSenhaRequest,
-    VerificarCodigoRequest, ReenviarConfirmacaoRequest
+    VerificarCodigoRequest, ReenviarConfirmacaoRequest,
+    ConfirmarNovoEmailRequest, RefreshTokenRequest, LogoutRequest
 )
 from app.security import verificar_senha, gerar_hash_senha
 from app.auth import (
     criar_token, criar_refresh_token, verificar_token,
     verificar_bloqueio, registrar_tentativa_falha,
     resetar_tentativas, tentativas_restantes,
-    pegar_usuario_atual, extrair_jti, jti_esta_valido, revogar_jti,
+    pegar_usuario_atual, revogar_jti, revogar_jti_atomico,
     EXPIRACAO_REFRESH_DIAS
 )
 from app.models.refresh_token_valido import RefreshTokenValido
@@ -42,6 +43,16 @@ roteador = APIRouter(prefix="/usuarios", tags=["Usuários"])
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
 MINUTOS_VALIDADE_CODIGO = 4
+
+# Limite de tentativas erradas de código de verificação por "ciclo" de
+# código ativo — compartilhado entre ativação de cadastro e confirmação de
+# novo e-mail, ambos usando a mesma coluna tentativas_codigo_verificacao.
+# Ao atingir o limite, o código é invalidado e a pessoa precisa solicitar
+# um novo, em vez de poder continuar tentando indefinidamente (o código
+# tem só 6 dígitos — 1 milhão de combinações é pouco contra tentativa
+# ilimitada, mesmo com rate limit por IP, já que um atacante pode trocar
+# de IP/proxy).
+MAX_TENTATIVAS_CODIGO = 5
 
 
 def gerar_codigo_verificacao() -> str:
@@ -74,6 +85,37 @@ def enviar_email_verificacao(email: str, nome: str, codigo: str):
         })
     except Exception as e:
         logger_usuario.error(f"Erro ao enviar email de verificação para {email}: {e}")
+
+
+def enviar_email_confirmacao_novo_email(email: str, nome: str, codigo: str):
+    """Enviado SEMPRE para o e-mail NOVO (nunca para o antigo) — confirmar
+    posse do endereço novo é o objetivo desse fluxo. O e-mail antigo
+    continua sendo a identidade de login até essa confirmação acontecer."""
+    try:
+        resend.Emails.send({
+            "from": FROM_EMAIL,
+            "to": email,
+            "subject": "✅ Confirme seu novo e-mail — LeiteTech",
+            "html": f"""
+            <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#050d0a;color:#fff;border-radius:12px;">
+                <h1 style="font-size:20px;color:#00ff88;margin-bottom:8px;">LeiteTech</h1>
+                <h2 style="font-size:16px;font-weight:500;color:#fff;margin-bottom:16px;">Olá, {nome}! Confirme seu novo e-mail</h2>
+                <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6;margin-bottom:24px;">
+                    Você solicitou a troca do e-mail da sua conta. Use o código abaixo para confirmar este endereço como o novo e-mail de login. Ele expira em {MINUTOS_VALIDADE_CODIGO} minutos.
+                </p>
+                <div style="text-align:center;margin-bottom:24px;">
+                    <span style="display:inline-block;padding:14px 28px;background:rgba(0,255,136,0.08);border:1px solid #00ff88;color:#00ff88;border-radius:8px;font-size:28px;font-weight:700;letter-spacing:0.2em;">
+                        {codigo}
+                    </span>
+                </div>
+                <p style="color:rgba(255,255,255,0.3);font-size:11px;margin-top:24px;">
+                    Se você não solicitou essa troca, ignore este e-mail — seu e-mail de login atual continuará funcionando normalmente.
+                </p>
+            </div>
+            """
+        })
+    except Exception as e:
+        logger_usuario.error(f"Erro ao enviar email de confirmação de novo e-mail para {email}: {e}")
 
 
 def enviar_email_reset(email: str, nome: str, token: str):
@@ -127,6 +169,7 @@ def cadastrar(
             usuario_existente.senha_hash = gerar_hash_senha(dados.senha)
             usuario_existente.codigo_verificacao = codigo
             usuario_existente.codigo_verificacao_expira = expira_em
+            usuario_existente.tentativas_codigo_verificacao = 0
             banco.commit()
             mensagem_resposta = "Você já tinha um cadastro pendente de confirmação. Enviamos um novo código para seu e-mail."
         else:
@@ -177,15 +220,31 @@ def verificar_codigo(
     if usuario.ativo:
         raise HTTPException(status_code=400, detail="Esta conta já está confirmada.")
 
-    if usuario.codigo_verificacao != dados.codigo:
-        raise HTTPException(status_code=400, detail="Código incorreto.")
-
     if usuario.codigo_verificacao_expira < datetime.utcnow():
         raise HTTPException(status_code=400, detail="Código expirado. Solicite um novo.")
+
+    if usuario.codigo_verificacao != dados.codigo:
+        # Conta tentativa errada — depois de MAX_TENTATIVAS_CODIGO, o
+        # código é invalidado e a pessoa precisa solicitar um novo. Sem
+        # isso, o código de 6 dígitos podia ser atacado por força bruta
+        # (rate limit de IP não impede um atacante trocando de IP).
+        usuario.tentativas_codigo_verificacao += 1
+        if usuario.tentativas_codigo_verificacao >= MAX_TENTATIVAS_CODIGO:
+            usuario.codigo_verificacao = None
+            usuario.codigo_verificacao_expira = None
+            usuario.tentativas_codigo_verificacao = 0
+            banco.commit()
+            raise HTTPException(
+                status_code=400,
+                detail="Muitas tentativas incorretas. Solicite um novo código."
+            )
+        banco.commit()
+        raise HTTPException(status_code=400, detail="Código incorreto.")
 
     usuario.ativo = True
     usuario.codigo_verificacao = None
     usuario.codigo_verificacao_expira = None
+    usuario.tentativas_codigo_verificacao = 0
     banco.commit()
 
     logger_usuario.info(f"E-mail verificado por código | email: {usuario.email}")
@@ -206,6 +265,7 @@ def reenviar_confirmacao(
         codigo = gerar_codigo_verificacao()
         usuario.codigo_verificacao = codigo
         usuario.codigo_verificacao_expira = datetime.utcnow() + timedelta(minutes=MINUTOS_VALIDADE_CODIGO)
+        usuario.tentativas_codigo_verificacao = 0
         banco.commit()
         enviar_email_verificacao(usuario.email, usuario.nome, codigo)
         logger_usuario.info(f"Código de confirmação reenviado | email: {dados.email}")
@@ -217,43 +277,56 @@ def reenviar_confirmacao(
 
 @roteador.post("/refresh")
 def renovar_token(
-    request: Request,
+    dados: RefreshTokenRequest,
     banco: Session = Depends(pegar_banco)
 ):
-    from pydantic import BaseModel
-    class RefreshTokenRequest(BaseModel):
-        refresh_token: str
-
-    dados = RefreshTokenRequest(**request.json())
-    email = verificar_token(dados.refresh_token, tipo="refresh")
-
-    if email is None:
+    """
+    Antes lia o corpo via request.json() dentro de função síncrona —
+    Request.json() é coroutine, então **request.json() quebrava com
+    TypeError em toda chamada (bug crítico: /refresh estava 100% quebrado).
+    Agora recebe RefreshTokenRequest como parâmetro normal, igual o resto
+    do arquivo já fazia.
+    """
+    payload = verificar_token(dados.refresh_token, tipo="refresh")
+    if payload is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Refresh token inválido ou expirado. Faça login novamente."
         )
 
-    jti_antigo = extrair_jti(dados.refresh_token)
-    if not jti_esta_valido(jti_antigo, banco):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Refresh token inválido ou já utilizado. Faça login novamente."
-        )
+    usuario_id = payload.get("usuario_id")
+    if usuario_id is not None:
+        usuario = banco.query(Usuario).filter(Usuario.id == usuario_id).first()
+    else:
+        # Fallback pra refresh tokens emitidos antes do usuario_id existir
+        # no payload — válidos por até 7 dias após o deploy dessa mudança.
+        usuario = banco.query(Usuario).filter(Usuario.email == payload.get("sub")).first()
 
-    usuario = banco.query(Usuario).filter(Usuario.email == email).first()
     if not usuario or not usuario.ativo:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Usuário não encontrado ou desativado."
         )
 
-    # Rotação: revoga o token usado e emite um novo — um refresh token só
-    # serve pra uma renovação por vez. Se alguém usar um já rotacionado
-    # (ex.: token roubado e usado depois do dono já ter renovado o dele),
-    # essa tentativa cai no "jti_esta_valido" acima e é rejeitada.
-    revogar_jti(jti_antigo, banco)
-    novo_access_token = criar_token({"sub": usuario.email})
-    novo_refresh_token, novo_jti = criar_refresh_token({"sub": usuario.email})
+    # Rotação atômica: revogar_jti_atomico faz a checagem de validade E a
+    # revogação numa única operação UPDATE condicional no banco. Antes,
+    # eram duas etapas separadas (jti_esta_valido + revogar_jti) — duas
+    # requisições concorrentes com o mesmo refresh token podiam ambas
+    # passar pela checagem antes de qualquer uma revogar, e as duas
+    # geravam um par de tokens novos a partir do MESMO token antigo (race
+    # condition real). Com a operação atômica, só uma das duas chamadas
+    # concorrentes recebe True — a outra recebe False e é rejeitada aqui,
+    # antes de gerar qualquer token novo.
+    jti_antigo = payload.get("jti")
+    revogado_com_sucesso = revogar_jti_atomico(jti_antigo, banco)
+    if not revogado_com_sucesso:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Refresh token inválido, expirado ou já utilizado. Faça login novamente."
+        )
+
+    novo_access_token = criar_token(usuario)
+    novo_refresh_token, novo_jti = criar_refresh_token(usuario)
     banco.add(RefreshTokenValido(
         jti=novo_jti, usuario_id=usuario.id,
         expira_em=datetime.utcnow() + timedelta(days=EXPIRACAO_REFRESH_DIAS)
@@ -270,24 +343,28 @@ def renovar_token(
 
 @roteador.post("/logout")
 def logout(
-    request: Request,
+    dados: LogoutRequest,
     banco: Session = Depends(pegar_banco)
 ):
-    """Revoga o refresh token no servidor — diferente de só limpar o
-    token do navegador, isso garante que ele não funcione mais em
-    lugar nenhum, mesmo que tenha sido copiado/roubado antes."""
-    from pydantic import BaseModel
-    class LogoutRequest(BaseModel):
-        refresh_token: str
+    """
+    Revoga o refresh token no servidor — diferente de só limpar o token do
+    navegador, isso garante que ele não funcione mais em lugar nenhum,
+    mesmo que tenha sido copiado/roubado antes.
 
-    try:
-        dados = LogoutRequest(**request.json())
-        jti = extrair_jti(dados.refresh_token)
+    Antes, o uso de request.json() síncrono quebrava antes mesmo de extrair
+    o jti, e o try/except: pass engolia esse erro — logout sempre "dava
+    certo" pra quem chamava, mas NUNCA revogava nada de verdade. Agora
+    recebe LogoutRequest tipado e revoga de fato.
+    """
+    payload = verificar_token(dados.refresh_token, tipo="refresh")
+    if payload is not None:
+        jti = payload.get("jti")
         if jti:
             revogar_jti(jti, banco)
-    except Exception:
-        pass  # logout nunca falha visivelmente pro usuário, mesmo com token já inválido/mal formado
 
+    # Resposta sempre igual, mesmo se o token já estiver inválido/expirado —
+    # do ponto de vista de quem chama, "sessão encerrada" é verdade nos
+    # dois casos (ou foi revogada agora, ou já não valia nada mesmo).
     return {"mensagem": "Sessão encerrada."}
 
 
@@ -326,8 +403,8 @@ def login(
 
     resetar_tentativas(dados.email, banco)
 
-    access_token = criar_token({"sub": usuario.email})
-    refresh_token, jti = criar_refresh_token({"sub": usuario.email})
+    access_token = criar_token(usuario)
+    refresh_token, jti = criar_refresh_token(usuario)
     banco.add(RefreshTokenValido(
         jti=jti, usuario_id=usuario.id,
         expira_em=datetime.utcnow() + timedelta(days=EXPIRACAO_REFRESH_DIAS)
@@ -413,11 +490,27 @@ def atualizar_perfil(
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    if dados.email and banco.query(Usuario).filter(
-        Usuario.email == dados.email,
-        Usuario.id != usuario.id
-    ).first():
-        raise HTTPException(status_code=400, detail="E-mail já está em uso.")
+    """
+    Troca de e-mail agora exige senha atual e nunca aplica o e-mail novo
+    direto — grava em email_pendente + código, manda o código pro e-mail
+    NOVO, e só aplica de fato em POST /usuarios/confirmar-novo-email. O
+    e-mail de login continua sendo o antigo até essa confirmação.
+
+    foto_url não existe mais em UsuarioAtualizar (removido do schema) — a
+    única forma de mudar a foto de perfil é POST /usuarios/perfil/foto.
+    """
+    email_novo_solicitado = dados.email is not None and dados.email != usuario.email
+
+    if email_novo_solicitado:
+        if not dados.senha_atual:
+            raise HTTPException(status_code=400, detail="Informe sua senha atual para trocar de e-mail.")
+        if not verificar_senha(dados.senha_atual, usuario.senha_hash):
+            raise HTTPException(status_code=400, detail="Senha atual incorreta.")
+        if banco.query(Usuario).filter(
+            Usuario.email == dados.email,
+            Usuario.id != usuario.id
+        ).first():
+            raise HTTPException(status_code=400, detail="E-mail já está em uso.")
 
     if dados.senha:
         if not dados.senha_atual:
@@ -443,11 +536,21 @@ def atualizar_perfil(
             usuario.nome = dados.nome
         if dados.nome_fazenda is not None:
             usuario.nome_fazenda = dados.nome_fazenda
-        if dados.email is not None:
-            usuario.email = dados.email  # já normalizado pelo schema (lower/strip)
+
+        codigo_email_pendente = None
+        if email_novo_solicitado:
+            codigo_email_pendente = gerar_codigo_verificacao()
+            usuario.email_pendente = dados.email  # já normalizado pelo schema (lower/strip)
+            usuario.email_pendente_codigo = codigo_email_pendente
+            usuario.email_pendente_expira = datetime.utcnow() + timedelta(minutes=MINUTOS_VALIDADE_CODIGO)
+            usuario.tentativas_codigo_verificacao = 0
 
         banco.commit()
         banco.refresh(usuario)
+
+        if email_novo_solicitado:
+            enviar_email_confirmacao_novo_email(dados.email, usuario.nome, codigo_email_pendente)
+
         logger_usuario.info(f"Perfil atualizado | email: {usuario.email}")
         return usuario
     except Exception:
@@ -456,6 +559,73 @@ def atualizar_perfil(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Erro ao atualizar perfil. Tente novamente."
         )
+
+
+@roteador.post("/confirmar-novo-email", response_model=UsuarioResponse)
+@limitador.limit("10/minute")
+def confirmar_novo_email(
+    request: Request,
+    dados: ConfirmarNovoEmailRequest,
+    banco: Session = Depends(pegar_banco),
+    usuario: Usuario = Depends(pegar_usuario_atual)
+):
+    """
+    Aplica de fato a troca de e-mail iniciada em PUT /perfil, depois de
+    confirmar o código enviado para o e-mail NOVO. O usuário já está
+    autenticado nesse ponto (com o e-mail ANTIGO, que continua valendo até
+    aqui).
+    """
+    if not usuario.email_pendente or not usuario.email_pendente_codigo:
+        raise HTTPException(status_code=400, detail="Não há troca de e-mail pendente.")
+
+    if usuario.email_pendente_expira and usuario.email_pendente_expira < datetime.utcnow():
+        usuario.email_pendente = None
+        usuario.email_pendente_codigo = None
+        usuario.email_pendente_expira = None
+        usuario.tentativas_codigo_verificacao = 0
+        banco.commit()
+        raise HTTPException(status_code=400, detail="Código expirado. Solicite a troca de e-mail novamente.")
+
+    if dados.codigo != usuario.email_pendente_codigo:
+        usuario.tentativas_codigo_verificacao += 1
+        if usuario.tentativas_codigo_verificacao >= MAX_TENTATIVAS_CODIGO:
+            usuario.email_pendente = None
+            usuario.email_pendente_codigo = None
+            usuario.email_pendente_expira = None
+            usuario.tentativas_codigo_verificacao = 0
+            banco.commit()
+            raise HTTPException(
+                status_code=400,
+                detail="Muitas tentativas incorretas. Solicite a troca de e-mail novamente."
+            )
+        banco.commit()
+        raise HTTPException(status_code=400, detail="Código incorreto.")
+
+    # Reconfere unicidade no momento da confirmação — proteção contra a
+    # janela de tempo entre solicitar a troca e confirmar (alguém poderia
+    # ter cadastrado esse mesmo e-mail nesse meio-tempo).
+    conflito = banco.query(Usuario).filter(
+        Usuario.email == usuario.email_pendente,
+        Usuario.id != usuario.id
+    ).first()
+    if conflito:
+        usuario.email_pendente = None
+        usuario.email_pendente_codigo = None
+        usuario.email_pendente_expira = None
+        usuario.tentativas_codigo_verificacao = 0
+        banco.commit()
+        raise HTTPException(status_code=400, detail="Este e-mail já está em uso por outra conta.")
+
+    usuario.email = usuario.email_pendente
+    usuario.email_pendente = None
+    usuario.email_pendente_codigo = None
+    usuario.email_pendente_expira = None
+    usuario.tentativas_codigo_verificacao = 0
+    banco.commit()
+    banco.refresh(usuario)
+
+    logger_usuario.info(f"E-mail alterado com confirmação | novo email: {usuario.email}")
+    return usuario
 
 
 @roteador.post("/perfil/foto", response_model=UsuarioResponse)

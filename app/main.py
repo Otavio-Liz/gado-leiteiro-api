@@ -85,6 +85,26 @@ aplicacao.add_middleware(
 # exceção parcial: é seguro adicionar já (o navegador simplesmente ignora
 # esse cabeçalho quando recebido via HTTP puro, por especificação), mas só
 # passa a ter efeito de verdade quando o site for servido via HTTPS.
+#
+# CSP tem uma exceção pras rotas de documentação (/docs, /redoc,
+# /openapi.json): o Swagger UI e o ReDoc carregam o próprio CSS/JS de um
+# CDN externo (cdn.jsdelivr.net) pra desenhar a página — com
+# default-src 'none' aplicado ali também, o navegador bloqueia esses
+# arquivos e a página fica em branco. As rotas de API de verdade (tudo que
+# não é doc) continuam com o 'none' rígido, que é o que importa de fato:
+# elas só devolvem JSON, não têm motivo nenhum pra carregar recurso externo.
+
+ROTAS_DOCUMENTACAO = ("/docs", "/redoc", "/openapi.json")
+
+CSP_DOCUMENTACAO = (
+    "default-src 'self'; "
+    "script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; "
+    "style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; "
+    "img-src 'self' https://fastapi.tiangolo.com data:; "
+    "font-src 'self' data:; "
+    "frame-ancestors 'none'"
+)
+
 
 @aplicacao.middleware("http")
 async def cabecalhos_seguranca(request: Request, call_next):
@@ -93,8 +113,13 @@ async def cabecalhos_seguranca(request: Request, call_next):
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
-    response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'"
     response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+
+    if request.url.path in ROTAS_DOCUMENTACAO:
+        response.headers["Content-Security-Policy"] = CSP_DOCUMENTACAO
+    else:
+        response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'"
+
     return response
 
 # ─── Middleware de log de requisições ─────────────────────────────────────────
