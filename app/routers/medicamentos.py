@@ -332,33 +332,45 @@ def registrar_aplicacao(
         )
 
 
-@roteador.delete("/aplicacoes/{aplicacao_id}")
-def deletar_aplicacao(
-    aplicacao_id: int,
+@roteador.delete("/{medicamento_id}")
+def deletar_medicamento(
+    medicamento_id: int,
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    if aplicacao_id <= 0:
-        raise HTTPException(status_code=400, detail="ID da aplicação inválido.")
+    if medicamento_id <= 0:
+        raise HTTPException(status_code=400, detail="ID do medicamento inválido.")
     try:
-        aplicacao = banco.query(AplicacaoMedicamento).join(Animal).filter(
-            AplicacaoMedicamento.id == aplicacao_id,
-            Animal.usuario_id == usuario.id
+        medicamento = banco.query(Medicamento).filter(
+            Medicamento.id == medicamento_id,
+            Medicamento.usuario_id == usuario.id
         ).first()
-        if not aplicacao:
-            raise HTTPException(status_code=404, detail="Aplicação não encontrada.")
+        if not medicamento:
+            raise HTTPException(status_code=404, detail="Medicamento não encontrado.")
 
-        aplicacao.medicamento.estoque_atual += aplicacao.dose_aplicada
-        banco.delete(aplicacao)
+        # Conta só aplicações de animais do próprio usuário — sem o join
+        # com Animal, aplicações de outro usuário que referenciem o mesmo
+        # medicamento_id contariam no bloqueio, o que é incorreto.
+        aplicacoes = banco.query(AplicacaoMedicamento).join(Animal).filter(
+            AplicacaoMedicamento.medicamento_id == medicamento_id,
+            Animal.usuario_id == usuario.id
+        ).count()
+        if aplicacoes > 0:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Não é possível excluir. Há {aplicacoes} aplicação(ões) vinculada(s) a este medicamento."
+            )
+
+        banco.delete(medicamento)
         banco.commit()
-        logger_med.info(f"Aplicação deletada | id: {aplicacao_id} | usuário: {usuario.id}")
-        return {"mensagem": "Aplicação removida e estoque restaurado com sucesso."}
+        logger_med.info(f"Medicamento deletado | id: {medicamento_id} | usuário: {usuario.id}")
+        return {"mensagem": "Medicamento removido com sucesso."}
     except HTTPException:
         raise
     except Exception:
         banco.rollback()
-        logger_med.error(f"Erro ao deletar aplicação | id: {aplicacao_id} | usuário: {usuario.id}")
+        logger_med.error(f"Erro ao deletar medicamento | id: {medicamento_id} | usuário: {usuario.id}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Erro ao remover aplicação. Tente novamente."
+            detail="Erro ao remover medicamento. Tente novamente."
         )
