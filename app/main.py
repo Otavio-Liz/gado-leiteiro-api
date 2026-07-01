@@ -38,7 +38,21 @@ if AMBIENTE == "production":
     if not ORIGENS_PERMITIDAS:
         raise RuntimeError("ALLOWED_ORIGINS não definido para ambiente de produção.")
 else:
-    ORIGENS_PERMITIDAS = ["*"]
+    # Em desenvolvimento, lista explícita em vez de "*" — a spec CORS proíbe
+    # allow_origins=["*"] combinado com allow_credentials=True, e browsers
+    # modernos rejeitam essa combinação silenciosamente. Isso não aparece em
+    # testes via Postman/Swagger (que não aplicam CORS), mas quebra quando o
+    # frontend React faz requisições com credentials (cookies httpOnly).
+    origens_dev = os.getenv("ALLOWED_ORIGINS", "")
+    if origens_dev:
+        ORIGENS_PERMITIDAS = [o.strip() for o in origens_dev.split(",") if o.strip()]
+    else:
+        ORIGENS_PERMITIDAS = [
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+        ]
 
 # ─── Aplicação ────────────────────────────────────────────────────────────────
 
@@ -78,7 +92,7 @@ aplicacao.add_middleware(
     allow_headers=["Authorization", "Content-Type"],
 )
 
-# ─── Cabeçalhos de segurança HTTP ──────────────────────────────────────────────
+# ─── Cabeçalhos de segurança HTTP ─────────────────────────────────────────────
 #
 # Nenhum desses depende de domínio ou hospedagem definidos — são respostas
 # que o próprio backend já controla. O Strict-Transport-Security é a única
