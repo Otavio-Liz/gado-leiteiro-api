@@ -24,6 +24,22 @@ def erro_response(status_code: int, mensagem: str, detalhes=None):
 
 # ─── Handlers ─────────────────────────────────────────────────────────────────
 
+def _valor_serializavel(valor):
+    """Alguns erros de validação do Pydantic incluem o corpo cru (bytes) em
+    'input' quando o corpo da requisição nem chega a ser interpretado como
+    dict/JSON — por exemplo, um corpo form-encoded ou binário enviado para
+    um endpoint que espera JSON. bytes não é serializável em JSON, e sem
+    esse tratamento QUALQUER requisição malformada nesse formato derruba
+    este handler com 500 em vez do 422 esperado (bug real, não só em login:
+    qualquer endpoint que receba um corpo não-JSON está exposto a isso)."""
+    if isinstance(valor, bytes):
+        try:
+            return valor.decode("utf-8", errors="replace")
+        except Exception:
+            return repr(valor)
+    return valor
+
+
 async def handler_validacao(request: Request, exc: RequestValidationError):
     """Erros de validação do Pydantic — campos inválidos, tipos errados, etc."""
     erros = []
@@ -32,7 +48,7 @@ async def handler_validacao(request: Request, exc: RequestValidationError):
         erros.append({
             "campo": campo,
             "mensagem": erro["msg"],
-            "valor_recebido": erro.get("input")
+            "valor_recebido": _valor_serializavel(erro.get("input"))
         })
 
     logger_app.warning(
