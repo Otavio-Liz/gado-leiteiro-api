@@ -180,16 +180,55 @@ def atualizar_producao(
         ).first()
         if not producao:
             raise HTTPException(status_code=404, detail="Produção não encontrada.")
+
         if dados.quantidade_litros is not None and dados.quantidade_litros <= 0:
             raise HTTPException(
                 status_code=400,
                 detail="Quantidade de litros deve ser maior que zero."
             )
+
+        data_nova = dados.data if dados.data is not None else producao.data
+
         if dados.data is not None and dados.data > date.today():
             raise HTTPException(
                 status_code=400,
                 detail="Data de produção não pode ser no futuro."
             )
+
+        # Revalida animal — o estado do animal pode ter mudado desde o
+        # registro original (ex: animal foi desativado, saiu de lactação).
+        # Sem isso, era possível editar uma produção de um animal que já
+        # não devia estar produzindo.
+        animal = banco.query(Animal).filter(Animal.id == producao.animal_id).first()
+        if not animal or animal.status != "ativo":
+            raise HTTPException(
+                status_code=400,
+                detail="Animal não está ativo e não pode ter produções editadas."
+            )
+        if animal.sexo == "M":
+            raise HTTPException(status_code=400, detail="Machos não produzem leite.")
+        if animal.status_reprodutivo != "em_lactacao":
+            raise HTTPException(
+                status_code=400,
+                detail="Animal não está em lactação."
+            )
+
+        # Checagem de duplicidade no PUT — no POST isso já existia, mas no
+        # PUT não havia verificação. Se alguém editasse a data pra um dia
+        # que já tinha registro do mesmo animal, o banco lançava
+        # IntegrityError (500 em vez de 400/409 com mensagem clara).
+        if dados.data is not None and dados.data != producao.data:
+            duplicado = banco.query(Producao).filter(
+                Producao.animal_id == producao.animal_id,
+                Producao.data == data_nova,
+                Producao.id != producao_id
+            ).first()
+            if duplicado:
+                raise HTTPException(
+                    status_code=409,
+                    detail="Já existe produção registrada para este animal nesta data."
+                )
+
         for campo, valor in dados.model_dump(exclude_unset=True).items():
             setattr(producao, campo, valor)
 

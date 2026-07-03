@@ -291,21 +291,60 @@ def atualizar_parto(
         if not parto:
             raise HTTPException(status_code=404, detail="Parto não encontrado.")
 
+        data_parto_nova = dados.data_parto if dados.data_parto is not None else parto.data_parto
+        status_cria_novo = dados.status_cria if dados.status_cria is not None else parto.status_cria
+
+        if data_parto_nova > date.today():
+            raise HTTPException(
+                status_code=400,
+                detail="Data do parto não pode ser no futuro."
+            )
+
+        # Revalida dados da cria viva no PUT — no POST isso já acontecia
+        # via validar_dados_cria_viva, mas no PUT não havia revalidação.
+        # Sem isso, era possível editar um parto pra "cria viva" sem
+        # informar brinco ou sexo, deixando o registro inconsistente.
+        if status_cria_novo == "vivo":
+            brinco_cria = dados.brinco_cria if dados.brinco_cria is not None else parto.brinco_cria
+            sexo_cria = dados.sexo_cria if dados.sexo_cria is not None else parto.sexo_cria
+            if not brinco_cria:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Brinco da cria é obrigatório quando a cria está viva."
+                )
+            if not sexo_cria:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Sexo da cria é obrigatório quando a cria está viva."
+                )
+            # Checa duplicidade de brinco (excluindo o próprio parto)
+            brinco_existente = banco.query(Animal).filter(
+                Animal.brinco == brinco_cria,
+                Animal.usuario_id == usuario.id,
+                Animal.id != parto.animal_cria_id if parto.animal_cria_id else True
+            ).first()
+            if brinco_existente:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Brinco '{brinco_cria}' já está em uso por outro animal."
+                )
+
+        dias_carencia = dados.dias_carencia_colostro if dados.dias_carencia_colostro is not None else parto.dias_carencia_colostro
+
         for campo, valor in dados.model_dump(exclude_unset=True).items():
             setattr(parto, campo, valor)
 
-        # Revalidar regras após atualização
-        validar_parto(parto, banco, usuario.id, parto_id=parto_id)
-
-        if dados.data_parto or dados.dias_carencia_colostro:
-            parto.carencia_encerra_em = parto.data_parto + timedelta(days=parto.dias_carencia_colostro)
+        # Recalcula carência após aplicar as mudanças — se a data do parto
+        # ou os dias de carência mudaram, a data de encerramento precisa
+        # ser atualizada pra continuar bloqueando produções corretamente.
+        if dados.data_parto is not None or dados.dias_carencia_colostro is not None:
+            parto.carencia_encerra_em = data_parto_nova + timedelta(days=dias_carencia)
 
         banco.commit()
         banco.refresh(parto)
         logger_partos.info(f"Parto atualizado | id: {parto_id} | usuário: {usuario.id}")
         return montar_resposta_parto(parto)
     except HTTPException:
-        banco.rollback()
         raise
     except Exception:
         banco.rollback()
@@ -331,7 +370,61 @@ def deletar_parto(
         ).first()
         if not parto:
             raise HTTPException(status_code=404, detail="Parto não encontrado.")
+
+        mae = banco.query(Animal).filter(Animal.id == parto.animal_id).first()
+
         banco.delete(parto)
+        banco.flush()
+
+        if mae:
+            # Recalcula quantidade_partos — conta partos restantes após a
+            # exclusão. Sem isso, o contador ficava incrementado pra sempre
+            # mesmo após o parto ser apagado.
+            mae.quantidade_partos = banco.query(Parto).filter(
+                Parto.animal_id == mae.id
+            ).count()
+
+            # Recalcula data_ultimo_parto — busca o parto mais recente que
+            # sobrou depois da exclusão.
+            ultimo_parto = banco.query(Parto).filter(
+                Parto.animal_id == mae.id
+            ).order_by(Parto.data_parto.desc()).first()
+            mae.data_ultimo_parto = ultimo_parto.data_parto if ultimo_parto else None
+
+            # Recalcula status_reprodutivo — sem isso, a mãe ficava em
+            # "em_lactacao" pra sempre mesmo após o parto que gerou esse
+            # status ser apagado. A regra é: se ainda há partos, mantém
+            # em_lactacao; se não há mais nenhum parto, volta pra "vazia"
+            # (a menos que haja uma reprodução ativa mais recente, que é
+            # gerenciada pelo próprio router de reprodução).
+            if mae.quantidade_partos > 0:
+                # Ainda tem partos — mantém em lactação
+                mae.status_reprodutivo = "em_lactacao"
+            else:
+                # Nenhum parto restante — volta pra vazia
+                # (o router de reprodução pode sobrescrever isso se houver
+                # reprodução ativa, mas aqui garantimos que o parto apagado
+                # não deixa rastro no status da mãe)
+                if mae.sexo == "F":
+                    mae.status_reprodutivo = "vazia"
+                else:
+                    mae.status_reprodutivo = "nao_aplicavel"
+
+        # Animal-cria permanece ativo (decisão de negócio: o usuário decide
+        # se apaga o bezerro separadamente). Só desvincula o parto do
+        # animal-cria pra não deixar referência órfã — o animal-cria
+        # continua no sistema normalmente, mas sem o vínculo ao parto que
+        # foi apagado.
+        if parto.animal_cria_id:
+            cria = banco.query(Animal).filter(
+                Animal.id == parto.animal_cria_id
+            ).first()
+            if cria:
+                # Nenhuma ação no animal-cria — permanece ativo.
+                # Comentário aqui só pra deixar explícito que foi uma
+                # decisão consciente, não esquecimento.
+                pass
+
         banco.commit()
         logger_partos.info(f"Parto deletado | id: {parto_id} | usuário: {usuario.id}")
         return {"mensagem": "Parto removido com sucesso."}
