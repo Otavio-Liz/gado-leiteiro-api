@@ -1,0 +1,42 @@
+2026-07-01 00:36:54 | INFO | app | → OPTIONS /usuarios/perfil
+2026-07-01 00:36:54 | INFO | app | → OPTIONS /usuarios/perfil
+2026-07-01 00:36:54 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 9.05ms
+2026-07-01 00:36:54 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 9.55ms
+2026-07-01 00:36:54 | INFO | app | → GET /usuarios/perfil
+2026-07-01 00:36:54 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 96.94ms
+2026-07-01 00:36:54 | INFO | app | → GET /usuarios/perfil
+2026-07-01 00:36:54 | INFO | app | → OPTIONS /usuarios/refresh
+2026-07-01 00:36:54 | INFO | app | ← OPTIONS /usuarios/refresh | Status: 200 | 3.08ms
+2026-07-01 00:36:54 | INFO | app | → POST /usuarios/refresh
+2026-07-01 00:36:54 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 33.48ms
+2026-07-01 00:36:54 | INFO | app | → POST /usuarios/refresh
+2026-07-01 00:36:55 | INFO | app | ← POST /usuarios/refresh | Status: 401 | 689.5ms
+2026-07-01 00:36:55 | INFO | app | ← POST /usuarios/refresh | Status: 200 | 777.58ms
+2026-07-01 00:36:55 | INFO | app | → GET /usuarios/perfil
+2026-07-01 00:36:55 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 29.65ms
+2026-07-01 00:36:55 | INFO | app | → GET /usuarios/perfil
+2026-07-01 00:36:55 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 16.34ms
+2026-07-01 00:36:55 | INFO | app | → GET /usuarios/perfil
+2026-07-01 00:36:55 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 17.47ms
+2026-07-02 07:53:58 | INFO | app | → OPTIONS /usuarios/perfil
+2026-07-02 07:53:58 | INFO | app | → OPTIONS /usuarios/perfil
+2026-07-02 07:53:58 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 281.08ms
+2026-07-02 07:53:58 | INFO | app | ← OPTIONS /usuarios/perfil | Status: 200 | 137.1ms
+2026-07-02 07:53:58 | INFO | app | → GET /usuarios/perfil
+2026-07-02 07:53:58 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 388.58ms
+2026-07-02 07:53:59 | INFO | app | → GET /usuarios/perfil
+2026-07-02 07:53:59 | INFO | app | ← GET /usuarios/perfil | Status: 401 | 24.19ms
+2026-07-02 07:53:59 | INFO | app | → OPTIONS /usuarios/refresh
+2026-07-02 07:53:59 | INFO | app | → OPTIONS /usuarios/refresh
+2026-07-02 07:53:59 | INFO | app | ← OPTIONS /usuarios/refresh | Status: 200 | 468.92ms
+2026-07-02 07:53:59 | INFO | app | ← OPTIONS /usuarios/refresh | Status: 200 | 470.61ms
+2026-07-02 07:53:59 | INFO | app | → POST /usuarios/refresh
+2026-07-02 07:53:59 | INFO | app | → POST /usuarios/refresh
+2026-07-02 07:54:02 | INFO | app | ← POST /usuarios/refresh | Status: 401 | 2326.18ms
+2026-07-02 07:54:02 | INFO | app | ← POST /usuarios/refresh | Status: 200 | 2497.83ms
+2026-07-02 07:54:04 | INFO | app | → GET /usuarios/perfil
+2026-07-02 07:54:04 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 81.37ms
+2026-07-02 07:54:07 | INFO | app | → GET /usuarios/perfil
+2026-07-02 07:54:07 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 26.35ms
+2026-07-02 07:54:07 | INFO | app | → GET /usuarios/perfil
+2026-07-02 07:54:07 | INFO | app | ← GET /usuarios/perfil | Status: 200 | 20.32ms

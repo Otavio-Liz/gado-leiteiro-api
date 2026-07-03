@@ -1,0 +1,1212 @@
+2026-07-02 08:14:27 | INFO | app | → GET /
+2026-07-02 08:14:27 | INFO | app | ← GET / | Status: 200 | 10.04ms
+2026-07-02 08:14:27 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:27 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:14:27 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 14.4ms
+2026-07-02 08:14:27 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:27 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:14:27 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 9.17ms
+2026-07-02 08:14:27 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:27 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:14:27 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 6.33ms
+2026-07-02 08:14:27 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:27 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:14:27 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 3.3ms
+2026-07-02 08:14:27 | INFO | app | → POST /usuarios/login
+2026-07-02 08:14:27 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:14:27 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 42.6ms
+2026-07-02 08:14:27 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=login_teste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:28 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:28 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:14:28 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 15.16ms
+2026-07-02 08:14:28 | INFO | app | → POST /usuarios/login
+2026-07-02 08:14:28 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:14:28 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 6.33ms
+2026-07-02 08:14:28 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=senha_errada&password=senhaerrada'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:28 | INFO | app | → POST /usuarios/login
+2026-07-02 08:14:28 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:14:28 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 3.46ms
+2026-07-02 08:14:28 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=naoexiste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:29 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:29 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 3 erro(s)
+2026-07-02 08:14:29 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 3.87ms
+2026-07-02 08:14:29 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:29 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 3 erro(s)
+2026-07-02 08:14:29 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 9.41ms
+2026-07-02 08:14:29 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:29 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 3 erro(s)
+2026-07-02 08:14:29 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 9.21ms
+2026-07-02 08:14:29 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:29 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:14:29 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 8.42ms
+2026-07-02 08:14:29 | INFO | app | → POST /usuarios/login
+2026-07-02 08:14:29 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:14:29 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 20.46ms
+2026-07-02 08:14:29 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=animal_teste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:29 | INFO | app | → POST /animais/
+2026-07-02 08:14:29 | INFO | app | ← POST /animais/ | Status: 401 | 5.02ms
+2026-07-02 08:14:29 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:29 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:14:29 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 3.19ms
+2026-07-02 08:14:29 | INFO | app | → POST /usuarios/login
+2026-07-02 08:14:29 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:14:29 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 7.07ms
+2026-07-02 08:14:29 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=animal_teste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:30 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:14:30 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:14:30 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 4.37ms
+2026-07-02 08:14:30 | INFO | app | → POST /usuarios/login
+2026-07-02 08:14:30 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:14:30 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 8.1ms
+2026-07-02 08:14:30 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=animal_teste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:30 | INFO | app | → GET /animais/
+2026-07-02 08:14:30 | INFO | app | ← GET /animais/ | Status: 401 | 3.25ms
+2026-07-02 08:14:30 | INFO | app | → GET /rota-que-nao-existe
+2026-07-02 08:14:30 | WARNING | app | Rota não encontrada | GET /rota-que-nao-existe
+2026-07-02 08:14:30 | INFO | app | ← GET /rota-que-nao-existe | Status: 404 | 5.29ms
+2026-07-02 08:14:30 | INFO | app | → GET /animais/
+2026-07-02 08:14:30 | INFO | app | ← GET /animais/ | Status: 401 | 6.29ms
+2026-07-02 08:14:35 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:35 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 400 | 18.46ms
+2026-07-02 08:14:35 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:35 | WARNING | app | Erro de validação | POST /medicamentos/aplicacoes/ | 1 erro(s)
+2026-07-02 08:14:35 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 422 | 6.15ms
+2026-07-02 08:14:36 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:36 | WARNING | app | Erro de validação | POST /medicamentos/aplicacoes/ | 1 erro(s)
+2026-07-02 08:14:36 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 422 | 8.37ms
+2026-07-02 08:14:36 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:36 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 400 | 8.47ms
+2026-07-02 08:14:36 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:36 | INFO | medicamentos | Aplicação registrada | animal: 5 | medicamento: 5 | usuário: 5
+2026-07-02 08:14:36 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 26.53ms
+2026-07-02 08:14:36 | INFO | app | → GET /medicamentos/
+2026-07-02 08:14:36 | INFO | app | ← GET /medicamentos/ | Status: 200 | 9.16ms
+2026-07-02 08:14:37 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:37 | INFO | medicamentos | Aplicação registrada | animal: 6 | medicamento: 6 | usuário: 6
+2026-07-02 08:14:37 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 21.77ms
+2026-07-02 08:14:37 | INFO | app | → DELETE /medicamentos/aplicacoes/2
+2026-07-02 08:14:37 | INFO | medicamentos | Aplicação deletada | id: 2 | usuário: 6
+2026-07-02 08:14:37 | INFO | app | ← DELETE /medicamentos/aplicacoes/2 | Status: 200 | 20.49ms
+2026-07-02 08:14:37 | INFO | app | → GET /medicamentos/
+2026-07-02 08:14:37 | INFO | app | ← GET /medicamentos/ | Status: 200 | 7.15ms
+2026-07-02 08:14:37 | INFO | app | → DELETE /medicamentos/aplicacoes/999999
+2026-07-02 08:14:37 | WARNING | app | Rota não encontrada | DELETE /medicamentos/aplicacoes/999999
+2026-07-02 08:14:37 | INFO | app | ← DELETE /medicamentos/aplicacoes/999999 | Status: 404 | 13.14ms
+2026-07-02 08:14:38 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:38 | INFO | medicamentos | Aplicação registrada | animal: 7 | medicamento: 7 | usuário: 8
+2026-07-02 08:14:38 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.5ms
+2026-07-02 08:14:38 | INFO | app | → PUT /medicamentos/aplicacoes/3
+2026-07-02 08:14:38 | INFO | medicamentos | Aplicação atualizada | id: 3 | usuário: 8
+2026-07-02 08:14:38 | INFO | app | ← PUT /medicamentos/aplicacoes/3 | Status: 200 | 16.85ms
+2026-07-02 08:14:38 | INFO | app | → GET /medicamentos/
+2026-07-02 08:14:38 | INFO | app | ← GET /medicamentos/ | Status: 200 | 6.15ms
+2026-07-02 08:14:38 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:38 | INFO | medicamentos | Aplicação registrada | animal: 8 | medicamento: 8 | usuário: 9
+2026-07-02 08:14:38 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 18.08ms
+2026-07-02 08:14:38 | INFO | app | → PUT /medicamentos/aplicacoes/4
+2026-07-02 08:14:38 | INFO | medicamentos | Aplicação atualizada | id: 4 | usuário: 9
+2026-07-02 08:14:38 | INFO | app | ← PUT /medicamentos/aplicacoes/4 | Status: 200 | 19.07ms
+2026-07-02 08:14:38 | INFO | app | → GET /medicamentos/
+2026-07-02 08:14:38 | INFO | app | ← GET /medicamentos/ | Status: 200 | 6.55ms
+2026-07-02 08:14:38 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:38 | INFO | medicamentos | Aplicação registrada | animal: 9 | medicamento: 9 | usuário: 10
+2026-07-02 08:14:38 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 17.07ms
+2026-07-02 08:14:38 | INFO | app | → PUT /medicamentos/aplicacoes/5
+2026-07-02 08:14:38 | INFO | app | ← PUT /medicamentos/aplicacoes/5 | Status: 400 | 8.47ms
+2026-07-02 08:14:38 | INFO | app | → GET /medicamentos/
+2026-07-02 08:14:38 | INFO | app | ← GET /medicamentos/ | Status: 200 | 6.7ms
+2026-07-02 08:14:38 | INFO | app | → GET /medicamentos/aplicacoes/animal/9
+2026-07-02 08:14:39 | INFO | app | ← GET /medicamentos/aplicacoes/animal/9 | Status: 200 | 10.75ms
+2026-07-02 08:14:39 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:39 | INFO | medicamentos | Aplicação registrada | animal: 10 | medicamento: 10 | usuário: 11
+2026-07-02 08:14:39 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 18.33ms
+2026-07-02 08:14:39 | INFO | app | → PUT /medicamentos/aplicacoes/6
+2026-07-02 08:14:39 | INFO | medicamentos | Aplicação atualizada | id: 6 | usuário: 11
+2026-07-02 08:14:39 | INFO | app | ← PUT /medicamentos/aplicacoes/6 | Status: 200 | 16.02ms
+2026-07-02 08:14:39 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:39 | INFO | medicamentos | Aplicação registrada | animal: 11 | medicamento: 11 | usuário: 12
+2026-07-02 08:14:39 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 21.88ms
+2026-07-02 08:14:39 | INFO | app | → PUT /medicamentos/aplicacoes/7
+2026-07-02 08:14:39 | WARNING | app | Erro de validação | PUT /medicamentos/aplicacoes/7 | 1 erro(s)
+2026-07-02 08:14:39 | INFO | app | ← PUT /medicamentos/aplicacoes/7 | Status: 422 | 5.32ms
+2026-07-02 08:14:40 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:14:40 | INFO | medicamentos | Aplicação registrada | animal: 12 | medicamento: 12 | usuário: 13
+2026-07-02 08:14:40 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 21.16ms
+2026-07-02 08:14:40 | INFO | app | → GET /medicamentos/aplicacoes/animal/12
+2026-07-02 08:14:40 | WARNING | app | Rota não encontrada | GET /medicamentos/aplicacoes/animal/12
+2026-07-02 08:14:40 | INFO | app | ← GET /medicamentos/aplicacoes/animal/12 | Status: 404 | 8.23ms
+2026-07-02 08:14:40 | INFO | app | → PUT /medicamentos/aplicacoes/8
+2026-07-02 08:14:40 | WARNING | app | Rota não encontrada | PUT /medicamentos/aplicacoes/8
+2026-07-02 08:14:40 | INFO | app | ← PUT /medicamentos/aplicacoes/8 | Status: 404 | 7.85ms
+2026-07-02 08:14:40 | INFO | app | → DELETE /medicamentos/aplicacoes/8
+2026-07-02 08:14:40 | WARNING | app | Rota não encontrada | DELETE /medicamentos/aplicacoes/8
+2026-07-02 08:14:40 | INFO | app | ← DELETE /medicamentos/aplicacoes/8 | Status: 404 | 8.26ms
+2026-07-02 08:14:40 | INFO | app | → GET /medicamentos/aplicacoes/animal/12
+2026-07-02 08:14:40 | INFO | app | ← GET /medicamentos/aplicacoes/animal/12 | Status: 200 | 10.53ms
+2026-07-02 08:25:11 | INFO | app | → GET /
+2026-07-02 08:25:11 | INFO | app | ← GET / | Status: 200 | 5.11ms
+2026-07-02 08:25:11 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:25:11 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:25:11 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 43.89ms
+2026-07-02 08:25:11 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:25:11 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:25:11 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 3.87ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/login
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/login | Status: 422 | 4.68ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/login
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/login | Status: 422 | 3.4ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/login
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/login | Status: 422 | 10.65ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 3.45ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/login
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/login | 1 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/login | Status: 422 | 2.54ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 8.35ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 5.58ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 13.28ms
+2026-07-02 08:25:12 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:25:12 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 2 erro(s)
+2026-07-02 08:25:12 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 11.39ms
+2026-07-02 08:25:13 | INFO | app | → POST /animais/
+2026-07-02 08:25:13 | INFO | animais | Animal criado | Mimosa | usuário: 4
+2026-07-02 08:25:13 | INFO | app | ← POST /animais/ | Status: 200 | 51.31ms
+2026-07-02 08:25:13 | INFO | app | → POST /animais/
+2026-07-02 08:25:13 | INFO | app | ← POST /animais/ | Status: 401 | 8.25ms
+2026-07-02 08:25:13 | INFO | app | → POST /animais/
+2026-07-02 08:25:13 | INFO | app | ← POST /animais/ | Status: 400 | 9.77ms
+2026-07-02 08:25:14 | INFO | app | → POST /animais/
+2026-07-02 08:25:14 | INFO | app | ← POST /animais/ | Status: 400 | 10.88ms
+2026-07-02 08:25:14 | INFO | app | → GET /animais/
+2026-07-02 08:25:14 | INFO | app | ← GET /animais/ | Status: 401 | 10.57ms
+2026-07-02 08:25:14 | INFO | app | → GET /rota-que-nao-existe
+2026-07-02 08:25:14 | WARNING | app | Rota não encontrada | GET /rota-que-nao-existe
+2026-07-02 08:25:14 | INFO | app | ← GET /rota-que-nao-existe | Status: 404 | 2.04ms
+2026-07-02 08:25:14 | INFO | app | → GET /animais/
+2026-07-02 08:25:14 | INFO | app | ← GET /animais/ | Status: 401 | 9.98ms
+2026-07-02 08:25:14 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:14 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 400 | 14.35ms
+2026-07-02 08:25:14 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:14 | WARNING | app | Erro de validação | POST /medicamentos/aplicacoes/ | 1 erro(s)
+2026-07-02 08:25:14 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 422 | 8.1ms
+2026-07-02 08:25:15 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:15 | WARNING | app | Erro de validação | POST /medicamentos/aplicacoes/ | 1 erro(s)
+2026-07-02 08:25:15 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 422 | 6.86ms
+2026-07-02 08:25:15 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:15 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 400 | 7.44ms
+2026-07-02 08:25:16 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:16 | INFO | medicamentos | Aplicação registrada | animal: 6 | medicamento: 5 | usuário: 11
+2026-07-02 08:25:16 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 25.27ms
+2026-07-02 08:25:16 | INFO | app | → GET /medicamentos/
+2026-07-02 08:25:16 | INFO | app | ← GET /medicamentos/ | Status: 200 | 12.16ms
+2026-07-02 08:25:16 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:16 | INFO | medicamentos | Aplicação registrada | animal: 7 | medicamento: 6 | usuário: 12
+2026-07-02 08:25:16 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.96ms
+2026-07-02 08:25:16 | INFO | app | → DELETE /medicamentos/aplicacoes/2
+2026-07-02 08:25:16 | INFO | medicamentos | Aplicação deletada | id: 2 | usuário: 12
+2026-07-02 08:25:16 | INFO | app | ← DELETE /medicamentos/aplicacoes/2 | Status: 200 | 13.83ms
+2026-07-02 08:25:16 | INFO | app | → GET /medicamentos/
+2026-07-02 08:25:16 | INFO | app | ← GET /medicamentos/ | Status: 200 | 5.87ms
+2026-07-02 08:25:16 | INFO | app | → DELETE /medicamentos/aplicacoes/999999
+2026-07-02 08:25:16 | WARNING | app | Rota não encontrada | DELETE /medicamentos/aplicacoes/999999
+2026-07-02 08:25:16 | INFO | app | ← DELETE /medicamentos/aplicacoes/999999 | Status: 404 | 7.3ms
+2026-07-02 08:25:17 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:17 | INFO | medicamentos | Aplicação registrada | animal: 8 | medicamento: 7 | usuário: 14
+2026-07-02 08:25:17 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.23ms
+2026-07-02 08:25:17 | INFO | app | → PUT /medicamentos/aplicacoes/3
+2026-07-02 08:25:17 | INFO | medicamentos | Aplicação atualizada | id: 3 | usuário: 14
+2026-07-02 08:25:17 | INFO | app | ← PUT /medicamentos/aplicacoes/3 | Status: 200 | 17.5ms
+2026-07-02 08:25:17 | INFO | app | → GET /medicamentos/
+2026-07-02 08:25:17 | INFO | app | ← GET /medicamentos/ | Status: 200 | 6.53ms
+2026-07-02 08:25:17 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:17 | INFO | medicamentos | Aplicação registrada | animal: 9 | medicamento: 8 | usuário: 15
+2026-07-02 08:25:17 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 18.35ms
+2026-07-02 08:25:17 | INFO | app | → PUT /medicamentos/aplicacoes/4
+2026-07-02 08:25:17 | INFO | medicamentos | Aplicação atualizada | id: 4 | usuário: 15
+2026-07-02 08:25:17 | INFO | app | ← PUT /medicamentos/aplicacoes/4 | Status: 200 | 14.57ms
+2026-07-02 08:25:17 | INFO | app | → GET /medicamentos/
+2026-07-02 08:25:17 | INFO | app | ← GET /medicamentos/ | Status: 200 | 5.67ms
+2026-07-02 08:25:18 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:18 | INFO | medicamentos | Aplicação registrada | animal: 10 | medicamento: 9 | usuário: 16
+2026-07-02 08:25:18 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.61ms
+2026-07-02 08:25:18 | INFO | app | → PUT /medicamentos/aplicacoes/5
+2026-07-02 08:25:18 | INFO | app | ← PUT /medicamentos/aplicacoes/5 | Status: 400 | 8.88ms
+2026-07-02 08:25:18 | INFO | app | → GET /medicamentos/
+2026-07-02 08:25:18 | INFO | app | ← GET /medicamentos/ | Status: 200 | 4.93ms
+2026-07-02 08:25:18 | INFO | app | → GET /medicamentos/aplicacoes/animal/10
+2026-07-02 08:25:18 | INFO | app | ← GET /medicamentos/aplicacoes/animal/10 | Status: 200 | 8.45ms
+2026-07-02 08:25:18 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:18 | INFO | medicamentos | Aplicação registrada | animal: 11 | medicamento: 10 | usuário: 17
+2026-07-02 08:25:18 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.29ms
+2026-07-02 08:25:18 | INFO | app | → PUT /medicamentos/aplicacoes/6
+2026-07-02 08:25:18 | INFO | medicamentos | Aplicação atualizada | id: 6 | usuário: 17
+2026-07-02 08:25:18 | INFO | app | ← PUT /medicamentos/aplicacoes/6 | Status: 200 | 17.62ms
+2026-07-02 08:25:18 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:18 | INFO | medicamentos | Aplicação registrada | animal: 12 | medicamento: 11 | usuário: 18
+2026-07-02 08:25:18 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.19ms
+2026-07-02 08:25:18 | INFO | app | → PUT /medicamentos/aplicacoes/7
+2026-07-02 08:25:18 | WARNING | app | Erro de validação | PUT /medicamentos/aplicacoes/7 | 1 erro(s)
+2026-07-02 08:25:18 | INFO | app | ← PUT /medicamentos/aplicacoes/7 | Status: 422 | 6.22ms
+2026-07-02 08:25:19 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:25:19 | INFO | medicamentos | Aplicação registrada | animal: 13 | medicamento: 12 | usuário: 19
+2026-07-02 08:25:19 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 20.78ms
+2026-07-02 08:25:19 | INFO | app | → GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:25:19 | WARNING | app | Rota não encontrada | GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:25:19 | INFO | app | ← GET /medicamentos/aplicacoes/animal/13 | Status: 404 | 8.85ms
+2026-07-02 08:25:19 | INFO | app | → PUT /medicamentos/aplicacoes/8
+2026-07-02 08:25:19 | WARNING | app | Rota não encontrada | PUT /medicamentos/aplicacoes/8
+2026-07-02 08:25:19 | INFO | app | ← PUT /medicamentos/aplicacoes/8 | Status: 404 | 7.42ms
+2026-07-02 08:25:19 | INFO | app | → DELETE /medicamentos/aplicacoes/8
+2026-07-02 08:25:19 | WARNING | app | Rota não encontrada | DELETE /medicamentos/aplicacoes/8
+2026-07-02 08:25:19 | INFO | app | ← DELETE /medicamentos/aplicacoes/8 | Status: 404 | 7.16ms
+2026-07-02 08:25:19 | INFO | app | → GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:25:19 | INFO | app | ← GET /medicamentos/aplicacoes/animal/13 | Status: 200 | 8.89ms
+2026-07-02 08:30:42 | INFO | app | → GET /
+2026-07-02 08:30:42 | INFO | app | ← GET / | Status: 200 | 6.88ms
+2026-07-02 08:30:42 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:30:44 | ERROR | usuarios | Erro ao enviar email de verificação para teste.cadastro@leitetech.example: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
+2026-07-02 08:30:44 | INFO | usuarios | Cadastro/reenvio de código | email: teste.cadastro@leitetech.example
+2026-07-02 08:30:44 | INFO | app | ← POST /usuarios/cadastrar | Status: 200 | 1595.95ms
+2026-07-02 08:30:44 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:30:44 | INFO | app | ← POST /usuarios/cadastrar | Status: 400 | 8.87ms
+2026-07-02 08:30:45 | INFO | app | → POST /usuarios/login
+2026-07-02 08:30:45 | ERROR | app | Erro SQLAlchemy | POST /usuarios/login | (pymysql.err.ProgrammingError) (1146, "Table 'gado_leiteiro_test.tentativas_login' doesn't exist")
+[SQL: SELECT tentativas_login.email AS tentativas_login_email, tentativas_login.tentativas AS tentativas_login_tentativas, tentativas_login.bloqueado_until AS tentativas_login_bloqueado_until, tentativas_login.atualizado_em AS tentativas_login_atualizado_em 
+FROM tentativas_login 
+WHERE tentativas_login.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'login.sucesso@leitetech.example', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-07-02 08:30:45 | INFO | app | ← POST /usuarios/login | Status: 500 | 12.79ms
+2026-07-02 08:30:45 | INFO | app | → POST /usuarios/login
+2026-07-02 08:30:45 | ERROR | app | Erro SQLAlchemy | POST /usuarios/login | (pymysql.err.ProgrammingError) (1146, "Table 'gado_leiteiro_test.tentativas_login' doesn't exist")
+[SQL: SELECT tentativas_login.email AS tentativas_login_email, tentativas_login.tentativas AS tentativas_login_tentativas, tentativas_login.bloqueado_until AS tentativas_login_bloqueado_until, tentativas_login.atualizado_em AS tentativas_login_atualizado_em 
+FROM tentativas_login 
+WHERE tentativas_login.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'login.senhaerrada@leitetech.example', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-07-02 08:30:45 | INFO | app | ← POST /usuarios/login | Status: 500 | 7.89ms
+2026-07-02 08:30:45 | INFO | app | → POST /usuarios/login
+2026-07-02 08:30:45 | ERROR | app | Erro SQLAlchemy | POST /usuarios/login | (pymysql.err.ProgrammingError) (1146, "Table 'gado_leiteiro_test.tentativas_login' doesn't exist")
+[SQL: SELECT tentativas_login.email AS tentativas_login_email, tentativas_login.tentativas AS tentativas_login_tentativas, tentativas_login.bloqueado_until AS tentativas_login_bloqueado_until, tentativas_login.atualizado_em AS tentativas_login_atualizado_em 
+FROM tentativas_login 
+WHERE tentativas_login.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'nao.existe@leitetech.example', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-07-02 08:30:45 | INFO | app | ← POST /usuarios/login | Status: 500 | 13.01ms
+2026-07-02 08:30:45 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:30:47 | ERROR | usuarios | Erro ao enviar email de verificação para pendente@leitetech.example: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
+2026-07-02 08:30:47 | INFO | usuarios | Cadastro/reenvio de código | email: pendente@leitetech.example
+2026-07-02 08:30:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 200 | 1598.6ms
+2026-07-02 08:30:47 | INFO | app | → POST /usuarios/login
+2026-07-02 08:30:47 | ERROR | app | Erro SQLAlchemy | POST /usuarios/login | (pymysql.err.ProgrammingError) (1146, "Table 'gado_leiteiro_test.tentativas_login' doesn't exist")
+[SQL: SELECT tentativas_login.email AS tentativas_login_email, tentativas_login.tentativas AS tentativas_login_tentativas, tentativas_login.bloqueado_until AS tentativas_login_bloqueado_until, tentativas_login.atualizado_em AS tentativas_login_atualizado_em 
+FROM tentativas_login 
+WHERE tentativas_login.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'pendente@leitetech.example', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-07-02 08:30:47 | INFO | app | ← POST /usuarios/login | Status: 500 | 8.09ms
+2026-07-02 08:30:47 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:30:47 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:30:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 15.2ms
+2026-07-02 08:30:47 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:30:47 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:30:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 6.91ms
+2026-07-02 08:30:47 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:30:47 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:30:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 9.11ms
+2026-07-02 08:30:47 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:30:47 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:30:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 8.34ms
+2026-07-02 08:30:47 | INFO | app | → POST /animais/
+2026-07-02 08:30:47 | INFO | animais | Animal criado | Mimosa | usuário: 6
+2026-07-02 08:30:47 | INFO | app | ← POST /animais/ | Status: 200 | 32.31ms
+2026-07-02 08:30:47 | INFO | app | → POST /animais/
+2026-07-02 08:30:47 | INFO | app | ← POST /animais/ | Status: 401 | 11.99ms
+2026-07-02 08:30:48 | INFO | app | → POST /animais/
+2026-07-02 08:30:48 | INFO | app | ← POST /animais/ | Status: 400 | 8.61ms
+2026-07-02 08:30:48 | INFO | app | → POST /animais/
+2026-07-02 08:30:48 | INFO | app | ← POST /animais/ | Status: 400 | 9.73ms
+2026-07-02 08:30:48 | INFO | app | → GET /animais/
+2026-07-02 08:30:48 | INFO | app | ← GET /animais/ | Status: 401 | 10.0ms
+2026-07-02 08:30:48 | INFO | app | → GET /rota-que-nao-existe
+2026-07-02 08:30:48 | WARNING | app | Rota não encontrada | GET /rota-que-nao-existe
+2026-07-02 08:30:48 | INFO | app | ← GET /rota-que-nao-existe | Status: 404 | 2.28ms
+2026-07-02 08:30:48 | INFO | app | → GET /animais/
+2026-07-02 08:30:48 | INFO | app | ← GET /animais/ | Status: 401 | 11.83ms
+2026-07-02 08:30:49 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:49 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 400 | 13.89ms
+2026-07-02 08:30:49 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:49 | WARNING | app | Erro de validação | POST /medicamentos/aplicacoes/ | 1 erro(s)
+2026-07-02 08:30:49 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 422 | 7.62ms
+2026-07-02 08:30:50 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:50 | WARNING | app | Erro de validação | POST /medicamentos/aplicacoes/ | 1 erro(s)
+2026-07-02 08:30:50 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 422 | 6.52ms
+2026-07-02 08:30:50 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:50 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 400 | 8.05ms
+2026-07-02 08:30:50 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:50 | INFO | medicamentos | Aplicação registrada | animal: 6 | medicamento: 5 | usuário: 13
+2026-07-02 08:30:50 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 21.85ms
+2026-07-02 08:30:50 | INFO | app | → GET /medicamentos/
+2026-07-02 08:30:50 | INFO | app | ← GET /medicamentos/ | Status: 200 | 7.93ms
+2026-07-02 08:30:51 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:51 | INFO | medicamentos | Aplicação registrada | animal: 7 | medicamento: 6 | usuário: 14
+2026-07-02 08:30:51 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 18.32ms
+2026-07-02 08:30:51 | INFO | app | → DELETE /medicamentos/aplicacoes/2
+2026-07-02 08:30:51 | INFO | medicamentos | Aplicação deletada | id: 2 | usuário: 14
+2026-07-02 08:30:51 | INFO | app | ← DELETE /medicamentos/aplicacoes/2 | Status: 200 | 12.99ms
+2026-07-02 08:30:51 | INFO | app | → GET /medicamentos/
+2026-07-02 08:30:51 | INFO | app | ← GET /medicamentos/ | Status: 200 | 5.7ms
+2026-07-02 08:30:51 | INFO | app | → DELETE /medicamentos/aplicacoes/999999
+2026-07-02 08:30:51 | WARNING | app | Rota não encontrada | DELETE /medicamentos/aplicacoes/999999
+2026-07-02 08:30:51 | INFO | app | ← DELETE /medicamentos/aplicacoes/999999 | Status: 404 | 7.46ms
+2026-07-02 08:30:51 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:51 | INFO | medicamentos | Aplicação registrada | animal: 8 | medicamento: 7 | usuário: 16
+2026-07-02 08:30:51 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 35.91ms
+2026-07-02 08:30:51 | INFO | app | → PUT /medicamentos/aplicacoes/3
+2026-07-02 08:30:51 | INFO | medicamentos | Aplicação atualizada | id: 3 | usuário: 16
+2026-07-02 08:30:51 | INFO | app | ← PUT /medicamentos/aplicacoes/3 | Status: 200 | 21.0ms
+2026-07-02 08:30:52 | INFO | app | → GET /medicamentos/
+2026-07-02 08:30:52 | INFO | app | ← GET /medicamentos/ | Status: 200 | 9.27ms
+2026-07-02 08:30:52 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:52 | INFO | medicamentos | Aplicação registrada | animal: 9 | medicamento: 8 | usuário: 17
+2026-07-02 08:30:52 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.46ms
+2026-07-02 08:30:52 | INFO | app | → PUT /medicamentos/aplicacoes/4
+2026-07-02 08:30:52 | INFO | medicamentos | Aplicação atualizada | id: 4 | usuário: 17
+2026-07-02 08:30:52 | INFO | app | ← PUT /medicamentos/aplicacoes/4 | Status: 200 | 15.11ms
+2026-07-02 08:30:52 | INFO | app | → GET /medicamentos/
+2026-07-02 08:30:52 | INFO | app | ← GET /medicamentos/ | Status: 200 | 5.75ms
+2026-07-02 08:30:52 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:52 | INFO | medicamentos | Aplicação registrada | animal: 10 | medicamento: 9 | usuário: 18
+2026-07-02 08:30:52 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.39ms
+2026-07-02 08:30:52 | INFO | app | → PUT /medicamentos/aplicacoes/5
+2026-07-02 08:30:52 | INFO | app | ← PUT /medicamentos/aplicacoes/5 | Status: 400 | 9.35ms
+2026-07-02 08:30:52 | INFO | app | → GET /medicamentos/
+2026-07-02 08:30:52 | INFO | app | ← GET /medicamentos/ | Status: 200 | 5.38ms
+2026-07-02 08:30:52 | INFO | app | → GET /medicamentos/aplicacoes/animal/10
+2026-07-02 08:30:52 | INFO | app | ← GET /medicamentos/aplicacoes/animal/10 | Status: 200 | 8.69ms
+2026-07-02 08:30:53 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:53 | INFO | medicamentos | Aplicação registrada | animal: 11 | medicamento: 10 | usuário: 19
+2026-07-02 08:30:53 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.79ms
+2026-07-02 08:30:53 | INFO | app | → PUT /medicamentos/aplicacoes/6
+2026-07-02 08:30:53 | INFO | medicamentos | Aplicação atualizada | id: 6 | usuário: 19
+2026-07-02 08:30:53 | INFO | app | ← PUT /medicamentos/aplicacoes/6 | Status: 200 | 15.98ms
+2026-07-02 08:30:53 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:53 | INFO | medicamentos | Aplicação registrada | animal: 12 | medicamento: 11 | usuário: 20
+2026-07-02 08:30:53 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.6ms
+2026-07-02 08:30:53 | INFO | app | → PUT /medicamentos/aplicacoes/7
+2026-07-02 08:30:53 | WARNING | app | Erro de validação | PUT /medicamentos/aplicacoes/7 | 1 erro(s)
+2026-07-02 08:30:53 | INFO | app | ← PUT /medicamentos/aplicacoes/7 | Status: 422 | 6.65ms
+2026-07-02 08:30:54 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:30:54 | INFO | medicamentos | Aplicação registrada | animal: 13 | medicamento: 12 | usuário: 21
+2026-07-02 08:30:54 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.27ms
+2026-07-02 08:30:54 | INFO | app | → GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:30:54 | WARNING | app | Rota não encontrada | GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:30:54 | INFO | app | ← GET /medicamentos/aplicacoes/animal/13 | Status: 404 | 6.18ms
+2026-07-02 08:30:54 | INFO | app | → PUT /medicamentos/aplicacoes/8
+2026-07-02 08:30:54 | WARNING | app | Rota não encontrada | PUT /medicamentos/aplicacoes/8
+2026-07-02 08:30:54 | INFO | app | ← PUT /medicamentos/aplicacoes/8 | Status: 404 | 5.97ms
+2026-07-02 08:30:54 | INFO | app | → DELETE /medicamentos/aplicacoes/8
+2026-07-02 08:30:54 | WARNING | app | Rota não encontrada | DELETE /medicamentos/aplicacoes/8
+2026-07-02 08:30:54 | INFO | app | ← DELETE /medicamentos/aplicacoes/8 | Status: 404 | 5.74ms
+2026-07-02 08:30:54 | INFO | app | → GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:30:54 | INFO | app | ← GET /medicamentos/aplicacoes/animal/13 | Status: 200 | 6.52ms
+2026-07-02 08:33:42 | INFO | app | → GET /
+2026-07-02 08:33:42 | INFO | app | ← GET / | Status: 200 | 4.53ms
+2026-07-02 08:33:42 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:33:43 | ERROR | usuarios | Erro ao enviar email de verificação para teste.cadastro@leitetech.example: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
+2026-07-02 08:33:43 | INFO | usuarios | Cadastro/reenvio de código | email: teste.cadastro@leitetech.example
+2026-07-02 08:33:43 | INFO | app | ← POST /usuarios/cadastrar | Status: 200 | 1264.95ms
+2026-07-02 08:33:44 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:33:44 | INFO | app | ← POST /usuarios/cadastrar | Status: 400 | 8.33ms
+2026-07-02 08:33:44 | INFO | app | → POST /usuarios/login
+2026-07-02 08:33:44 | INFO | usuarios | Login realizado | email: login.sucesso@leitetech.example
+2026-07-02 08:33:45 | INFO | app | ← POST /usuarios/login | Status: 200 | 369.99ms
+2026-07-02 08:33:45 | INFO | app | → POST /usuarios/login
+2026-07-02 08:33:45 | INFO | app | ← POST /usuarios/login | Status: 401 | 341.54ms
+2026-07-02 08:33:45 | INFO | app | → POST /usuarios/login
+2026-07-02 08:33:46 | INFO | app | ← POST /usuarios/login | Status: 401 | 354.04ms
+2026-07-02 08:33:46 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:33:47 | ERROR | usuarios | Erro ao enviar email de verificação para pendente@leitetech.example: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
+2026-07-02 08:33:47 | INFO | usuarios | Cadastro/reenvio de código | email: pendente@leitetech.example
+2026-07-02 08:33:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 200 | 997.33ms
+2026-07-02 08:33:47 | INFO | app | → POST /usuarios/login
+2026-07-02 08:33:47 | INFO | app | ← POST /usuarios/login | Status: 403 | 340.93ms
+2026-07-02 08:33:47 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:33:47 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:33:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 14.29ms
+2026-07-02 08:33:47 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:33:47 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:33:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 10.59ms
+2026-07-02 08:33:47 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:33:47 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:33:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 11.53ms
+2026-07-02 08:33:47 | INFO | app | → POST /usuarios/cadastrar
+2026-07-02 08:33:47 | WARNING | app | Erro de validação | POST /usuarios/cadastrar | 1 erro(s)
+2026-07-02 08:33:47 | INFO | app | ← POST /usuarios/cadastrar | Status: 422 | 11.04ms
+2026-07-02 08:33:47 | INFO | app | → POST /animais/
+2026-07-02 08:33:47 | INFO | animais | Animal criado | Mimosa | usuário: 6
+2026-07-02 08:33:47 | INFO | app | ← POST /animais/ | Status: 200 | 27.51ms
+2026-07-02 08:33:47 | INFO | app | → POST /animais/
+2026-07-02 08:33:47 | INFO | app | ← POST /animais/ | Status: 401 | 12.48ms
+2026-07-02 08:33:48 | INFO | app | → POST /animais/
+2026-07-02 08:33:48 | INFO | app | ← POST /animais/ | Status: 400 | 10.98ms
+2026-07-02 08:33:48 | INFO | app | → POST /animais/
+2026-07-02 08:33:48 | INFO | app | ← POST /animais/ | Status: 400 | 6.13ms
+2026-07-02 08:33:48 | INFO | app | → GET /animais/
+2026-07-02 08:33:48 | INFO | app | ← GET /animais/ | Status: 401 | 5.08ms
+2026-07-02 08:33:48 | INFO | app | → GET /rota-que-nao-existe
+2026-07-02 08:33:48 | WARNING | app | Rota não encontrada | GET /rota-que-nao-existe
+2026-07-02 08:33:48 | INFO | app | ← GET /rota-que-nao-existe | Status: 404 | 1.8ms
+2026-07-02 08:33:48 | INFO | app | → GET /animais/
+2026-07-02 08:33:48 | INFO | app | ← GET /animais/ | Status: 401 | 7.76ms
+2026-07-02 08:33:49 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:49 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 400 | 13.07ms
+2026-07-02 08:33:49 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:49 | WARNING | app | Erro de validação | POST /medicamentos/aplicacoes/ | 1 erro(s)
+2026-07-02 08:33:49 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 422 | 6.64ms
+2026-07-02 08:33:50 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:50 | WARNING | app | Erro de validação | POST /medicamentos/aplicacoes/ | 1 erro(s)
+2026-07-02 08:33:50 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 422 | 6.54ms
+2026-07-02 08:33:50 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:50 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 400 | 7.91ms
+2026-07-02 08:33:50 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:50 | INFO | medicamentos | Aplicação registrada | animal: 6 | medicamento: 5 | usuário: 13
+2026-07-02 08:33:50 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 20.97ms
+2026-07-02 08:33:50 | INFO | app | → GET /medicamentos/
+2026-07-02 08:33:50 | INFO | app | ← GET /medicamentos/ | Status: 200 | 7.69ms
+2026-07-02 08:33:51 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:51 | INFO | medicamentos | Aplicação registrada | animal: 7 | medicamento: 6 | usuário: 14
+2026-07-02 08:33:51 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 19.5ms
+2026-07-02 08:33:51 | INFO | app | → DELETE /medicamentos/aplicacoes/2
+2026-07-02 08:33:51 | INFO | medicamentos | Aplicação deletada | id: 2 | usuário: 14
+2026-07-02 08:33:51 | INFO | app | ← DELETE /medicamentos/aplicacoes/2 | Status: 200 | 14.17ms
+2026-07-02 08:33:51 | INFO | app | → GET /medicamentos/
+2026-07-02 08:33:51 | INFO | app | ← GET /medicamentos/ | Status: 200 | 5.88ms
+2026-07-02 08:33:51 | INFO | app | → DELETE /medicamentos/aplicacoes/999999
+2026-07-02 08:33:51 | WARNING | app | Rota não encontrada | DELETE /medicamentos/aplicacoes/999999
+2026-07-02 08:33:51 | INFO | app | ← DELETE /medicamentos/aplicacoes/999999 | Status: 404 | 11.25ms
+2026-07-02 08:33:51 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:51 | INFO | medicamentos | Aplicação registrada | animal: 8 | medicamento: 7 | usuário: 16
+2026-07-02 08:33:51 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 20.98ms
+2026-07-02 08:33:51 | INFO | app | → PUT /medicamentos/aplicacoes/3
+2026-07-02 08:33:51 | INFO | medicamentos | Aplicação atualizada | id: 3 | usuário: 16
+2026-07-02 08:33:51 | INFO | app | ← PUT /medicamentos/aplicacoes/3 | Status: 200 | 17.76ms
+2026-07-02 08:33:51 | INFO | app | → GET /medicamentos/
+2026-07-02 08:33:51 | INFO | app | ← GET /medicamentos/ | Status: 200 | 12.53ms
+2026-07-02 08:33:52 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:52 | INFO | medicamentos | Aplicação registrada | animal: 9 | medicamento: 8 | usuário: 17
+2026-07-02 08:33:52 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 15.82ms
+2026-07-02 08:33:52 | INFO | app | → PUT /medicamentos/aplicacoes/4
+2026-07-02 08:33:52 | INFO | medicamentos | Aplicação atualizada | id: 4 | usuário: 17
+2026-07-02 08:33:52 | INFO | app | ← PUT /medicamentos/aplicacoes/4 | Status: 200 | 16.09ms
+2026-07-02 08:33:52 | INFO | app | → GET /medicamentos/
+2026-07-02 08:33:52 | INFO | app | ← GET /medicamentos/ | Status: 200 | 5.63ms
+2026-07-02 08:33:52 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:52 | INFO | medicamentos | Aplicação registrada | animal: 10 | medicamento: 9 | usuário: 18
+2026-07-02 08:33:52 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.37ms
+2026-07-02 08:33:52 | INFO | app | → PUT /medicamentos/aplicacoes/5
+2026-07-02 08:33:52 | INFO | app | ← PUT /medicamentos/aplicacoes/5 | Status: 400 | 8.61ms
+2026-07-02 08:33:52 | INFO | app | → GET /medicamentos/
+2026-07-02 08:33:52 | INFO | app | ← GET /medicamentos/ | Status: 200 | 5.4ms
+2026-07-02 08:33:52 | INFO | app | → GET /medicamentos/aplicacoes/animal/10
+2026-07-02 08:33:52 | INFO | app | ← GET /medicamentos/aplicacoes/animal/10 | Status: 200 | 8.44ms
+2026-07-02 08:33:53 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:53 | INFO | medicamentos | Aplicação registrada | animal: 11 | medicamento: 10 | usuário: 19
+2026-07-02 08:33:53 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 18.22ms
+2026-07-02 08:33:53 | INFO | app | → PUT /medicamentos/aplicacoes/6
+2026-07-02 08:33:53 | INFO | medicamentos | Aplicação atualizada | id: 6 | usuário: 19
+2026-07-02 08:33:53 | INFO | app | ← PUT /medicamentos/aplicacoes/6 | Status: 200 | 14.73ms
+2026-07-02 08:33:53 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:53 | INFO | medicamentos | Aplicação registrada | animal: 12 | medicamento: 11 | usuário: 20
+2026-07-02 08:33:53 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 16.23ms
+2026-07-02 08:33:53 | INFO | app | → PUT /medicamentos/aplicacoes/7
+2026-07-02 08:33:53 | WARNING | app | Erro de validação | PUT /medicamentos/aplicacoes/7 | 1 erro(s)
+2026-07-02 08:33:53 | INFO | app | ← PUT /medicamentos/aplicacoes/7 | Status: 422 | 5.3ms
+2026-07-02 08:33:54 | INFO | app | → POST /medicamentos/aplicacoes/
+2026-07-02 08:33:54 | INFO | medicamentos | Aplicação registrada | animal: 13 | medicamento: 12 | usuário: 21
+2026-07-02 08:33:54 | INFO | app | ← POST /medicamentos/aplicacoes/ | Status: 200 | 18.2ms
+2026-07-02 08:33:54 | INFO | app | → GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:33:54 | WARNING | app | Rota não encontrada | GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:33:54 | INFO | app | ← GET /medicamentos/aplicacoes/animal/13 | Status: 404 | 7.93ms
+2026-07-02 08:33:54 | INFO | app | → PUT /medicamentos/aplicacoes/8
+2026-07-02 08:33:54 | WARNING | app | Rota não encontrada | PUT /medicamentos/aplicacoes/8
+2026-07-02 08:33:54 | INFO | app | ← PUT /medicamentos/aplicacoes/8 | Status: 404 | 6.35ms
+2026-07-02 08:33:54 | INFO | app | → DELETE /medicamentos/aplicacoes/8
+2026-07-02 08:33:54 | WARNING | app | Rota não encontrada | DELETE /medicamentos/aplicacoes/8
+2026-07-02 08:33:54 | INFO | app | ← DELETE /medicamentos/aplicacoes/8 | Status: 404 | 5.9ms
+2026-07-02 08:33:54 | INFO | app | → GET /medicamentos/aplicacoes/animal/13
+2026-07-02 08:33:54 | INFO | app | ← GET /medicamentos/aplicacoes/animal/13 | Status: 200 | 6.66ms

@@ -1,0 +1,704 @@
+2026-07-02 08:14:27 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 42.6ms
+2026-07-02 08:14:27 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=login_teste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:28 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 6.33ms
+2026-07-02 08:14:28 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=senha_errada&password=senhaerrada'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:28 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 3.46ms
+2026-07-02 08:14:28 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=naoexiste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:29 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 20.46ms
+2026-07-02 08:14:29 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=animal_teste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:29 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 7.07ms
+2026-07-02 08:14:29 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=animal_teste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:14:30 | ERROR | app | ✗ POST /usuarios/login | Erro: TypeError | 8.1ms
+2026-07-02 08:14:30 | CRITICAL | app | Erro inesperado | POST /usuarios/login | TypeError: Object of type bytes is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 723, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'username=animal_teste&password=senha%40123'}
+
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\extension.py", line 371, in login
+    POST /usuarios/login
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 159, in log_requisicoes
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 146, in log_requisicoes
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\main.py", line 125, in cabecalhos_seguranca
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\_exception_handler.py", line 59, in wrapped_app
+    response = await handler(conn, exc)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 42, in handler_validacao
+    return erro_response(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        mensagem="Dados inválidos. Verifique os campos enviados.",
+        detalhes=erros
+    )
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\app\erros.py", line 22, in erro_response
+    return JSONResponse(status_code=status_code, content=corpo)
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 192, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 45, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\gado_leiteiro_api\venv\Lib\site-packages\starlette\responses.py", line 195, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\otavi.LUCILENERODRIGU\AppData\Local\Python\pythoncore-3.14-64\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+when serializing dict item 'valor_recebido'
+when serializing list item 0
+when serializing dict item 'detalhes'
+2026-07-02 08:30:44 | ERROR | usuarios | Erro ao enviar email de verificação para teste.cadastro@leitetech.example: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
+2026-07-02 08:30:45 | ERROR | app | Erro SQLAlchemy | POST /usuarios/login | (pymysql.err.ProgrammingError) (1146, "Table 'gado_leiteiro_test.tentativas_login' doesn't exist")
+[SQL: SELECT tentativas_login.email AS tentativas_login_email, tentativas_login.tentativas AS tentativas_login_tentativas, tentativas_login.bloqueado_until AS tentativas_login_bloqueado_until, tentativas_login.atualizado_em AS tentativas_login_atualizado_em 
+FROM tentativas_login 
+WHERE tentativas_login.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'login.sucesso@leitetech.example', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-07-02 08:30:45 | ERROR | app | Erro SQLAlchemy | POST /usuarios/login | (pymysql.err.ProgrammingError) (1146, "Table 'gado_leiteiro_test.tentativas_login' doesn't exist")
+[SQL: SELECT tentativas_login.email AS tentativas_login_email, tentativas_login.tentativas AS tentativas_login_tentativas, tentativas_login.bloqueado_until AS tentativas_login_bloqueado_until, tentativas_login.atualizado_em AS tentativas_login_atualizado_em 
+FROM tentativas_login 
+WHERE tentativas_login.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'login.senhaerrada@leitetech.example', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-07-02 08:30:45 | ERROR | app | Erro SQLAlchemy | POST /usuarios/login | (pymysql.err.ProgrammingError) (1146, "Table 'gado_leiteiro_test.tentativas_login' doesn't exist")
+[SQL: SELECT tentativas_login.email AS tentativas_login_email, tentativas_login.tentativas AS tentativas_login_tentativas, tentativas_login.bloqueado_until AS tentativas_login_bloqueado_until, tentativas_login.atualizado_em AS tentativas_login_atualizado_em 
+FROM tentativas_login 
+WHERE tentativas_login.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'nao.existe@leitetech.example', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-07-02 08:30:47 | ERROR | usuarios | Erro ao enviar email de verificação para pendente@leitetech.example: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
+2026-07-02 08:30:47 | ERROR | app | Erro SQLAlchemy | POST /usuarios/login | (pymysql.err.ProgrammingError) (1146, "Table 'gado_leiteiro_test.tentativas_login' doesn't exist")
+[SQL: SELECT tentativas_login.email AS tentativas_login_email, tentativas_login.tentativas AS tentativas_login_tentativas, tentativas_login.bloqueado_until AS tentativas_login_bloqueado_until, tentativas_login.atualizado_em AS tentativas_login_atualizado_em 
+FROM tentativas_login 
+WHERE tentativas_login.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'pendente@leitetech.example', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-07-02 08:33:43 | ERROR | usuarios | Erro ao enviar email de verificação para teste.cadastro@leitetech.example: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
+2026-07-02 08:33:47 | ERROR | usuarios | Erro ao enviar email de verificação para pendente@leitetech.example: You can only send testing emails to your own email address (otaviolisboa19@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.
