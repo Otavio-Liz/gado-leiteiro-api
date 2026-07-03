@@ -11,6 +11,7 @@ from app.auth import pegar_usuario_atual
 from app.models.usuario import Usuario
 from app.logger import logger_med
 from datetime import date, timedelta
+from decimal import Decimal
 from typing import List
 
 roteador = APIRouter(
@@ -27,6 +28,33 @@ def montar_resposta_aplicacao(aplicacao: AplicacaoMedicamento) -> AplicacaoMedic
     resposta.animal_nome = aplicacao.animal.nome if aplicacao.animal else None
     resposta.medicamento_nome = aplicacao.medicamento.nome if aplicacao.medicamento else None
     return resposta
+
+
+def calcular_carencia(data_aplicacao: date, dias_carencia: int) -> date:
+    """Calcula a data de encerramento da carência a partir da data de
+    aplicação e dos dias de carência do medicamento (snapshot no momento
+    da aplicação). Centralizado aqui para ser reaproveitado tanto no
+    registro quanto na edição de aplicações."""
+    return data_aplicacao + timedelta(days=dias_carencia)
+
+
+def ajustar_estoque_diferenca(medicamento: Medicamento, dose_antiga: Decimal, dose_nova: Decimal) -> None:
+    """Ajusta o estoque do medicamento pela diferença entre uma dose antiga
+    e uma nova. Se a dose aumentou, debita a diferença do estoque (e
+    valida se há saldo suficiente); se diminuiu, devolve a diferença.
+    Reaproveitável para qualquer fluxo futuro que precise corrigir estoque
+    por diferença de quantidade, não só na edição de aplicação."""
+    diferenca = dose_nova - dose_antiga
+    if diferenca > 0 and medicamento.estoque_atual < diferenca:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"Estoque insuficiente para aumentar a dose. "
+                f"Disponível: {medicamento.estoque_atual} {medicamento.unidade}, "
+                f"necessário adicional: {diferenca} {medicamento.unidade}."
+            )
+        )
+    medicamento.estoque_atual -= diferenca
 
 
 # ─── Medicamentos (Estoque) ───────────────────────────────────────────────────
@@ -164,8 +192,12 @@ def deletar_medicamento(
         if not medicamento:
             raise HTTPException(status_code=404, detail="Medicamento não encontrado.")
 
-        aplicacoes = banco.query(AplicacaoMedicamento).filter(
-            AplicacaoMedicamento.medicamento_id == medicamento_id
+        # Conta só aplicações de animais do próprio usuário — sem o join
+        # com Animal, aplicações de outro usuário que referenciem o mesmo
+        # medicamento_id contariam no bloqueio, o que é incorreto.
+        aplicacoes = banco.query(AplicacaoMedicamento).join(Animal).filter(
+            AplicacaoMedicamento.medicamento_id == medicamento_id,
+            Animal.usuario_id == usuario.id
         ).count()
         if aplicacoes > 0:
             raise HTTPException(
@@ -302,7 +334,7 @@ def registrar_aplicacao(
             )
 
         dias_carencia = medicamento.dias_carencia
-        carencia_encerra_em = dados.data_aplicacao + timedelta(days=dias_carencia)
+        carencia_encerra_em = calcular_carencia(dados.data_aplicacao, dias_carencia)
 
         nova_aplicacao = AplicacaoMedicamento(
             **dados.model_dump(),
@@ -332,45 +364,122 @@ def registrar_aplicacao(
         )
 
 
-@roteador.delete("/{medicamento_id}")
-def deletar_medicamento(
-    medicamento_id: int,
+@roteador.put("/aplicacoes/{aplicacao_id}", response_model=AplicacaoMedicamentoResposta)
+def atualizar_aplicacao(
+    aplicacao_id: int,
+    dados: AplicacaoMedicamentoAtualizar,
     banco: Session = Depends(pegar_banco),
     usuario: Usuario = Depends(pegar_usuario_atual)
 ):
-    if medicamento_id <= 0:
-        raise HTTPException(status_code=400, detail="ID do medicamento inválido.")
+    """
+    Edita uma aplicação existente. O schema AplicacaoMedicamentoAtualizar
+    não permite trocar animal_id nem medicamento_id — só dose, data e
+    campos descritivos. Por isso o ajuste de estoque só precisa lidar
+    com diferença de dose no MESMO medicamento (ver ajustar_estoque_diferenca).
+
+    Decisão assumida: não bloqueia edição se o animal estiver inativo,
+    pois trata-se de correção de um registro histórico, não de uma nova
+    aplicação. Avise se preferir bloquear como no POST.
+    """
+    if aplicacao_id <= 0:
+        raise HTTPException(status_code=400, detail="ID da aplicação inválido.")
     try:
+        aplicacao = banco.query(AplicacaoMedicamento).join(Animal).filter(
+            AplicacaoMedicamento.id == aplicacao_id,
+            Animal.usuario_id == usuario.id
+        ).first()
+        if not aplicacao:
+            raise HTTPException(status_code=404, detail="Aplicação não encontrada.")
+
         medicamento = banco.query(Medicamento).filter(
-            Medicamento.id == medicamento_id,
+            Medicamento.id == aplicacao.medicamento_id,
             Medicamento.usuario_id == usuario.id
         ).first()
         if not medicamento:
-            raise HTTPException(status_code=404, detail="Medicamento não encontrado.")
+            raise HTTPException(status_code=404, detail="Medicamento vinculado não encontrado.")
 
-        # Conta só aplicações de animais do próprio usuário — sem o join
-        # com Animal, aplicações de outro usuário que referenciem o mesmo
-        # medicamento_id contariam no bloqueio, o que é incorreto.
-        aplicacoes = banco.query(AplicacaoMedicamento).join(Animal).filter(
-            AplicacaoMedicamento.medicamento_id == medicamento_id,
-            Animal.usuario_id == usuario.id
-        ).count()
-        if aplicacoes > 0:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Não é possível excluir. Há {aplicacoes} aplicação(ões) vinculada(s) a este medicamento."
+        dados_alterados = dados.model_dump(exclude_unset=True)
+
+        if "dose_aplicada" in dados_alterados:
+            ajustar_estoque_diferenca(
+                medicamento,
+                aplicacao.dose_aplicada,
+                dados_alterados["dose_aplicada"]
+            )
+            aplicacao.dose_aplicada = dados_alterados["dose_aplicada"]
+
+        if "data_aplicacao" in dados_alterados:
+            aplicacao.data_aplicacao = dados_alterados["data_aplicacao"]
+            # dias_carencia é o snapshot tirado na criação da aplicação;
+            # mantemos esse valor e só recalculamos a data final de carência.
+            aplicacao.carencia_encerra_em = calcular_carencia(
+                aplicacao.data_aplicacao, aplicacao.dias_carencia
             )
 
-        banco.delete(medicamento)
+        for campo in ("motivo", "responsavel", "observacao"):
+            if campo in dados_alterados:
+                setattr(aplicacao, campo, dados_alterados[campo])
+
         banco.commit()
-        logger_med.info(f"Medicamento deletado | id: {medicamento_id} | usuário: {usuario.id}")
-        return {"mensagem": "Medicamento removido com sucesso."}
+        banco.refresh(aplicacao)
+        logger_med.info(f"Aplicação atualizada | id: {aplicacao_id} | usuário: {usuario.id}")
+        return montar_resposta_aplicacao(aplicacao)
     except HTTPException:
         raise
     except Exception:
         banco.rollback()
-        logger_med.error(f"Erro ao deletar medicamento | id: {medicamento_id} | usuário: {usuario.id}")
+        logger_med.error(f"Erro ao atualizar aplicação | id: {aplicacao_id} | usuário: {usuario.id}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Erro ao remover medicamento. Tente novamente."
+            detail="Erro ao atualizar aplicação de medicamento. Tente novamente."
+        )
+
+
+@roteador.delete("/aplicacoes/{aplicacao_id}")
+def deletar_aplicacao(
+    aplicacao_id: int,
+    banco: Session = Depends(pegar_banco),
+    usuario: Usuario = Depends(pegar_usuario_atual)
+):
+    """
+    Remove uma aplicação e devolve a dose ao estoque do medicamento.
+    Reaproveita ajustar_estoque_diferenca com dose_nova=0, que já
+    trata a diferença negativa como devolução — sem lógica de estoque
+    duplicada.
+
+    Não bloqueia por animal inativo, pelo mesmo motivo do PUT: apagar
+    um registro histórico incorreto não deveria depender do status
+    atual do animal.
+    """
+    if aplicacao_id <= 0:
+        raise HTTPException(status_code=400, detail="ID da aplicação inválido.")
+    try:
+        aplicacao = banco.query(AplicacaoMedicamento).join(Animal).filter(
+            AplicacaoMedicamento.id == aplicacao_id,
+            Animal.usuario_id == usuario.id
+        ).first()
+        if not aplicacao:
+            raise HTTPException(status_code=404, detail="Aplicação não encontrada.")
+
+        medicamento = banco.query(Medicamento).filter(
+            Medicamento.id == aplicacao.medicamento_id,
+            Medicamento.usuario_id == usuario.id
+        ).first()
+        if not medicamento:
+            raise HTTPException(status_code=404, detail="Medicamento vinculado não encontrado.")
+
+        ajustar_estoque_diferenca(medicamento, aplicacao.dose_aplicada, Decimal("0"))
+
+        banco.delete(aplicacao)
+        banco.commit()
+        logger_med.info(f"Aplicação deletada | id: {aplicacao_id} | usuário: {usuario.id}")
+        return {"mensagem": "Aplicação removida e estoque restaurado com sucesso."}
+    except HTTPException:
+        raise
+    except Exception:
+        banco.rollback()
+        logger_med.error(f"Erro ao deletar aplicação | id: {aplicacao_id} | usuário: {usuario.id}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro ao remover aplicação de medicamento. Tente novamente."
         )

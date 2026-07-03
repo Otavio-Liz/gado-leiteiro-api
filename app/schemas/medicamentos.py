@@ -144,6 +144,15 @@ class AplicacaoMedicamentoAtualizar(BaseModel):
             raise ValueError("Dose aplicada deve ser maior que zero")
         return v
 
+    @field_validator("data_aplicacao")
+    @classmethod
+    def validar_data_nao_futura(cls, v):
+        # Mesma regra do Criar — faltava aqui, e sem ela o PUT permitiria
+        # colocar uma data futura numa aplicação já editada.
+        if v is not None and v > date.today():
+            raise ValueError("Data de aplicação não pode ser no futuro")
+        return v
+
 
 class AplicacaoMedicamentoResposta(AplicacaoMedicamentoCampos):
     id:                     int
