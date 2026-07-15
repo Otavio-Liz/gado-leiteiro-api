@@ -23,7 +23,13 @@ def validar_vacina(dados, banco, usuario_id, vacina_id=None):
     ).first()
     if not animal:
         raise HTTPException(status_code=404, detail="Animal não encontrado.")
-    if animal.status != "ativo":
+
+    # Só exige animal ativo na CRIAÇÃO (vacina_id is None) — mesma decisão
+    # já tomada em Medicamentos: editar um registro histórico (corrigir
+    # lote, observação, etc.) não deveria travar só porque o animal morreu
+    # ou foi vendido depois da aplicação original. Bloquear só a criação
+    # de uma aplicação NOVA continua fazendo sentido.
+    if vacina_id is None and animal.status != "ativo":
         raise HTTPException(
             status_code=400,
             detail=f"Animal está '{animal.status}' e não pode ser vacinado."
