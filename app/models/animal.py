@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Enum, DateTime, ForeignKey, Text, Index
+from sqlalchemy import Column, Integer, String, Date, Enum, DateTime, ForeignKey, Text, Index, Numeric
 from sqlalchemy.sql import func
 from app.database import Base
 from sqlalchemy.orm import relationship
@@ -37,7 +37,14 @@ class Animal(Base):
     data_ultimo_parto       = Column(Date)
 
     # Informações adicionais
-    peso_kg             = Column(Integer)
+    # DECIMAL(6,2), não Integer — peso é medida contínua (ex: 375.50 kg).
+    # Corrigido para bater com o schema Pydantic (Decimal) e com a
+    # migration que já alterou a coluna real no banco. Antes disso, o
+    # SQLAlchemy aplicava o processamento de resultado do tipo Integer na
+    # LEITURA dessa coluna, truncando qualquer valor decimal salvo
+    # (ex: gravava 375.50, devolvia 375) mesmo com o banco guardando o
+    # valor certo — o dado não se perdia, só a leitura vinha errada.
+    peso_kg             = Column(Numeric(6, 2))
     observacao          = Column(Text)
     foto_url            = Column(String(500))
 
