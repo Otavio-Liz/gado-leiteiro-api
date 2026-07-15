@@ -129,7 +129,31 @@ async def handler_jwt(request: Request, exc: JWTError):
 
 
 async def handler_404(request: Request, exc: Exception):
-    """Rota não encontrada."""
+    """
+    Tratador registrado por CÓDIGO DE STATUS (404), não por tipo de
+    exceção — isso significa que ele intercepta TANTO uma URL sem rota
+    correspondente QUANTO qualquer `raise HTTPException(404, detail=...)`
+    que o próprio código de negócio levante em qualquer router (ex:
+    "Animal não encontrado.", "Sem dados de produção para o período...").
+
+    Antes, os dois casos eram tratados como se fossem o mesmo problema, e
+    a mensagem original de negócio era descartada e substituída por
+    "Rota não encontrada." — o status code ficava certo, mas o frontend
+    nunca via a mensagem de verdade. Distingue os dois aqui: Starlette usa
+    detail="Not Found" (ou None) pra rota genuinamente inexistente; um
+    HTTPException levantado pelo código de negócio sempre tem uma
+    mensagem específica diferente disso.
+    """
+    detail = getattr(exc, "detail", None)
+    if detail and detail != "Not Found":
+        logger_app.warning(
+            f"Recurso não encontrado | {request.method} {request.url.path} | {detail}"
+        )
+        return erro_response(
+            status_code=status.HTTP_404_NOT_FOUND,
+            mensagem=detail
+        )
+
     logger_app.warning(
         f"Rota não encontrada | {request.method} {request.url.path}"
     )
