@@ -580,6 +580,19 @@ def alternar_acao_do_dia(
     """Marca/desmarca uma ação do dia. Idempotente — chamar de novo desfaz."""
     try:
         hoje = date.today()
+
+        # Só permite marcar/desmarcar chaves que realmente existem na lista
+        # de ações geradas pra hoje — sem isso, o endpoint aceitava
+        # qualquer string na URL e gravava como "concluída", mesmo que não
+        # correspondesse a nenhuma ação real (lixo de dados, não vazamento
+        # entre usuários, já que a tabela já é isolada por usuario_id).
+        acoes_validas_hoje = {a["chave"] for a in _gerar_acoes_do_dia(banco, usuario.id, hoje)}
+        if chave_acao not in acoes_validas_hoje:
+            raise HTTPException(
+                status_code=400,
+                detail="Esta ação não está na lista de ações de hoje."
+            )
+
         existente = banco.query(AcaoDiariaConcluida).filter(
             AcaoDiariaConcluida.usuario_id == usuario.id,
             AcaoDiariaConcluida.data == hoje,
@@ -595,6 +608,8 @@ def alternar_acao_do_dia(
         banco.add(nova)
         banco.commit()
         return {"chave_acao": chave_acao, "concluida": True}
+    except HTTPException:
+        raise
     except Exception:
         banco.rollback()
         logger_dash.error(f"Erro ao alternar ação do dia | usuário: {usuario.id} | chave: {chave_acao}")
