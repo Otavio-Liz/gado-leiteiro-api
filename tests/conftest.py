@@ -277,3 +277,86 @@ def criar_medicamento(sessao_banco):
         sessao_banco.refresh(medicamento)
         return medicamento
     return _fabrica
+
+
+@pytest.fixture()
+def criar_vacina(sessao_banco):
+    """Fábrica de Vacina. Uso: `criar_vacina(animal.id)` ou
+    `criar_vacina(animal.id, nome_vacina="Brucelose", data_aplicacao=...)`."""
+    def _fabrica(animal_id: int, **overrides):
+        from datetime import date, timedelta
+        from app.models.vacina import Vacina
+
+        dados = {
+            "animal_id": animal_id,
+            "nome_vacina": "Aftosa",
+            "data_aplicacao": date.today() - timedelta(days=10),
+        }
+        dados.update(overrides)
+        vacina = Vacina(**dados)
+        sessao_banco.add(vacina)
+        sessao_banco.commit()
+        sessao_banco.refresh(vacina)
+        return vacina
+    return _fabrica
+
+
+@pytest.fixture()
+def criar_producao(sessao_banco):
+    """Fábrica de Producao (registro diário de produção de leite)."""
+    def _fabrica(animal_id: int, **overrides):
+        from datetime import date, timedelta
+        from app.models.producao import Producao
+
+        dados = {
+            "animal_id": animal_id,
+            "data": date.today() - timedelta(days=1),
+            "quantidade_litros": Decimal("20.00"),
+        }
+        dados.update(overrides)
+        producao = Producao(**dados)
+        sessao_banco.add(producao)
+        sessao_banco.commit()
+        sessao_banco.refresh(producao)
+        return producao
+    return _fabrica
+
+
+@pytest.fixture()
+def criar_parto(sessao_banco):
+    """Fábrica de Parto."""
+    def _fabrica(animal_id: int, **overrides):
+        from datetime import date, timedelta
+        from app.models.parto import Parto
+
+        dados = {
+            "animal_id": animal_id,
+            "data_parto": date.today() - timedelta(days=30),
+        }
+        dados.update(overrides)
+        parto = Parto(**dados)
+        sessao_banco.add(parto)
+        sessao_banco.commit()
+        sessao_banco.refresh(parto)
+        return parto
+    return _fabrica
+
+
+@pytest.fixture()
+def criar_reproducao(sessao_banco):
+    """Fábrica de Reproducao."""
+    def _fabrica(animal_id: int, **overrides):
+        from datetime import date, timedelta
+        from app.models.reproducao import Reproducao
+
+        dados = {
+            "animal_id": animal_id,
+            "data_cio": date.today() - timedelta(days=40),
+        }
+        dados.update(overrides)
+        reproducao = Reproducao(**dados)
+        sessao_banco.add(reproducao)
+        sessao_banco.commit()
+        sessao_banco.refresh(reproducao)
+        return reproducao
+    return _fabrica
