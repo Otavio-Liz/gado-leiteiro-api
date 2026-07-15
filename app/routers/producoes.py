@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from app.database import pegar_banco
 from app.models.producao import Producao, PrecoLeite
 from app.models.animal import Animal
@@ -155,6 +156,13 @@ def registrar_producao(
         return nova_producao
     except HTTPException:
         raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_prod.error(f"Erro ao registrar produção | animal: {producao.animal_id} | usuário: {usuario.id}")
@@ -248,6 +256,13 @@ def atualizar_producao(
         return producao
     except HTTPException:
         raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_prod.error(f"Erro ao atualizar produção | id: {producao_id} | usuário: {usuario.id}")
@@ -277,6 +292,13 @@ def deletar_producao(
         logger_prod.info(f"Produção deletada | id: {producao_id} | usuário: {usuario.id}")
         return {"mensagem": "Produção removida com sucesso."}
     except HTTPException:
+        raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()
@@ -549,6 +571,13 @@ def cadastrar_preco(
         banco.refresh(novo_preco)
         logger_prod.info(f"Preço cadastrado | R${dados.preco_litro}/L | usuário: {usuario.id}")
         return novo_preco
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_prod.error(f"Erro ao cadastrar preço | usuário: {usuario.id}")
@@ -582,6 +611,13 @@ def atualizar_preco(
         return preco
     except HTTPException:
         raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_prod.error(f"Erro ao atualizar preço | id: {preco_id} | usuário: {usuario.id}")
@@ -611,6 +647,13 @@ def deletar_preco(
         logger_prod.info(f"Preço deletado | id: {preco_id} | usuário: {usuario.id}")
         return {"mensagem": "Preço removido com sucesso."}
     except HTTPException:
+        raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()

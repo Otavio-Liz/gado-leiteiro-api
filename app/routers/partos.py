@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from app.database import pegar_banco
 from app.models.parto import Parto
 from app.models.animal import Animal
@@ -265,6 +266,13 @@ def criar_parto(
     except HTTPException:
         banco.rollback()
         raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_partos.error(f"Erro ao registrar parto | animal: {parto.animal_id} | usuário: {usuario.id}")
@@ -345,6 +353,13 @@ def atualizar_parto(
         logger_partos.info(f"Parto atualizado | id: {parto_id} | usuário: {usuario.id}")
         return montar_resposta_parto(parto)
     except HTTPException:
+        raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()
@@ -429,6 +444,13 @@ def deletar_parto(
         logger_partos.info(f"Parto deletado | id: {parto_id} | usuário: {usuario.id}")
         return {"mensagem": "Parto removido com sucesso."}
     except HTTPException:
+        raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()

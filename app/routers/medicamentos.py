@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from app.database import pegar_banco
 from app.models.medicamento import Medicamento, AplicacaoMedicamento
 from app.models.animal import Animal
@@ -134,6 +135,13 @@ def criar_medicamento(
         banco.refresh(novo)
         logger_med.info(f"Medicamento criado | {medicamento.nome} | usuário: {usuario.id}")
         return novo
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_med.error(f"Erro ao criar medicamento | usuário: {usuario.id}")
@@ -166,6 +174,13 @@ def atualizar_medicamento(
         logger_med.info(f"Medicamento atualizado | id: {medicamento_id} | usuário: {usuario.id}")
         return medicamento
     except HTTPException:
+        raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()
@@ -210,6 +225,13 @@ def deletar_medicamento(
         logger_med.info(f"Medicamento deletado | id: {medicamento_id} | usuário: {usuario.id}")
         return {"mensagem": "Medicamento removido com sucesso."}
     except HTTPException:
+        raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()
@@ -353,6 +375,13 @@ def registrar_aplicacao(
         return montar_resposta_aplicacao(nova_aplicacao)
     except HTTPException:
         raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_med.error(
@@ -426,6 +455,13 @@ def atualizar_aplicacao(
         return montar_resposta_aplicacao(aplicacao)
     except HTTPException:
         raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_med.error(f"Erro ao atualizar aplicação | id: {aplicacao_id} | usuário: {usuario.id}")
@@ -475,6 +511,13 @@ def deletar_aplicacao(
         logger_med.info(f"Aplicação deletada | id: {aplicacao_id} | usuário: {usuario.id}")
         return {"mensagem": "Aplicação removida e estoque restaurado com sucesso."}
     except HTTPException:
+        raise
+    except IntegrityError:
+        # Violacao de constraint unica (ex: corrida entre duas
+        # requisicoes simultaneas) - deixa propagar pro handler
+        # global (handler_integridade em erros.py), que ja
+        # devolve 409 com mensagem amigavel de duplicidade.
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()
