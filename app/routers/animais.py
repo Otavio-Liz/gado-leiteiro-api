@@ -3,7 +3,11 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.database import pegar_banco
 from app.models.animal import Animal
+from app.models.producao import Producao
+from app.models.parto import Parto
+from app.models.reproducao import Reproducao
 from app.schemas.animais import AnimalCriar, AnimalResposta, AnimalAtualizar
+from sqlalchemy.exc import IntegrityError
 from app.auth import pegar_usuario_atual
 from app.models.usuario import Usuario
 from app.cloudinary_config import upload_foto_animal, deletar_foto_animal
@@ -19,7 +23,24 @@ roteador = APIRouter(
 )
 
 
-def validar_animal(animal_data, usuario_id, banco, animal_id=None):
+def _tem_historico_vinculado(animal_id, banco):
+    """
+    True se o animal já tem QUALQUER registro real vinculado — produção,
+    parto (como mãe) ou reprodução. Usado para impedir trocar o sexo de
+    um animal que já tem histórico incompatível com essa troca (ex: uma
+    fêmea com partos registrados virando "macho").
+
+    Checa só existência (.first(), não .count()) — mais barato, já que só
+    precisamos saber se existe pelo menos um registro, não quantos.
+    """
+    return (
+        banco.query(Producao).filter(Producao.animal_id == animal_id).first() is not None
+        or banco.query(Parto).filter(Parto.animal_id == animal_id).first() is not None
+        or banco.query(Reproducao).filter(Reproducao.animal_id == animal_id).first() is not None
+    )
+
+
+def validar_animal(animal_data, usuario_id, banco, animal_id=None, sexo_antigo=None):
     if animal_data.nascimento and animal_data.nascimento > date.today():
         raise HTTPException(
             status_code=400,
@@ -78,6 +99,20 @@ def validar_animal(animal_data, usuario_id, banco, animal_id=None):
             status_code=400,
             detail="Status reprodutivo feminino não se aplica a machos."
         )
+
+    # Só faz sentido checar histórico vinculado numa EDIÇÃO (animal_id
+    # existe) onde o sexo está de fato mudando — na criação não há
+    # histórico ainda, e se o sexo não mudou não há nada a proteger.
+    if animal_id and sexo_antigo is not None and animal_data.sexo != sexo_antigo:
+        if _tem_historico_vinculado(animal_id, banco):
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "Não é possível trocar o sexo deste animal: já existem "
+                    "produções, partos ou reproduções registradas para ele. "
+                    "Se foi um erro de cadastro sem histórico real, contate o suporte."
+                )
+            )
 
 
 @roteador.get("/", response_model=List[AnimalResposta])
@@ -174,6 +209,15 @@ def criar_animal(
         return novo_animal
     except HTTPException:
         raise
+    except IntegrityError:
+        # Corrida entre duas requisições simultâneas com o mesmo brinco:
+        # a checagem de duplicidade em validar_animal já rodou e passou,
+        # mas o índice único do banco pegou a violação no commit. Deixa
+        # propagar pro handler global (handler_integridade em erros.py),
+        # que já sabe transformar isso num 409 com mensagem amigável —
+        # não duplica essa lógica aqui.
+        banco.rollback()
+        raise
     except Exception:
         banco.rollback()
         logger_animais.error(f"Erro ao criar animal | usuário: {usuario.id}")
@@ -200,16 +244,23 @@ def atualizar_animal(
         if not animal:
             raise HTTPException(status_code=404, detail="Animal não encontrado.")
 
+        sexo_antigo = animal.sexo
+
         for campo, valor in dados.model_dump(exclude_unset=True).items():
             setattr(animal, campo, valor)
 
-        validar_animal(animal, usuario.id, banco, animal_id=animal_id)
+        validar_animal(animal, usuario.id, banco, animal_id=animal_id, sexo_antigo=sexo_antigo)
 
         banco.commit()
         banco.refresh(animal)
         logger_animais.info(f"Animal atualizado | id: {animal_id} | usuário: {usuario.id}")
         return animal
     except HTTPException:
+        raise
+    except IntegrityError:
+        # Mesmo motivo do POST: deixa o handler global (handler_integridade)
+        # cuidar da mensagem — evita duplicar a lógica de detecção aqui.
+        banco.rollback()
         raise
     except Exception:
         banco.rollback()
